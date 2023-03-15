@@ -1,12 +1,12 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
+import { BrowserRouter, Routes, Route  } from 'react-router-dom';
 import Navigation from './components/layout/Navigation';
 import Home from './components/views/home'
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Navigation/>
       <main>
         <Routes>
@@ -14,7 +14,7 @@ function App() {
           
         </Routes>
       </main>
-    </Router>
+    </BrowserRouter>
   );
 }
 
