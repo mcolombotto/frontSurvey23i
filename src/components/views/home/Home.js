@@ -1,9 +1,10 @@
 import React from 'react';
-
+import Logo from '../img/Logo.png';
+import "./Home.css";
 const Home = () => {
     return (
-        <div>
-            
+        <div className='Home'>
+            <h1 className='text-center'>Hola</h1>
         </div>
     );
 };
