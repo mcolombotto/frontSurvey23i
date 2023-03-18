@@ -14,9 +14,6 @@ function Navigation()  {
             <Container>
                 <Navbar.Brand className='Container-logo d-flex'>
                     <img className='img-fluid' src={ Logo } alt="Logo de la empresa WorldSurveys"/>
-                    <div className='logo pt-4 ps-1 pe-2 ms-2'>
-                        WorldSurveys
-                    </div>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar-nav" />
                 <Navbar.Collapse id="navbar-nav">

@@ -22,14 +22,6 @@ h1{
 background: linear-gradient(90deg, rgba(10,10,10,1) 19%, rgba(5,5,54,1) 44%, rgba(3,3,40,1) 83%);
 }
 .Container-logo{
-    height: 100px;
+    height: 80px;
     padding: 0;
-}
-
-.logo{
-     color: white;
-     font-family: 'Montserrat', sans-serif;
-      font-size:40px;
-      font-weight: 700; 
-      border-left: 4px solid white;
 }
