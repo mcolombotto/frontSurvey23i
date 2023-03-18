@@ -12,7 +12,7 @@ function Navigation()  {
     return (
         <Navbar className='menu' variant="dark" expand="lg">
             <Container>
-                <Navbar.Brand className='Container-logo d-flex' href="#home">
+                <Navbar.Brand className='Container-logo d-flex'>
                     <img className='img-fluid' src={ Logo } alt="Logo de la empresa WorldSurveys"/>
                     <div className='logo pt-4 ps-1 pe-2 ms-2'>
                         WorldSurveys
@@ -20,7 +20,7 @@ function Navigation()  {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar-nav" />
                 <Navbar.Collapse id="navbar-nav">
-                    <Nav className="me-auto">
+                    <Nav className="m-auto">
                         <Link className="nav-link" to="/">Home</Link>
                         <Link className="nav-link" to="/contact">Contacto</Link>
                         <NavDropdown title="Plantillas" id="nav-dropdown">
