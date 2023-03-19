@@ -8,7 +8,8 @@ const Register = () => {
                <Formik
                    initialValues={{
                     name:'',
-                    email:''
+                    email: '', 
+                    password: ''
                    }}
 
                     validate={(values)=>{
@@ -24,6 +25,14 @@ const Register = () => {
                        } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.email)) {
                            errors.email = 'El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.'
                        }
+
+                        if (!values.password) {
+                            errors.password = 'Por favor ingresa un correo electronico'
+                        } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,25}$/.test(values.email)) {
+                            errors.email = `La contraseña no es valida. Esta debe tener mìnimo 8 caracteres, màximo 25, 
+                                            al menos una letra mayúscula, al menos una letra minucula y al menos 1 caracter especial.'`
+                       }
+
                        return errors;
                   }}
                 
@@ -31,7 +40,7 @@ const Register = () => {
                     resetForm();
                     console.log('Formulario enviado');
                     setSubmittedForm(true);
-                    setTimeout(() => setSubmittedForm(false), 5000);
+                    setTimeout(() => setSubmittedForm(false), 4000);
                     }} 
                >
                 {( {errors} )=> (
@@ -65,6 +74,21 @@ const Register = () => {
                                 <ErrorMessage name='email' component={() => (
                                     <div className='error'>
                                         {errors.email}
+                                    </div>
+                                )} />
+                            </div>
+
+                            <div>
+                                <label htmlFor="password">Contraseña</label>
+                                <Field
+                                    type="password"
+                                    name="password"
+                                    placeholder="********"
+                                    id="password"
+                                />
+                                <ErrorMessage name='password' component={() => (
+                                    <div className='error'>
+                                        {errors.password}
                                     </div>
                                 )} />
                             </div>
