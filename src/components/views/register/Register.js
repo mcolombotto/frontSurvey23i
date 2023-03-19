@@ -1,67 +1,83 @@
-import React, { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React, {useState} from 'react';
 import './Register.css'
 
-
 const Register = () => {
-  
-	const [inputName, setInputName] = useState('');
-    const [inputEmail, setInputEmail] = useState('');
+    const [submittedForm, setSubmittedForm] = useState(false)
+        return (
+               <Formik
+                   initialValues={{
+                    name:'',
+                    email:''
+                   }}
 
-	// Funcion que se encargara de validar los datos y enviar el formulario
-	const handleSubmit = (e) => {
-         e.preventDefault();
+                    validate={(values)=>{
+                        let errors = {}
+                        if(!values.name){
+                            errors.name = 'Ingresa un nombre'
+                        } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
+                            errors.name = 'El nombre solo puede contener letras y espacios'
+                        }
 
-         // Comprobamos validacion del formulario ...
-         // Si todo es correcto enviamos el formulario
+                       if (!values.email) {
+                           errors.email = 'Por favor ingresa un correo electronico'
+                       } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.email)) {
+                           errors.email = 'El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.'
+                       }
+                       return errors;
+                  }}
+                
+                onSubmit={(values, { resetForm }) => {
+                    resetForm();
+                    console.log('Formulario enviado');
+                    setSubmittedForm(true);
+                    setTimeout(() => setSubmittedForm(false), 5000);
+                    }} 
+               >
+                {( {errors} )=> (
+                    <div className='form-container'>
+                        <Form className='form'>
+                            <div>
+                                <label htmlFor="name">Nombre</label>
+                                <Field
+                                    type="text"
+                                    name="name"
+                                    placeholder="Juan Perez"
+                                    id="name"
+                                    maxLength={35}
+                                />
+                                <ErrorMessage name='name' component={()=>(
+                                    <div className='error'>
+                                        {errors.name}
+                                    </div>
+                                )}/> 
+                            </div>
 
-         console.log('Formulario Enviado!');
-	}
+                            <div>
+                                <label htmlFor="email">email</label>
+                                <Field
+                                    type="email"
+                                    name="email"
+                                    placeholder="Juan_email@email.com"
+                                    id="email"
+                                    maxLength={50}
+                                />
+                                <ErrorMessage name='email' component={() => (
+                                    <div className='error'>
+                                        {errors.email}
+                                    </div>
+                                )} />
+                            </div>
 
-	// Funcion que se encarga de cambiar el estado del inputName
-	const handleInputName = (e) => {
-                setInputName(e.target.value);
-	}
+                            <button type="submit">Enviar</button>
 
-	// Funcion que se encarga de cambiar el estado del inputEmail
-	const handleInputEmail = (e) => {
-                setInputEmail(e.target.value);
-	}
-
-            return (
-                <div className='form-container'>
-                <form action="" onSubmit={handleSubmit} className="form">
-                    <div>
-                        <label htmlFor="name">Nombre</label>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Nombre"
-                            id="name"
-                            maxLength={35}
-                            value={inputName}
-                            onChange={handleInputName}
-                        />
+                            {submittedForm && <p className="successfuly">Formulario enviado con exito!</p>}
+                        </Form>
                     </div>
-
-                    <div>
-                        <label htmlFor="email">email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="email"
-                            id="email"
-                            maxLength={50}
-                            value={inputEmail}
-                            onChange={handleInputEmail}
-                        />
-                    </div>
-
-                    <button type="submit">Enviar</button>
-                </form>
-            </div>
+                  )}
+                </Formik> 
+        
             )
-     
-
 };
 
 export default Register;

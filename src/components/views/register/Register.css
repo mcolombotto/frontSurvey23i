@@ -49,7 +49,7 @@
 	font-weight: 600;
 	font-size: 12px;
 }
-
+/* borrar radius imput textarea y otros */
 .form button[type="submit"] {
 	display: block;
 	background: #0085FF;
@@ -69,7 +69,7 @@
 	background: #0051ff;
 }
 
-.form .exito {
+.form .successfuly {
 	text-align: center;
 	font-size: 14px;
 	padding-top: 20px;
