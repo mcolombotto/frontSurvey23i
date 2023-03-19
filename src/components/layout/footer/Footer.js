@@ -2,6 +2,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 import './Footer.css'
+import '../'
 const Footer = () => {
     return (
         <div>
