@@ -1,9 +1,9 @@
 .Home{
     height: 110vh;
   padding-top: 10px;
-  background-color: #1b1b32;
+  background-color: white;
   font-family: 'Montserrat', sans-serif;
   font-size:30px;
   font-weight: 600;  
-  color: white;
+  color: #1b1b32;
 }

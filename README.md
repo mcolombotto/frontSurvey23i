@@ -25,3 +25,8 @@ json-server --watch db.json --port 3000
 Esta app utiliza la siguiente variable de entorno:
 
 REACT_APP_API_WORLDSURVEYS
+## Librerias utiles
+
+Formik  - Librería para Formularios en React
+Comando de instalaciòn: 
+npm install formik --save

@@ -19,13 +19,12 @@ function Navigation()  {
                 <Navbar.Collapse id="navbar-nav">
                     <Nav className="ms-auto">
                         <Link className="nav-link" to="/">Home</Link>
-                        <Link className="nav-link" to="/contact">Contacto</Link>
-                        <NavDropdown title="Plantillas" id="nav-dropdown">
+                        <Link className="nav-link" to="/register">Registrate</Link>
+                        <NavDropdown title="Plantillas"  id="nav-dropdown">
                             <NavDropdown.Item to="/Plantillas/EstudiosDeMercado">Estudios de mercado</NavDropdown.Item>
                             <NavDropdown.Item to="/Plantillas/EvaluacionDeEventos">
                                Evaluación de eventos
                             </NavDropdown.Item>
-                            <NavDropdown.Item to="/Plantillas/EncuestasDeClimaLaboral">Encuestas de clima laboral</NavDropdown.Item>
                             <NavDropdown.Item to="/Plantillas/ EvaluaciónDelProfesor">
                                 Evaluación del profesor
                             </NavDropdown.Item>
