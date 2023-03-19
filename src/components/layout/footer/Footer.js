@@ -5,10 +5,10 @@ import './Footer.css'
 const Footer = () => {
     return (
         <div>
-            <footer className='style-footer'>
+            <footer className='footer-style d-flex '>
                 <Container>
-                    <Link className="nav-link" to="/">Home</Link>
-                    <Link className="nav-link" to="/contact">Contacto</Link> 
+                    <Link className="footer-link" to="/">Home</Link>
+                    <Link className="footer-link" to="/contact">Contacto</Link> 
                 </Container>   
             </footer>
         </div>

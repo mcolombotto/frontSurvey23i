@@ -4,16 +4,16 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Logo from '../../../assets/img/logo-WS.png';
 import { Link } from 'react-router-dom';
+import Logo from "../logo/Logo";
 
 
 function Navigation()  {
     return (
         <Navbar className='menu' variant="dark" expand="lg">
             <Container>
-                <Navbar.Brand className='Container-logo d-flex'>
-                    <img className='img-fluid' src={ Logo } alt="Logo de la empresa WorldSurveys"/>
+                <Navbar.Brand>
+                    <Logo/>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar-nav" />
                 <Navbar.Collapse id="navbar-nav">
