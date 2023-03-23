@@ -1,13 +1,13 @@
 import React from "react";
 import Card from "./CardItem";
-import cards from "./formsDB.json"
 
-function Cards() {
+
+const Cards = ({cards}) => {
   return (
     <div className="container d-flex justify-content-center align-items-center h-100">
       <div className="row">
-        {cards.map(({ imageSource, title, url, id }) => (
-          <div className="col-md-4" key={id}>
+        {cards.map(({ imageSource, title, url}) => (
+          <div className="col-md-4">
             <Card imageSource={imageSource} title={title} url={url} />
           </div>
         ))}

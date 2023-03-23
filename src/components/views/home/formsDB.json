@@ -10,77 +10,48 @@
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
     "title": "Encuesta Opinión de Producto",
     "url": "aaa2.html",
-    "id": "2",
     "category": "producto"
   },
   {
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
     "title": "Encuesta de Desempeño Academico",
     "url": "aaa3.html",
-    "id": "3",
     "category": "escuela"
   },
   {
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
-    "title": "Encuesta de Satisfacción",
-    "url": "aaa.html",
-
+    "title": "TEST1",
+    "url": "",
     "category": "trabajo"
   },
   {
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
-    "title": "Encuesta Opinión de Producto",
-    "url": "aaa2.html",
-    "id": "2",
+    "title": "TeSt2",
+    "url": "",
     "category": "producto"
   },
   {
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
-    "title": "Encuesta de Desempeño Academico",
-    "url": "aaa3.html",
-    "id": "3",
+    "title": "test3",
+    "url": "",
     "category": "escuela"
   },
   {
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
-    "title": "Encuesta de Satisfacción",
-    "url": "aaa.html",
-
+    "title": "TEST4",
+    "url": "",
     "category": "trabajo"
   },
   {
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
-    "title": "Encuesta Opinión de Producto",
-    "url": "aaa2.html",
-    "id": "2",
+    "title": "TeSt5",
+    "url": "",
     "category": "producto"
   },
   {
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
-    "title": "Encuesta de Desempeño Academico",
-    "url": "aaa3.html",
-    "id": "3",
-    "category": "escuela"
-  },
-  {
-    "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
-    "title": "Encuesta de Satisfacción",
-    "url": "aaa.html",
-
-    "category": "trabajo"
-  },
-  {
-    "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
-    "title": "Encuesta Opinión de Producto",
-    "url": "aaa2.html",
-    "id": "2",
-    "category": "producto"
-  },
-  {
-    "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
-    "title": "Encuesta de Desempeño Academico",
-    "url": "aaa3.html",
-    "id": "3",
+    "title": "test6",
+    "url": "",
     "category": "escuela"
   }
 ] 
