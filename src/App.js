@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <Navigation/>
-      <Register/>
+  
       <main>
         <Routes>
           <Route exact path='/' element={ <Home/> }/>

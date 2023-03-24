@@ -30,3 +30,7 @@ REACT_APP_API_WORLDSURVEYS
 Formik  - Librería para Formularios en React
 Comando de instalaciòn: 
 npm install formik --save
+
+hoke Form - Libreria de formularios
+comando para instalarlo:
+npm install react-hook-form
