@@ -4,15 +4,3 @@ background: linear-gradient(90deg, rgba(10,10,10,1) 19%, rgba(5,5,54,1) 44%, rgb
 position: relative;
 bottom: 0;
 }
-.footer-link{
- text-decoration: none;
- color: white;
-}
-
-.footer-link:hover{
- text-decoration: none;
- font-size: large;
- color:#fff ;
- transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
- cursor: pointer
-}

@@ -12,7 +12,6 @@ function App() {
   return (
     <Router>
       <Navigation/>
-  
       <main>
         <Routes>
           <Route exact path='/' element={ <Home/> }/>
