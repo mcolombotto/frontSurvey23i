@@ -3,11 +3,13 @@ import { useForm } from "react-hook-form";
 import { Container, Form } from "react-bootstrap";
 import './Register.css'
 
+
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [errorPassword, setErrorPassword] = useState(false);
     const [userInformation, setUserInformation] = useState({});
     
+   
     const onSubmit = data => {
         setErrorPassword(false);
     
@@ -24,6 +26,7 @@ const Register = () => {
                         picture: data.results[0].picture.large
                     }
                     setUserInformation(myUser)
+                   
                     reset(formValues => ({
                         ...formValues,
                         name: '',
@@ -31,6 +34,8 @@ const Register = () => {
                         password1: '',
                         password2: '',
                     }));
+
+
                 })
                 .catch(error => console.error(error))    
         }
