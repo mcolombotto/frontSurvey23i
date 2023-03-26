@@ -1,0 +1,23 @@
+.error-container{
+    font-family: 'Monserrat', sans-serif;
+    color: #27806C
+}
+.img-container{
+  width: 100%;
+  background-color: #AFF0E4;
+  display: flex;
+  flex: 1.1
+}
+
+.text-position{
+ top: 10%;
+  left: 48%;
+}
+.picture-error{
+  object-fit: cover;
+  height: 100vh;
+}
+.icon-container{
+    width: 33%;
+}
+
