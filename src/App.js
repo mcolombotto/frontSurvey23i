@@ -10,22 +10,20 @@ import Register from './components/views/register/Register'
 import Heading from './components/views/Heading';//TODO SACAR DESPUES
 import Section from './components/views/Section'; //TODO SACAR DESPUES
 //import Hijo from './components/layout/Hijo';
-//import { UserProvider } from "./components/layout/UserProvide";
-
+//import { UserProvider } from "./providers/UserProvider";
 
 function App() {
  
   return (
-    <>
+   
       <Router>
-        <Navigation>
-        </Navigation>
+        <Navigation />
         <main>
-          {/* <UserProvider>
+          {/* <>
             <div className='bg-danger'>
               <Hijo />
             </div>
-          </UserProvider> */}
+          </> */}
           <Routes>
             <Route exact path='/' element={ <Home/> }/>
             <Route exact path='/register' element={ <Register/> }/>
@@ -39,8 +37,7 @@ function App() {
           </Section>
         </main>
         <Footer/>
-      </Router>
-  </>    
+      </Router>   
   );
 }
 
