@@ -83,8 +83,8 @@ function App() {
         />
         <Route
           exact
-          path="/survey/buy/:id"
-          element={<SurveyDetails URL={URL} />}
+          path="/survey/details/:id"
+          element={<SurveyDetails URL={URL} surveys={surveys}/>}
         />
         <Route
           exact

@@ -28,6 +28,7 @@ const SurveyEdit = ({ URL, getApi }) => {
       const res = await axios.get(`${URL}/${id}`);
       const surveyApi = res.data;
       setSurvey(surveyApi);
+      console.log(URL, id, res.data)
     } catch (error) {
       console.log(error);
     }
@@ -50,6 +51,7 @@ const SurveyEdit = ({ URL, getApi }) => {
       surveyName: surveyNameRef.current.value,
       category: survey.category,
     };
+    console.log("Edicion", surveyUpdated)
 
     Swal.fire({
       title: "Are you sure?",
@@ -141,7 +143,7 @@ const SurveyEdit = ({ URL, getApi }) => {
           </Form.Group> */}
 
           <div className="text-end">
-            <Button variant="warning">Guardar</Button>
+            <Button variant="warning" type="submit">Guardar</Button>
           </div>
         </Form>
       </Container>

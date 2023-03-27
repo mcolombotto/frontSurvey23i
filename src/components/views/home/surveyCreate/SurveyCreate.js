@@ -52,21 +52,76 @@ const SurveyCreate = ({ URL, getApi }) => {
     e.preventDefault();
 
     //validar los campos
-    /* if (
+    if (
       !validateSurveyName(inputs.surveyName) ||
       !validateCategory(inputs.category)
     ) {
       Swal.fire("Oop!!", "Some data is invalid", "Error");
       return;
-    } */
+    }
     //enviar datos
     const newSurvey = {
       surveyName: inputs.surveyName,
       category: inputs.category,
+      active: false,
       surveyItemList: surveyItemList,
     };
     console.log("surveyItemList",surveyItemList);
     console.log("newSurvey", newSurvey);
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Save'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+             /*  const res = await fetch(URL, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "x-access-token": JSON.parse(localStorage.getItem("user-token")).token
+              },
+              body: JSON.stringify(newProduct),
+            }); */
+
+            console.log("Enviando a BD");
+            const res = await axios.post(URL, newSurvey/* , {
+              headers: {
+                "Content-Type": "application/json",
+                "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+                  .token,
+              },
+            } */);
+            console.log(res);
+  
+            if(res.status === 201){
+              Swal.fire("Created", "Your product have been  created successfully", "success");
+              //resetear el form
+              e.target.reset(); //el e.target en este caso es por el event submit del form
+              //recargar la tabla
+              getApi();
+              //navegar hasta la tabla
+              navigate("/survey/table");
+            }
+          } catch (error) {
+            console.log(error.response.data.errors);
+            error.response.data?.message &&
+              setErrorMessage(error.response.data?.message);
+            error.response.data.errors.length > 0 &&
+              error.response.data.errors?.map((error) =>
+                setErrorMessage(error.msg)
+              );
+            setShow(true);
+          }
+        }
+      })
+
+
   };
 
   return (
