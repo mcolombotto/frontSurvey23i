@@ -11,9 +11,9 @@ const SurveyItem = (props) => {
           name="surveyItemName"
         >
           {" "}
-          {props.data}{" "}
+          {props.data.question}{" "}
           
-        {props.category}
+        {props.data.responseType}
             
           <div>
             <button

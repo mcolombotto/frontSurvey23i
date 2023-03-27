@@ -40,27 +40,38 @@ const SurveyModal = (props) => {
                   name="question"
                   autoFocus
                   onChange={(e) => {
-                 
-                  props.setSurveyItem(e.target.value);
-                 
+                    /* console.log(e.target.name);
+                    console.log(e.target.value);
+                    console.log(props.surveyItem); */
+                    props.surveyItem.question = e.target.value;
+                    props.setSurveyItem(props.surveyItem);
+                    
                   }}
                 />
               </Form.Group>
-              {/* <Form.Group
+              <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Select aria-label="Default select example">
+                <Form.Select aria-label="Default select example"
+                onChange={(e) => {
+
+                    props.surveyItem.responseType = e.target.value;
+                    props.setSurveyItem(props.surveyItem);
+                    /* console.log(props.surveyItem)
+                    props.surveyItem.responseType = "";
+                    console.log(props.surveyItem) */
+                  }}>
                   <option>Tipo de Respuesta</option>
-                  <option value="1">Texto Libre</option>
-                  <option value="2">
+                  <option value="text">Texto Libre</option>
+                  <option value="number">
                     Numerica (1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10. )
                   </option>
-                  <option value="3">
+                  <option value="word">
                     Cualitativa (Malo, Regular, Bueno, Muy Bueno, Excelente)
                   </option>
                 </Form.Select>
-              </Form.Group> */}
+              </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -69,14 +80,18 @@ const SurveyModal = (props) => {
             </Button>
             <Button
               variant="primary"
+              
               onClick={(e) => {
                 e.preventDefault();
-
-                props.setSurveyItemList([
-                  ...props.surveyItemList,
-                  props.surveyItem,
-                ]);
-                props.setSurveyItem("");
+                
+                console.log("ARRAY" , props.surveyItemList);
+                console.log("ITEM" ,props.surveyItem);
+                props.setSurveyItemList([...props.surveyItemList,props.surveyItem]);
+                console.log(props.surveyItemList);
+                props.setSurveyItem({
+                    question : "",
+                    responseType : "",
+                  });
                 handleClose();
               }}
             >

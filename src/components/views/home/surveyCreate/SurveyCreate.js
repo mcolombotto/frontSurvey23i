@@ -18,7 +18,10 @@ const SurveyCreate = ({ URL, getApi }) => {
   const [show, setShow] = useState(true);
 
   //Preguntas
-  const [surveyItem, setSurveyItem] = useState("");
+  const [surveyItem, setSurveyItem] = useState({
+    question : "",
+    responseType : "",
+  });
   const [surveyItemList, setSurveyItemList] = useState([]);
 
   //Categorias
