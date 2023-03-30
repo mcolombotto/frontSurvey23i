@@ -3,9 +3,7 @@ const regExpEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const regExpPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
 export const validateName = (field) => {
-  if (regExpName.test(field) && 
-    field.trim() !== ""
-    ) {
+  if (regExpName.test(field) && field.trim() !== "") {
     return true;
   } else {
     return false;
@@ -13,12 +11,7 @@ export const validateName = (field) => {
 };
 
 export const validateEmail = (field) => {
-  if (
-    regExpEmail.test(field) &&
-    field.trim() !== "" &&
-    field.trim() > 0 &&
-    field.trim() < 10000
-  ) {
+  if (regExpEmail.test(field) && field.trim() !== "") {
     return true;
   } else {
     return false;

@@ -3,6 +3,7 @@ import { Alert, Container, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../config/axiosInit";
+import { validateEmail, validatePassword } from "../../helpers/validateUser"
 
 const Login = ({ setLoggedUser }) => {
   const [inputs, setInputs] = useState({});
