@@ -21,6 +21,14 @@ const Login = ({ setLoggedUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(inputs);
+    
+    if (
+      !validateEmail(inputs.email) ||
+      !validatePassword(inputs.password)
+    ) {
+      Swal.fire("Oops!!", "Some data is invalid", "Error");
+      return;
+    }
    
     try {
        const res = await axios.post(`${URL}/login`, {
