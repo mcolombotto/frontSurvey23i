@@ -63,11 +63,11 @@ const SurveyModal = (props) => {
                     console.log(props.surveyItem) */
                   }}>
                   <option>Tipo de Respuesta</option>
-                  <option value="text">Texto Libre</option>
-                  <option value="number">
+                  <option value="Texto Libre">Texto Libre</option>
+                  <option value="Numerica">
                     Numerica (1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10. )
                   </option>
-                  <option value="word">
+                  <option value="Cualitativa">
                     Cualitativa (Malo, Regular, Bueno, Muy Bueno, Excelente)
                   </option>
                 </Form.Select>

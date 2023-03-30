@@ -4,7 +4,8 @@ import SurveyItem from "./surveyItem";
 
 const SurveyList = (props) => {
   return (
-    <ListGroup>
+    
+      <ListGroup as="ol" numbered>
       {props.surveyItemList.map((question, index,responseType) => (
         <SurveyItem
           data={question}
@@ -14,8 +15,9 @@ const SurveyList = (props) => {
           setSurveyItem={props.setSurveyItem}
           deleteSurveyItem={props.deleteSurveyItem}
         ></SurveyItem>
-      ))}
-    </ListGroup>
+        ))}
+        </ListGroup>
+    
   );
 };
 

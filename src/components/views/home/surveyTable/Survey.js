@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../../config/axiosInit";
 import { Button } from "react-bootstrap";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Survey = ({ survey, URL, getApi }) => {
   /*  const url = process.env.REACT_APP_API_HAMBURGUESERIA;
@@ -110,7 +110,8 @@ const Survey = ({ survey, URL, getApi }) => {
             className="btn-orange mx-1 text-decoration-none text-center"
           >
           <Button variant="warning">
-            Editar
+          
+          Editar
             </Button> 
           </Link>
             

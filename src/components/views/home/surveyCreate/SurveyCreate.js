@@ -73,13 +73,14 @@ const SurveyCreate = ({ URL, getApi }) => {
     console.log("newSurvey", newSurvey);
 
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Estas Seguro?',
+        text: "Esta acción guardará tu progreso",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Save'
+        confirmButtonText: 'Si'
+        
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
@@ -103,7 +104,7 @@ const SurveyCreate = ({ URL, getApi }) => {
             console.log(res);
   
             if(res.status === 201){
-              Swal.fire("Created", "Your product have been  created successfully", "success");
+              Swal.fire("Creación Exitosa", "La encuesta se guardó de forma satisfactoria", "Exito");
               //resetear el form
               e.target.reset(); //el e.target en este caso es por el event submit del form
               //recargar la tabla
@@ -194,9 +195,9 @@ const SurveyCreate = ({ URL, getApi }) => {
               setSurveyItemList={setSurveyItemList}
               handleSubmit={handleSubmit}
             ></SurveyModal>
-            <Button className="ms-3" variant="danger" type="submit">
+            {/* <Button className="ms-3" variant="danger" type="submit">
               Save
-            </Button>
+            </Button> */}
           </div>
         </Form>
         {/* {show && (

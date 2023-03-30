@@ -21,7 +21,7 @@ function App() {
   const [surveys, setSurveys] = useState([]);
   const [loggedUser, setLoggedUser] = useState({});
 
-  const URL = process.env.REACT_APP_API_ENCUESTAS;
+  const URL = process.env.REACT_APP_API_SURVEYS;
 
   useEffect(() => {
     //llamado a la API

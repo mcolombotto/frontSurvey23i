@@ -143,7 +143,8 @@ const SurveyEdit = ({ URL, getApi }) => {
           </Form.Group> */}
 
           <div className="text-end">
-            <Button variant="warning" type="submit">Guardar</Button>
+          <Button className="me-1"variant="secondary" type="submit">Volver</Button>
+            <Button className="ms-1"variant="warning" type="submit">Guardar</Button>
           </div>
         </Form>
       </Container>
