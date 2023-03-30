@@ -24,4 +24,4 @@ json-server --watch db.json --port 3004
 
 Esta app utiliza la siguiente variable de entorno:
 
-REACT_APP_API_WORLDSURVEYS
+REACT_APP_API_SURVEYS

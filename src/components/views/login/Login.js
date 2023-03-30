@@ -8,43 +8,31 @@ const Login = ({ setLoggedUser }) => {
   const [inputs, setInputs] = useState({});
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const URL = process.env.REACT_APP_API_HAMBURGUESERIA_USUARIO;
+  const URL = process.env.REACT_APP_API_SURVEYS_USUARIO;
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
-  //useNavigate
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(inputs);
-    //Valido los campos
-
-    //Envio los datos
+   
     try {
-      /* const res = await fetch(`${URL}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: inputs.email,
-          password: inputs.password,
-        }),
-      }); */
        const res = await axios.post(`${URL}/login`, {
         email: inputs.email,
         password: inputs.password,
       });
       if (res.status === 200) {
-        Swal.fire("Logged!", "Your user has been logged.", "success");
-        //const data = await res.json(); //si es con fetch
+        Swal.fire("Ingreso exitoso!", "Su usuario ingresó satisfactoriamente.", "éxito");
+    
         const data = res.data
         console.log(data);
-        //guadamos en localstorage el token y la información del user
+    
         localStorage.setItem("user-token", JSON.stringify(data));
         setLoggedUser(data);
         navigate("/");
@@ -86,10 +74,10 @@ const Login = ({ setLoggedUser }) => {
             to="/auth/register"
             className="btn-primary text-decoration-none"
           >
-            Register new user
+            Registrar nuevo usuario
           </Link>
           <div className="text-center">
-            <button className="btn-yellow">Send</button>
+            <button className="btn-yellow">Enviar</button>
           </div>
         </Form>
         {error ? (
