@@ -3,9 +3,11 @@ import './Navigation.css'
 
 function Navigation()  {
     return (
-        <>
-            
-        </>
+        <Navbar className='menu' variant="dark" expand="lg">
+            <Container>
+                
+            </Container>
+        </Navbar>
     );
 }
 

@@ -8,25 +8,21 @@ import Error404 from './components/views/error404/Error404'
 import Footer from './components/layout/footer/Footer';
 import Register from './components/views/register/Register'
 
-
 function App() {
- 
-  return (
-    <>
-      <Router>
-        <Navigation/>
-        <main>
-          <Routes>
-            <Route exact path='/' element={ <Home/> }/>
-            <Route exact path='/register' element={ <Register/> }/>
-            <Route exact path='*' element={<Error404/> }/>
-          </Routes>
-              
-        </main>
-        <Footer/>
-      </Router>
-  </>    
-  );
+    return (
+        <Router>
+            <Navigation />
+            <main>
+                <Routes>
+                    <Route exact path='/' element={<Home />} />
+                    <Route exact path='/register' element={<Register />} />
+                    <Route exact path='*' element={<Error404 />} />
+                </Routes>
+            </main>
+            <Footer />
+        </Router>
+    );
 }
 
 export default App;
+
