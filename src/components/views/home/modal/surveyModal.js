@@ -62,7 +62,8 @@ const SurveyModal = (props) => {
                     props.surveyItem.responseType = "";
                     console.log(props.surveyItem) */
                   }}>
-                  <option>Tipo de Respuesta</option>
+                  <option >Tipo de respuesta</option>
+                  <option value="Booleana">Si / No</option>
                   <option value="Texto Libre">Texto Libre</option>
                   <option value="Numerica">
                     Numerica (1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10. )

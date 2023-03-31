@@ -112,9 +112,9 @@ const SurveyEdit = ({ URL, getApi }) => {
           <Form.Label >Activa</Form.Label>
           <Form.Group className="mb-3" controlId="formCategory">
             <Form.Select
-              value={survey.active}
+              value={survey.status}
               onChange={({ target }) =>
-                setSurvey({ ...survey, active: target.value })
+                setSurvey({ ...survey, status: target.value })
               }
             >
               <option value="">Seleccione una Opcion</option>

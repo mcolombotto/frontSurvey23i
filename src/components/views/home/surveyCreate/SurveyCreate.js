@@ -19,10 +19,12 @@ const SurveyCreate = ({ URL, getApi }) => {
 
   //Preguntas
   const [surveyItem, setSurveyItem] = useState({
-    question : "",
-    responseType : "",
+    question: "",
+    responseType: "",
   });
   const [surveyItemList, setSurveyItemList] = useState([]);
+  //Respuestas
+  const [answerList, setAnswerList] = useState([]);
 
   //Categorias
   const [categoryItem, setCategoryItem] = useState("Clima");
@@ -43,21 +45,20 @@ const SurveyCreate = ({ URL, getApi }) => {
   const navigate = useNavigate();
 
   const handleChange = (event) => {
-    console.log("Change" , event.target.name, event.target.value)
+    console.log("Change", event.target.name, event.target.value);
     const name = event.target.name;
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
-
   };
 
   const handleSubmit = (e) => {
     console.log("Submit");
     e.preventDefault();
-
+    
     //validar los campos
     if (
-      !validateSurveyName(inputs.surveyName) ||
-      !validateCategory(inputs.category)
+      !validateSurveyName(inputs.surveyName) /* ||
+      !validateCategory(inputs.category) */
     ) {
       Swal.fire("Oop!!", "Some data is invalid", "Error");
       return;
@@ -66,25 +67,25 @@ const SurveyCreate = ({ URL, getApi }) => {
     const newSurvey = {
       surveyName: inputs.surveyName,
       category: inputs.category,
-      active: false,
+      status: false,
       surveyItemList: surveyItemList,
+      answerList: answerList,
     };
-    console.log("surveyItemList",surveyItemList);
+    console.log("surveyItemList", surveyItemList);
     console.log("newSurvey", newSurvey);
 
     Swal.fire({
-        title: 'Estas Seguro?',
-        text: "Esta acción guardará tu progreso",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si'
-        
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-             /*  const res = await fetch(URL, {
+      title: "Estas Seguro?",
+      text: "Esta acción guardará tu progreso",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          /*  const res = await fetch(URL, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -93,39 +94,44 @@ const SurveyCreate = ({ URL, getApi }) => {
               body: JSON.stringify(newProduct),
             }); */
 
-            console.log("Enviando a BD");
-            const res = await axios.post(URL, newSurvey/* , {
+          console.log(result.isConfirmed, "Enviando a BD", URL);
+          const res = await axios.post(
+            URL,
+            newSurvey /* , {
               headers: {
                 "Content-Type": "application/json",
                 "x-access-token": JSON.parse(localStorage.getItem("user-token"))
                   .token,
               },
-            } */);
-            console.log(res);
-  
-            if(res.status === 201){
-              Swal.fire("Creación Exitosa", "La encuesta se guardó de forma satisfactoria", "Exito");
-              //resetear el form
-              e.target.reset(); //el e.target en este caso es por el event submit del form
-              //recargar la tabla
-              getApi();
-              //navegar hasta la tabla
-              navigate("/survey/table");
-            }
-          } catch (error) {
-            console.log(error.response.data.errors);
-            error.response.data?.message &&
-              setErrorMessage(error.response.data?.message);
-            error.response.data.errors.length > 0 &&
-              error.response.data.errors?.map((error) =>
-                setErrorMessage(error.msg)
-              );
-            setShow(true);
+            } */
+          );
+          console.log(res.status, res.status === 201);
+
+          if (res.status === 201) {
+            Swal.fire(
+              "Creación Exitosa",
+              "La encuesta se guardó de forma satisfactoria",
+              "success"
+            );
+            //resetear el form
+           /*  e.target.reset(); */
+            //recargar la tabla
+            getApi();
+            //navegar hasta la tabla
+            navigate("/survey/table");
           }
+        } catch (error) {
+          console.log(error);
+          error.response.data?.message &&
+            setErrorMessage(error.response.data?.message);
+          error.response.data.errors.length > 0 &&
+            error.response.data.errors?.map((error) =>
+              setErrorMessage(error.msg)
+            );
+          setShow(true);
         }
-      })
-
-
+      }
+    });
   };
 
   return (
@@ -135,7 +141,9 @@ const SurveyCreate = ({ URL, getApi }) => {
         <hr />
         {/* Form Survey */}
         <Form className="my-5" onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="Text"> {/* Nombre */}
+          <Form.Group className="mb-3" controlId="Text">
+            {" "}
+            {/* Nombre */}
             <Form.Label>Nombre de la encuesta</Form.Label>
             <Form.Control
               type="text"
@@ -147,7 +155,7 @@ const SurveyCreate = ({ URL, getApi }) => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" >
+          <Form.Group className="mb-3">
             <Form.Label>Categoria</Form.Label>
             <Form.Select
               name="category"
@@ -159,7 +167,6 @@ const SurveyCreate = ({ URL, getApi }) => {
               {categoryItemList.map((categoryItem) => (
                 <option value={categoryItem}>{categoryItem} </option>
               ))}
-
             </Form.Select>
 
             <FormGroup>
