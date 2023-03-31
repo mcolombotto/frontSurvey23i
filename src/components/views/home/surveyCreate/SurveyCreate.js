@@ -27,11 +27,11 @@ const SurveyCreate = ({ URL, getApi }) => {
   const [answerList, setAnswerList] = useState([]);
 
   //Categorias
-  const [categoryItem, setCategoryItem] = useState("Clima");
+  const [categoryItem, setCategoryItem] = useState("Encuesta de clima laboral");
   const [categoryItemList, setCategoryItemList] = useState([
     "Encuesta de clima laboral",
     "Satisfacción de un servicio",
-    "Imagen de una compañia",
+    "Investigacion"
   ]);
 
   // Borrar item de la lista de preguntas

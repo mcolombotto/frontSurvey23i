@@ -15,7 +15,7 @@ import {
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
 const Survey = ({ survey, URL, getApi }) => {
-  const [newSurvey, setNewSurvey] = useState();
+
 
   const navigate = useNavigate();
 
@@ -67,32 +67,21 @@ const Survey = ({ survey, URL, getApi }) => {
     });
   };
 
-  const getOne = async (id)=>{
+ 
+  const handleActivate = async (id) => {
     try {
       const res = await axios.get(`${URL}/${id}`);
-      const surveyLoaded = res.data;
-     /*  console.log(surveyLoaded.status); */
+      let surveyLoaded = res.data;
+      console.log("ANTES",surveyLoaded); 
       surveyLoaded.status = !surveyLoaded.status;
-     /*  console.log(surveyLoaded.status); */
-      setNewSurvey(surveyLoaded);
+      console.log("DESPUES",surveyLoaded); 
+      await axios.put(`${URL}/${id}`, surveyLoaded);
+      navigate(0);
   }catch (error) {
     console.log(error);
   }
   }
 
-  const handleActivate = async (id) => {
-    getOne(id);
-
-    try {
-        
-        const res = await axios.put(`${URL}/${id}`, newSurvey);
-        /* console.log("Subido correctamnete"); */
-        navigate(0);
-      
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
 
   return (
