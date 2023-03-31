@@ -46,6 +46,14 @@ REACT_APP_API_SURVEYS
 - mongoose
 - morgan
 - nodemon
+
+<hr>
+
 ## Autores
 
 🧑‍🤝‍🧑💪 **Mallorga, Yuliana + Danert, Luciano + Colombotto, Mariano + Pipke, Erick + Cruz, Juan**
+
+<hr>
+
+## Repo
+* GitHub: [frontSurvey23i](https://github.com/mcolombotto/frontSurvey23i)
