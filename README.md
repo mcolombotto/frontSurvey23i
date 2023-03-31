@@ -4,7 +4,7 @@
 
 > Este es el backend del proyecto [WorldSurveys](https://):
 <br>
-<br>Es una app realizada con ReactJS de temática encuestas, en las cuales el admin podrá dar de alta encuestas, modificarlas y visualizarlas. En la misma se utilizan herramientas como React Router para manejar las rutas que nos permitan navegar entre las distintas páginas y JSON Server para simular una API externa.
+<br>Es una app realizada con ReactJS de temática encuestas, en las cuales el admin podrá dar de alta encuestas, modificarlas, visualizarlas y borrarlas. En la misma se utilizan herramientas como React Router para manejar las rutas que nos permitan navegar entre las distintas páginas y JSON Server para simular una API externa.
 
 <hr>
 
@@ -24,10 +24,12 @@ npm i
 npm start
 ```
 
-### Para ejecutar nuestra base de datos (ejecutarlo en otra terminal/consola aparte a la de react)
+### Para ejecutar nuestra base de datos (ejecutarlo en otra terminal / consola aparte a la de react)
+```sh
 json-server --watch db.json --port 3000
+```
+<hr>
 
----
 ## Variables de entorno
 
 Esta app utiliza la siguiente variable de entorno:
@@ -49,11 +51,10 @@ REACT_APP_API_SURVEYS
 
 <hr>
 
+## Repo
+* GitHub: [frontSurvey23i](https://github.com/mcolombotto/frontSurvey23i)
+<hr>
+
 ## Autores
 
 🧑‍🤝‍🧑💪 **Mallorga, Yuliana + Danert, Luciano + Colombotto, Mariano + Pipke, Erick + Cruz, Juan**
-
-<hr>
-
-## Repo
-* GitHub: [frontSurvey23i](https://github.com/mcolombotto/frontSurvey23i)
