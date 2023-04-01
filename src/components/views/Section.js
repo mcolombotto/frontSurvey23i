@@ -1,4 +1,4 @@
-import { LevelContext } from './LevelContext';
+import { LevelContext } from '../layout/context/LevelContext';
 
 export default function Section({ level, children }) {
     return (

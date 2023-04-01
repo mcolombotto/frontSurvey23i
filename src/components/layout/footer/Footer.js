@@ -21,7 +21,7 @@ const Footer = () => {
                                     <Nav className="row d-flex  text-center col-md-8 col-sm-6 col-lg-10 justify-content-lg-between">
                                         <Link className="nav-link col-sm-6 col-md-3 col-lg-2'" to="/">Home</Link>
                                     <Link className="nav-link col-sm-6 col-md-3 col-lg-2" to="/register">Registrate</Link>
-                                    <Link className="nav-link col-sm-6 col-md-3 col-lg-2" to="*">Nosotros</Link>
+                                <Link className="nav-link col-sm-6 col-md-3 col-lg-2" to="/nosotros">Nosotros</Link>
                                     <Link className="nav-link col-sm-6 col-md-3 col-lg-2" to="*">Ver más</Link>
                                 </Nav>
                                  <div className='col-12 text-white mt-3'>

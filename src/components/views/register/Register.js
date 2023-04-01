@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react';
+import UserContext from '../../layout/context/UserContext'
 import { useForm } from "react-hook-form";
 import { Container, Form } from "react-bootstrap";
 import './Register.css'
@@ -7,8 +8,8 @@ import './Register.css'
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [errorPassword, setErrorPassword] = useState(false);
-    const [userInformation, setUserInformation] = useState({});
-    
+    const context = useContext(UserContext);
+    //console.log('context', context, context.user.username, context.user.img);
    
     const onSubmit = data => {
         setErrorPassword(false);
@@ -19,14 +20,18 @@ const Register = () => {
             fetch('https://randomuser.me/api/')
                 .then((resp) => resp.json())
                 .then((data) => {
+                    
                     const myUser = {
-                        email: data.results[0].email,
                         username: data.results[0].login.username,
+                        email: data.results[0].email,
+                        password: 'invento',
                         uuid: data.results[0].login.uuid,
-                        picture: data.results[0].picture.large
+                        img: data.results[0].picture.large,
+                        role:'user_role',
+                        state: true
                     }
-                    setUserInformation(myUser)
-                   
+                    
+                    context.setUser(myUser)
                     reset(formValues => ({
                         ...formValues,
                         name: '',
@@ -40,9 +45,9 @@ const Register = () => {
                 .catch(error => console.error(error))    
         }
     }
-    //descomenta la siguiente linea para ver el objeto de userInformation
-    //console.log(userInformation);
+  
 
+    
     return (
         <Container className="py-5">
             <div className='form-container row mainRegister'>
