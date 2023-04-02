@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [errorPassword, setErrorPassword] = useState(false);
+    const [password, setPassword] = useState('')
+    const [name, setName] = useState('')
     const context = useContext(UserContext);
     const newUserName = context.user.username
     const Swal = require('sweetalert2');
@@ -26,11 +28,11 @@ const Register = () => {
             fetch('https://randomuser.me/api/')
                 .then((resp) => resp.json())
                 .then((data) => {
-                    
                     const myUser = {
+                        name: name,
                         username: data.results[0].login.username,
                         email: data.results[0].email,
-                        password: 'invento',
+                        password: password,
                         uuid: data.results[0].login.uuid,
                         img: data.results[0].picture.large,
                         role:'user_role',
@@ -57,9 +59,7 @@ const Register = () => {
     // < FaEye />
       //  <FaEyeSlash />
  
-    // const changeType = ()=>{
-    //     if(errorPassword.value)
-    // }
+    
     
     return (
         <Container className="py-5">
@@ -73,6 +73,7 @@ const Register = () => {
                         <input 
                             className="form-control " 
                             placeholder="Ej: John Perez"
+                            onBlurCapture={(e) => setName(e.target.value)}
                             {...register("name", { required: true, maxLength: 60, pattern: /^[A-Za-z\s?]+$/ })}
                         />
                        
@@ -98,6 +99,7 @@ const Register = () => {
                         <input 
                             className="form-control " 
                             type='password'
+                            onBlurCapture={(e)=>setPassword(e.target.value)}
                             {...register("password1", { required: true, maxLength: 90, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,90}/ })} 
                         />
                         {errors.password1 && errors.password1.type === 'required' && <span className='error'>Este campo es requerido. </span>}
