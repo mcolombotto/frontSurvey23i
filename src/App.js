@@ -3,7 +3,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "./components/config/axiosInit";
+import axios from "./config/axiosInit";
 import Home from "./components/views/home/Home";
 import SurveysTable from "./components/views/home/surveyTable/surveyTable";
 import SurveyCreate from "./components/views/home/surveyCreate/SurveyCreate";
@@ -14,7 +14,7 @@ import Footer from "./components/layout/footer/Footer"
 import Login from "./components/views/login/Login";
 import Register from "./components/views/register/Register";
 import Error404 from "./components/views/error404/Error404";
-import ProtectedRoute from "./components/";
+import ProtectedRoute from "./routes/ProtectedRoutes";
 
 
 function App() {

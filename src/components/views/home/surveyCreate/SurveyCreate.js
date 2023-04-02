@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from "../../../config/axiosInit";
+import axios from "../../../../config/axiosInit";
 import {
   validateSurveyName,
   validateCategory,

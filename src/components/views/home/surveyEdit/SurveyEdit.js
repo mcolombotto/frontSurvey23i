@@ -7,7 +7,7 @@ import {
   validateCategory,
   validateSurveyName,
 } from "../../../helpers/validateFields";
-import axios from "../../../config/axiosInit";
+import axios from "../../../../config/axiosInit";
 import SurveyList from "../surveyList/surveyList";
 
 const SurveyEdit = ({ URL, getApi }) => {
