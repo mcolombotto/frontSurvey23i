@@ -1,13 +1,18 @@
 import React from 'react';
 import './Navigation.css'
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom';
+import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from "../logo/Logo";
 
-function Navigation()  {
+const Navigation = ({ loggedUser, setLoggedUser }) => {
+    const navigate = useNavigate();
+  
+    const logout = ()=>{
+      localStorage.removeItem("user-token");
+      setLoggedUser({})
+      navigate("/");
+    };
+
     return (
         <Navbar className='menu' variant="dark" expand="lg">
             <Container>
@@ -19,11 +24,11 @@ function Navigation()  {
                     <div className='cantainer-link-nav ms-auto'>
                         <Nav>
                             <Link className="nav-link" to="/">Home</Link>
-                            <Link className="nav-link" to="/register">Regístrate</Link>
+                            <Link className="nav-link" to="/auth/register">Regístrate</Link>
                             {loggedUser.token ? (
                                 <>
                                     <Button variant="dark" onClick={logout}>Log out</Button>
-                                    <Link className="nav-link" to="/surveys/table">
+                                    <Link className="nav-link" to="/survey/table">
                                         Manage Surveys
                                     </Link>
                                 </>
@@ -31,7 +36,7 @@ function Navigation()  {
                                 <Link className="nav-link" to="/auth/login">
                                     Login
                                 </Link>
-              )}
+                            )}
                             <NavDropdown title="Plantillas"  id="nav-dropdown">
                                 <NavDropdown.Item to="/Plantillas/EstudiosDeMercado">Estudios de mercado</NavDropdown.Item>
                                 <NavDropdown.Item to="/Plantillas/EvaluacionDeEventos">
