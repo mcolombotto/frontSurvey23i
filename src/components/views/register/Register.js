@@ -3,7 +3,10 @@ import UserContext from '../../layout/context/UserContext';
 import { useForm } from "react-hook-form";
 import { Container, Form } from "react-bootstrap";
 import './Register.css';
-import Swal from 'sweetalert2'
+import { FaEye } from "react-icons/fa"
+import { FaEyeSlash } from "react-icons/fa"
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -11,6 +14,7 @@ const Register = () => {
     const context = useContext(UserContext);
     const newUserName = context.user.username
     const Swal = require('sweetalert2');
+    const navigate = useNavigate()
     //console.log('context', context, context.user.username, context.user.img);
    
     const onSubmit = data => {
@@ -42,13 +46,20 @@ const Register = () => {
                         password2: '',
                     }));
                     Swal.fire(`Tu registro fue exitoso`)
+                    setTimeout(() => { navigate("/") },2500)
+                    
 
                 })
                 .catch(error => console.error(error))    
         }
     }
-  
-
+    // TODO ICONOS
+    // < FaEye />
+      //  <FaEyeSlash />
+ 
+    // const changeType = ()=>{
+    //     if(errorPassword.value)
+    // }
     
     return (
         <Container className="py-5">
@@ -64,6 +75,7 @@ const Register = () => {
                             placeholder="Ej: John Perez"
                             {...register("name", { required: true, maxLength: 60, pattern: /^[A-Za-z\s?]+$/ })}
                         />
+                       
                         {errors.name && errors.name.type === 'required' && <span className='error'>Este campo es requerido. </span>}
                         {errors.name && errors.name.type === 'maxLength' && <span className='error'>Este campo tiene un maximo de 60 </span>}
                         {errors.name && errors.name.type === 'pattern' && <span className='error'>En este campo solo puedes ingresar letras</span>}

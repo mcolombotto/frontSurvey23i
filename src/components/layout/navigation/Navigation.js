@@ -13,6 +13,10 @@ function Navigation()  {
     const urlImg = context.user.img;
     const usernameNew = context.user.username;
     const userState = context.user.state
+    const linkRegister = !userState ? <Link className="nav-link" to="/register">Registrate</Link> : '';
+    const linkLogin = !userState ? <Link className="nav-link" to="/login">Login</Link> : '';
+    const greet = userState ? <Link className="nav-link w-75 text-capitalize me-md-auto d-none d-sm-block" to="/login">{`Hola ${usernameNew}`}</Link> : null;
+    const classP = userState ? 'pe-5' : ''
     //const [userLogin, setUserLogin] = React.useState(false);
     console.log('context Navegation', context, context.user.username, context.user.img);
     const showImg = userState ? <img src={urlImg} alt={`usuario registrado ${usernameNew}`} className='img-fluid rounded-circle' /> : null
@@ -31,8 +35,9 @@ function Navigation()  {
                                     {showImg}
                                 </div>
                             </div>
+                            {greet}
                             <Link className="nav-link" to="/">Home</Link>
-                            <NavDropdown title="Plantillas"  id="nav-dropdown">
+                            <NavDropdown title="Plantillas" className={classP} id="nav-dropdown">
                                 <NavDropdown.Item to="/Plantillas/EstudiosDeMercado">Estudios de mercado</NavDropdown.Item>
                                 <NavDropdown.Item to="/Plantillas/EvaluacionDeEventos">
                                 Evaluación de eventos
@@ -41,8 +46,8 @@ function Navigation()  {
                                     Evaluación del profesor
                                 </NavDropdown.Item>
                             </NavDropdown>
-                            <Link className="nav-link" to="/register">Registrate</Link>
-                            <Link className="nav-link" to="/login">Login</Link>
+                            {linkRegister}
+                            {linkLogin}
 
                         </Nav>
                 </Navbar.Collapse>

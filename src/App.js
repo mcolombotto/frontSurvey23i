@@ -21,7 +21,7 @@ function App() {
             <main>
             <Routes>
                 <Route exact path='/' element={ <Home/> }/>
-                <Route exact path='/register' element={ <Register/> }/>
+                <Route exact path='/register' element={<Register/>}/>
                 <Route exact path='*' element={<Error404/> }/>
                 <Route exact path='/nosotros' element={<Us/>} />
             </Routes>
