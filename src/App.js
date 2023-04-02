@@ -14,7 +14,7 @@ import Footer from "./components/layout/footer/Footer"
 import Login from "./components/views/login/Login";
 import Register from "./components/views/register/Register";
 import Error404 from "./components/views/error404/Error404";
-import ProtectedRoute from "./components/routes/ProtectedRoute";
+import ProtectedRoute from "./components/";
 
 
 function App() {

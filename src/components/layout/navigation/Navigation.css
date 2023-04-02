@@ -1,19 +1,7 @@
-/* {
-    color: purple;
-     font-family: 'Montserrat', sans-serif;
-      font-size:30px;
-      font-weight: 600;  
+.menu{
+  background: rgb(10,10,10);
+  background: linear-gradient(90deg, rgba(10,10,10,1) 19%, rgba(5,5,54,1) 44%, rgba(3,3,40,1) 83%);
 }
-{
-    font-family: 'Questrial', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    color: white;
+.cantainer-link-nav{
+  padding: 0px 90px 0px 0px;
 }
-h1{ 
-  font-family: 'Rubik', sans-serif;
-  background-color: #0F6EFA;
-    color: white;
-}
-  background-color: #0A0A0A;
-*/

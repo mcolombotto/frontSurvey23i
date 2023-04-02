@@ -1,11 +1,41 @@
 import React from 'react';
+import './Navigation.css'
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Link } from 'react-router-dom';
+import Logo from "../logo/Logo";
 
-const Navigation = () => {
+function Navigation()  {
     return (
-        <div>
-            
-        </div>
+        <Navbar className='menu' variant="dark" expand="lg">
+            <Container>
+                <Navbar.Brand>
+                    <Logo/>
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="navbar-nav" />
+                <Navbar.Collapse id="navbar-nav">
+                    <div className='cantainer-link-nav ms-auto'>
+                        <Nav>
+                            <Link className="nav-link" to="/">Home</Link>
+                            <Link className="nav-link" to="/register">Registrate</Link>
+                            <NavDropdown title="Plantillas"  id="nav-dropdown">
+                                <NavDropdown.Item to="/Plantillas/EstudiosDeMercado">Estudios de mercado</NavDropdown.Item>
+                                <NavDropdown.Item to="/Plantillas/EvaluacionDeEventos">
+                                Evaluación de eventos
+                                </NavDropdown.Item>
+                                <NavDropdown.Item to="/Plantillas/ EvaluaciónDelProfesor">
+                                    Evaluación del profesor
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    </div>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
-};
+}
+
 
 export default Navigation;
