@@ -19,7 +19,19 @@ function Navigation()  {
                     <div className='cantainer-link-nav ms-auto'>
                         <Nav>
                             <Link className="nav-link" to="/">Home</Link>
-                            <Link className="nav-link" to="/register">Registrate</Link>
+                            <Link className="nav-link" to="/register">Regístrate</Link>
+                            {loggedUser.token ? (
+                                <>
+                                    <Button variant="dark" onClick={logout}>Log out</Button>
+                                    <Link className="nav-link" to="/surveys/table">
+                                        Manage Surveys
+                                    </Link>
+                                </>
+                            ) : (
+                                <Link className="nav-link" to="/auth/login">
+                                    Login
+                                </Link>
+              )}
                             <NavDropdown title="Plantillas"  id="nav-dropdown">
                                 <NavDropdown.Item to="/Plantillas/EstudiosDeMercado">Estudios de mercado</NavDropdown.Item>
                                 <NavDropdown.Item to="/Plantillas/EvaluacionDeEventos">
