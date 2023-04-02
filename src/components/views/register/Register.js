@@ -1,14 +1,16 @@
 import React, { useState, useContext } from 'react';
-import UserContext from '../../layout/context/UserContext'
+import UserContext from '../../layout/context/UserContext';
 import { useForm } from "react-hook-form";
 import { Container, Form } from "react-bootstrap";
-import './Register.css'
-
+import './Register.css';
+import Swal from 'sweetalert2'
 
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [errorPassword, setErrorPassword] = useState(false);
     const context = useContext(UserContext);
+    const newUserName = context.user.username
+    const Swal = require('sweetalert2');
     //console.log('context', context, context.user.username, context.user.img);
    
     const onSubmit = data => {
@@ -29,9 +31,9 @@ const Register = () => {
                         img: data.results[0].picture.large,
                         role:'user_role',
                         state: true
-                    }
-                    
+                    } 
                     context.setUser(myUser)
+                    
                     reset(formValues => ({
                         ...formValues,
                         name: '',
@@ -39,7 +41,7 @@ const Register = () => {
                         password1: '',
                         password2: '',
                     }));
-
+                    Swal.fire(`Tu registro fue exitoso`)
 
                 })
                 .catch(error => console.error(error))    
