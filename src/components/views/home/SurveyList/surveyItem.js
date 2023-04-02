@@ -1,7 +1,9 @@
 import React from "react";
 import Badge from "react-bootstrap/Badge";
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, Button } from "react-bootstrap";
 import AnswerItem from "../../items/answerItem";
+import ModalEdit from "../modal/surveyModalEdit";
+import SurveyModal from "../modal/surveyModal";
 
 const SurveyItem = (props) => {
   return (
@@ -16,15 +18,9 @@ const SurveyItem = (props) => {
             Tipo de Respuesta : {props.data.responseType}
         </div>
         </div>
-        <div className="my-auto">
-          <button
-            className=" btn btn-outline-warning me-0"
-            onClick={(e) => {
-              props.deleteSurveyItem(props.data);
-            }}
-          >
-            Editar
-          </button>
+        <div className="my-auto d-flex justify-content-between">
+        
+          <ModalEdit surveyItemList={props.surveyItemList}></ModalEdit>
           <button
             className=" btn btn-outline-danger ms-2"
             onClick={(e) => {

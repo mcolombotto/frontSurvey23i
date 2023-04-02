@@ -16,8 +16,8 @@ import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
 const Survey = ({ survey, URL, getApi }) => {
 
-
-  const navigate = useNavigate();
+  
+   const navigate = useNavigate();
 
   let visible = (data) => {
     if (data) {
@@ -75,6 +75,7 @@ const Survey = ({ survey, URL, getApi }) => {
       console.log("ANTES",surveyLoaded); 
       surveyLoaded.status = !surveyLoaded.status;
       console.log("DESPUES",surveyLoaded); 
+     
       await axios.put(`${URL}/${id}`, surveyLoaded);
       navigate(0);
   }catch (error) {
@@ -89,7 +90,7 @@ const Survey = ({ survey, URL, getApi }) => {
       {/* <td>{survey._id}</td> */}
       <td>{survey.surveyName}</td>
       <td>{survey.category}</td>
-      <td>
+      <td className="d-flex justify-content-center">
         <ToggleButton
           type="checkbox"
           variant="secondary"
@@ -100,13 +101,16 @@ const Survey = ({ survey, URL, getApi }) => {
       </td>
       <td className="w-25">
         <div className="d-flex justify-content-center">
+          <Link
+          to={`/survey/details/${survey._id}`}>
+          
           <Button
             variant="success"
-            className=" mx-1"
-            onClick={() => handleActivate(survey._id)}
+            className="mx-1"
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </Button>
+          </Link>
           <Link
             to={`/survey/edit/${survey._id}`}
             className="btn-orange mx-1 text-decoration-none text-center"

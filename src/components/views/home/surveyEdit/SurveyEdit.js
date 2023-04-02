@@ -8,8 +8,15 @@ import {
   validateSurveyName,
 } from "../../../helpers/validateFields";
 import axios from "../../../config/axiosInit";
+import SurveyList from "../SurveyList/surveyList";
 
 const SurveyEdit = ({ URL, getApi }) => {
+  const [surveyItem, setSurveyItem] = useState({
+    question: "",
+    responseType: "",
+  });
+  const [surveyItemList, setSurveyItemList] = useState([]);
+
   const [survey, setSurvey] = useState({});
 
   const { id } = useParams();
@@ -19,26 +26,36 @@ const SurveyEdit = ({ URL, getApi }) => {
 
   const navigate = useNavigate();
 
+    // Borrar item de la lista de preguntas
+    const deleteSurveyItem = (itemName) => {
+      let filteredArray = surveyItemList.filter(
+        (surveyItem) => surveyItem !== itemName
+      );
+      setSurveyItemList(filteredArray);
+    };
+
   useEffect(() => {
+    console.log("Useefect");
     getOne();
   }, []);
 
   const getOne = async () => {
+    console.log("INICIO DE GETONE")
+
     try {
       const res = await axios.get(`${URL}/${id}`);
       const surveyApi = res.data;
       setSurvey(surveyApi);
-      console.log(URL, id, res.data)
+
     } catch (error) {
       console.log(error);
     }
+    
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //console.log(productNameRef.current.value);
-    //valido los campos
     if (
       !validateSurveyName(surveyNameRef.current.value) ||
       !validateCategory(categoryRef.current.value)
@@ -51,7 +68,7 @@ const SurveyEdit = ({ URL, getApi }) => {
       surveyName: surveyNameRef.current.value,
       category: survey.category,
     };
-    console.log("Edicion", surveyUpdated)
+    console.log("Edicion", surveyUpdated);
 
     Swal.fire({
       title: "Are you sure?",
@@ -102,49 +119,30 @@ const SurveyEdit = ({ URL, getApi }) => {
                 setSurvey({ ...survey, category: target.value })
               }
             >
-              <option value="">Seleccione una Opcion</option>
+              <option value={survey.category}>{survey.category}</option>
               <option value="Clima">Encuesta de Clima Laboral</option>
               <option value="Satisfaccion">Satisfaccion del Cliente</option>
-              <option value="Servicio">Feedback de un servicio</option>
+              <option value="Servicio">Feedbackk de un servicio</option>
               <option value="Imagen">Imagen de un producto</option>
-            </Form.Select>
-          </Form.Group>
-          <Form.Label >Activa</Form.Label>
-          <Form.Group className="mb-3" controlId="formCategory">
-            <Form.Select
-              value={survey.status}
-              onChange={({ target }) =>
-                setSurvey({ ...survey, status: target.value })
-              }
-            >
-              <option value="">Seleccione una Opcion</option>
-              <option value="de-carne">Activa</option>
-              <option value="de-cerdo">Inactiva</option>
             </Form.Select>
           </Form.Group>
 
           <Form.Label className="my-3">Cuerpo de la Encuesta</Form.Label>
-          {/* <Form.Group>
-            <Form.Control
-              type="text"
-              className="mb-3 "
-              placeholder="Pregunta"
-            />
 
-            <Form.Select className="mb-3 col-12">
-              <option value="">Tipo de respuesta</option>
-              <option value="Texto">Texto</option>
-              <option value="Multiple">Selección Multiple</option>
-              <option value="Numerica">Numérica</option>
-            </Form.Select>
-            <Button variant="primary" type="submit">
-              Agregar nueva pregunta
+           {survey.surveyItemList !== undefined ? (
+            <SurveyList
+            surveyItemList={survey.surveyItemList}
+            setSurveyItem={setSurveyItem}
+            deleteSurveyItem={deleteSurveyItem}
+          ></SurveyList>)
+:(<></>) }
+          <div className="text-end mt-2">
+            <Button className="me-1" variant="secondary" type="submit">
+              Volver
             </Button>
-          </Form.Group> */}
-
-          <div className="text-end">
-          <Button className="me-1"variant="secondary" type="submit">Volver</Button>
-            <Button className="ms-1"variant="warning" type="submit">Guardar</Button>
+            <Button className="ms-1" variant="warning" type="submit">
+              Guardar
+            </Button>
           </div>
         </Form>
       </Container>
