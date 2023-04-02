@@ -1,6 +1,6 @@
 import React from 'react'
 import './Register.css'
-
+import { Container } from 'react-bootstrap'
 
 const Register = () => {
 
