@@ -1,6 +1,7 @@
 import React from 'react';
 import Heading from '../Heading';
 import Section from '../Section';
+
 const Us = () => {
     return (
         <div className='us'>
