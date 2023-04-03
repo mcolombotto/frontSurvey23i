@@ -9,7 +9,7 @@ const Register = ({ setLoggedUser }) => {
   const [inputs, setInputs] = useState({});
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const URL = process.env.REACT_APP_API_HAMBURGUESERIA_USUARIO
+  const URL = process.env.REACT_APP_API_SURVEYS_USER
 
   const handleChange = (event) => {
     const name = event.target.name;
