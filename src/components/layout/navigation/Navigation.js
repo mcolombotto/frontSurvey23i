@@ -11,8 +11,7 @@ import Logo from "../logo/Logo";
 
 function Navigation()  {
     const context = useContext(UserContext);
-    const { img: urlImg, username, state: loggedUser } = context.user;
-    
+    const { img: urlImg, username, estate: loggedUser } = context.user;
     return (
         <Navbar className='menu' variant="dark" expand="lg">
             <Container>

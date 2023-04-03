@@ -13,7 +13,7 @@ import Login from './components/views/login/Login'
 
 function App() {
     const [user, setUser] = React.useState({});
- 
+   
   return (
       <UserContext.Provider value={{ user, setUser }}>
         <Router>

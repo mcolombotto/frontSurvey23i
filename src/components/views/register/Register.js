@@ -14,12 +14,13 @@ const Register = () => {
     const [errorPassword, setErrorPassword] = useState(false);
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [name, setName] = useState('')
     const [typeInput, setTypeInput] = useState('password')
-    
+
     const context = useContext(UserContext);
     const navigate = useNavigate()
-   
+    //variable de entorno
+    const URL = process.env.REACT_APP_API_SURVEYS_USER;
+
     const onSubmit = data => {
         setErrorPassword(false);
     
@@ -28,16 +29,15 @@ const Register = () => {
         } else {
             fetch('https://randomuser.me/api/')
                 .then((resp) => resp.json())
-                .then((data) => {
+                .then(async (data) => {
                     const myUser = {
-                        name: name,
                         username: data.results[0].login.username,
                         email: email,
                         password: password,
                         uuid: data.results[0].login.uuid,
                         img: data.results[0].picture.large,
                         role:'user_role',
-                        state: true
+                        estate: true
                     } 
                     context.setUser(myUser)
                     
@@ -48,8 +48,26 @@ const Register = () => {
                         password1: '',
                         password2: '',
                     }));
-                    Swal.fire(`Tu registro fue exitoso`)
-                    setTimeout(() => { navigate("/") },2500)
+
+                    if(context.user){
+                        try {
+                            const res = await fetch(URL, {
+                                method: 'POST',
+                                headers: {
+                                    'content-type': 'application/json'
+                                },
+                                body: JSON.stringify(context.user),
+                            })
+                            const info = await res.json();
+                            console.log('info', info);
+                            Swal.fire(`Tu registro fue exitoso`)
+                            setTimeout(() => { navigate("/") }, 2500)
+                        } catch (error) {
+                            console.log(error);
+                            alert('ocurrio un problema, vuelve a intentarlo.')
+                        }
+                    };
+                  
                     
 
                 })
@@ -69,8 +87,7 @@ const Register = () => {
                         <input 
                             className="form-control " 
                             placeholder="Ej: John Perez"
-                            onBlurCapture={(e) => setName(e.target.value)}
-                            {...register("name", { required: true, maxLength: 60, pattern: /^[A-Za-z\s?]+$/ })}
+                            {...register("name", { required: true, maxLength: 100, pattern: /^[A-Za-z\s?]+$/ })}
                         />
                        
                         {errors.name && errors.name.type === 'required' && <span className='error'>Este campo es requerido. </span>}
@@ -85,7 +102,7 @@ const Register = () => {
                             type='email'
                             placeholder="Ej: John_Perez@email.com"
                             onBlurCapture={(e) => setEmail(e.target.value)}
-                            {...register("email", { required: true, maxLength: 60, pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/ })} 
+                            {...register("email", { required: true, maxLength: 100, pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/ })} 
                         />
                         {errors.email && errors.email.type === 'required' && <span className='error'>Este campo es requerido. </span>}
                         {errors.email && errors.email.type === 'maxLength' && <span className='error'>Este campo tiene un maximo de 60 caracteres</span>}
@@ -97,7 +114,7 @@ const Register = () => {
                             className="form-control " 
                             type={typeInput}
                             onBlurCapture={(e)=>setPassword(e.target.value)}
-                            {...register("password1", { required: true, maxLength: 90, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,90}/ })} 
+                            {...register("password1", { required: true, maxLength: 100, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,90}/ })} 
                         />
                         <button
                             type="button"
