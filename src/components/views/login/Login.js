@@ -62,7 +62,9 @@ const Login = ({ setLoggedUser }) => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email*</Form.Label>
             <Form.Control
-              type="text"
+              type="email"
+              pattern="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/"
+              required
               placeholder="johndoe@gmail.com"
               name="email"
               value={inputs.email || ""}
@@ -73,6 +75,8 @@ const Login = ({ setLoggedUser }) => {
             <Form.Label>Password*</Form.Label>
             <Form.Control
               type="password"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,100}"
+              required
               placeholder="Ej: Ingrese su password"
               name="password"
               value={inputs.password || ""}
