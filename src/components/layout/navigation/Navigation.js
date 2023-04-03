@@ -13,14 +13,15 @@ function Navigation()  {
     const context = useContext(UserContext);
     const urlImg = context.user.img;
     const usernameNew = context.user.username;
-    const userState = context.user.state
+    const userState = context.user.state;
     const linkRegister = !userState ? <Link className="nav-link" to="/register">Registrate</Link> : '';
-    const greet = userState ? <Link className="nav-link text-capitalize me-md-auto d-none d-sm-block" to="/login">{`${usernameNew}`}</Link> : null;
+    const linklogin = !userState ? <Link className="nav-link" to="/login">Login</Link> : '';
+    const greet = userState ? <a className="aLink">{`${usernameNew}`}</a> : null;
     const navigate = useNavigate()
     //const [userLogin, setUserLogin] = React.useState(false);
     console.log('context Navegation', context, context.user.username, context.user.img);
     const showImg = userState ? <img src={urlImg} alt={`usuario registrado ${usernameNew}`} className='img-fluid rounded-circle' /> : null
-   
+     
     return (
         <Navbar className='menu' variant="dark" expand="lg">
             <Container>
@@ -29,33 +30,25 @@ function Navigation()  {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar-nav" />
                 <Navbar.Collapse id="navbar-nav">
-                        <Nav className='ms-auto'>
+                    <Nav className='ms-auto'>
                             <Link className="nav-link" to="/">Home</Link>
                             <NavDropdown title="Plantillas" id="nav-dropdown">
-                                <NavDropdown.Item to="/Plantillas/EstudiosDeMercado">Estudios de mercado</NavDropdown.Item>
-                                <NavDropdown.Item to="/Plantillas/EvaluacionDeEventos">
+                                <NavDropdown.Item to="*">Estudios de mercado</NavDropdown.Item>
+                                <NavDropdown.Item to="*">
                                 Evaluación de eventos
                                 </NavDropdown.Item>
-                                <NavDropdown.Item to="/Plantillas/ EvaluaciónDelProfesor">
+                                <NavDropdown.Item to="*">
                                     Evaluación del profesor
                                 </NavDropdown.Item>
                             </NavDropdown>
-                            
-                            <NavDropdown className='pt-0 align-top' title={userState ? 
-                                <div className='d-flex flex-direction-row w-100'> 
-                                        <div>
-                                            {greet}
-                                        </div>
-                                    </div>: <Link className="nav-link" to="/login">Login</Link> } id="nav-dropdown">
-                            {userState ? <Link className="text-dark" onClick={() => context.setUser({})}> Cerrar sesion</Link> : 
-                                <NavDropdown.Item><Link className="text-dark" to='/login'>Ingresar al login</Link></NavDropdown.Item>} 
-                            </NavDropdown>
-                            {linkRegister}
-                            <div className="w-50">
-                            <div className="w-25">
+                                {linkRegister}
+                                {linklogin}
+                        { userState ? <NavDropdown title={greet} id="nav-dropdown">
+                            {userState ? <NavDropdown.Item><a className="text-dark aLink" onClick={() => context.setUser({})}> Cerrar sesion</a></NavDropdown.Item> : null}
+                        </NavDropdown> : null }
+                                <div className="w-25">
                                     {showImg}
-                               </div>
-                            </div>
+                                </div>
                         </Nav>
                 </Navbar.Collapse>
             </Container>
