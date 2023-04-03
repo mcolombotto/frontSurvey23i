@@ -5,6 +5,7 @@ import Survey from "./Survey";
 import {Button} from "react-bootstrap";
 
 const SurveysTable = ({ surveys, URL, getApi }) => {
+
   return (
     <Container>
         <h1 className="text-center">Tabla de Encuestas</h1>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import {
   validateCategory,
@@ -10,7 +10,7 @@ import {
 import axios from "../../../config/axiosInit";
 import SurveyList from "../SurveyList/surveyList";
 
-const SurveyEdit = ({ URL, getApi }) => {
+const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const [surveyItem, setSurveyItem] = useState({
     question: "",
     responseType: "",
@@ -54,11 +54,12 @@ const SurveyEdit = ({ URL, getApi }) => {
   };
 
   const handleSubmit = (e) => {
+    console.log("INICIO DEL SUBMIT");
     e.preventDefault();
 
     if (
-      !validateSurveyName(surveyNameRef.current.value) ||
-      !validateCategory(categoryRef.current.value)
+      !validateSurveyName(surveyNameRef.current.value) 
+      /* !validateCategory(categoryRef.current.value) */
     ) {
       Swal.fire("Ops!", "Some data is invalid.", "error");
       return;
@@ -67,6 +68,8 @@ const SurveyEdit = ({ URL, getApi }) => {
     const surveyUpdated = {
       surveyName: surveyNameRef.current.value,
       category: survey.category,
+      status: false,
+      surveyItemList: survey.surveyItemList,
     };
     console.log("Edicion", surveyUpdated);
 
@@ -85,7 +88,7 @@ const SurveyEdit = ({ URL, getApi }) => {
           if (res.status === 200) {
             Swal.fire("Updated!", "Your file has been updated.", "success");
             getApi();
-            navigate("/product/table");
+            navigate("/survey/table");
           }
         } catch (error) {
           console.log(error);
@@ -119,11 +122,9 @@ const SurveyEdit = ({ URL, getApi }) => {
                 setSurvey({ ...survey, category: target.value })
               }
             >
-              <option value={survey.category}>{survey.category}</option>
-              <option value="Clima">Encuesta de Clima Laboral</option>
-              <option value="Satisfaccion">Satisfaccion del Cliente</option>
-              <option value="Servicio">Feedbackk de un servicio</option>
-              <option value="Imagen">Imagen de un producto</option>
+              {categoryItemList.map((categoryItem) => (
+                <option value={categoryItem}>{categoryItem} </option>
+              ))}
             </Form.Select>
           </Form.Group>
 
@@ -138,12 +139,15 @@ const SurveyEdit = ({ URL, getApi }) => {
           ></SurveyList>)
 :(<></>) }
           <div className="text-end mt-2">
+          <Link
+          to={`/survey/table/`}>
             <Button className="me-1" variant="secondary" >
               Volver
             </Button>
             <Button className="ms-1" variant="warning" type="submit">
               Guardar
             </Button>
+            </Link>
           </div>
         </Form>
       </Container>

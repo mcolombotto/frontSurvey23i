@@ -12,7 +12,7 @@ import SurveyList from "../SurveyList/surveyList";
 import SurveyModal from "../modal/surveyModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const SurveyCreate = ({ URL, getApi }) => {
+const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(true);
@@ -28,13 +28,7 @@ const SurveyCreate = ({ URL, getApi }) => {
   //Respuestas
   const [answerList, setAnswerList] = useState([]);
 
-  //Categorias
-  const [categoryItem, setCategoryItem] = useState("Encuesta de clima laboral");
-  const [categoryItemList, setCategoryItemList] = useState([
-    "Encuesta de clima laboral",
-    "Satisfacción de un servicio",
-    "Investigacion"
-  ]);
+ 
 
   // Borrar item de la lista de preguntas
   const deleteSurveyItem = (itemName) => {
@@ -75,7 +69,6 @@ const SurveyCreate = ({ URL, getApi }) => {
       category: inputs.category,
       status: false,
       surveyItemList: surveyItemList,
-      answerList: answerList,
     };
     console.log("surveyItemList", surveyItemList);
     console.log("newSurvey", newSurvey);
