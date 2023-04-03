@@ -62,7 +62,7 @@ const Login = ({ setLoggedUser }) => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email*</Form.Label>
             <Form.Control
-              type="email"
+              type="text"
               pattern="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/"
               required
               placeholder="johndoe@gmail.com"
