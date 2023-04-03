@@ -62,10 +62,13 @@ const Register = ({ setLoggedUser }) => {
         <hr />
         <Form className="my-5" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicUserName">
-            <Form.Label>User name*</Form.Label>
+            <Form.Label>Username*</Form.Label>
             <Form.Control
               type="text"
+              minlength="6"
+              maxlength="100"
               placeholder="Ej: JohnDoe"
+              required
               name="username"
               value={inputs.username || ""}
               onChange={(e) => handleChange(e)}
@@ -75,7 +78,9 @@ const Register = ({ setLoggedUser }) => {
             <Form.Label>Email*</Form.Label>
             <Form.Control
               type="text"
+              pattern="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/"
               placeholder="johndoe@gmail.com"
+              required
               name="email"
               value={inputs.email || ""}
               onChange={(e) => handleChange(e)}
@@ -85,7 +90,9 @@ const Register = ({ setLoggedUser }) => {
             <Form.Label>Password*</Form.Label>
             <Form.Control
               type="password"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,100}"
               placeholder="Ej: Ingrese su password"
+              required
               name="password"
               value={inputs.password || ""}
               onChange={(e) => handleChange(e)}
