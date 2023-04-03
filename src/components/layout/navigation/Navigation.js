@@ -1,18 +1,27 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
+import UserContext from '../context/UserContext'
 import './Navigation.css'
-import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Link } from 'react-router-dom';
 import Logo from "../logo/Logo";
+import { useNavigate } from 'react-router-dom';
 
-const Navigation = ({ loggedUser, setLoggedUser }) => {
-    const navigate = useNavigate();
-  
-    const logout = ()=>{
-      localStorage.removeItem("user-token");
-      setLoggedUser({})
-      navigate("/");
-    };
-
+function Navigation()  {
+    const context = useContext(UserContext);
+    const urlImg = context.user.img;
+    const usernameNew = context.user.username;
+    const userState = context.user.state;
+    const linkRegister = !userState ? <Link className="nav-link" to="/register">Registrate</Link> : '';
+    const linklogin = !userState ? <Link className="nav-link" to="/login">Login</Link> : '';
+    const greet = userState ? <a className="aLink">{`${usernameNew}`}</a> : null;
+    const navigate = useNavigate()
+    //const [userLogin, setUserLogin] = React.useState(false);
+    console.log('context Navegation', context, context.user.username, context.user.img);
+    const showImg = userState ? <img src={urlImg} alt={`usuario registrado ${usernameNew}`} className='img-fluid rounded-circle' /> : null
+     
     return (
         <Navbar className='menu' variant="dark" expand="lg">
             <Container>
@@ -21,33 +30,26 @@ const Navigation = ({ loggedUser, setLoggedUser }) => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar-nav" />
                 <Navbar.Collapse id="navbar-nav">
-                    <div className='cantainer-link-nav ms-auto'>
-                        <Nav>
+                    <Nav className='ms-auto'>
                             <Link className="nav-link" to="/">Home</Link>
-                            <Link className="nav-link" to="/auth/register">Regístrate</Link>
-                            {loggedUser.token ? (
-                                <>
-                                    <Button variant="dark" onClick={logout}>Log out</Button>
-                                    <Link className="nav-link" to="/survey/table">
-                                        Manage Surveys
-                                    </Link>
-                                </>
-                            ) : (
-                                <Link className="nav-link" to="/auth/login">
-                                    Login
-                                </Link>
-                            )}
-                            <NavDropdown title="Plantillas"  id="nav-dropdown">
-                                <NavDropdown.Item to="/Plantillas/EstudiosDeMercado">Estudios de mercado</NavDropdown.Item>
-                                <NavDropdown.Item to="/Plantillas/EvaluacionDeEventos">
+                            <NavDropdown title="Plantillas" id="nav-dropdown">
+                                <NavDropdown.Item to="*">Estudios de mercado</NavDropdown.Item>
+                                <NavDropdown.Item to="*">
                                 Evaluación de eventos
                                 </NavDropdown.Item>
-                                <NavDropdown.Item to="/Plantillas/ EvaluaciónDelProfesor">
+                                <NavDropdown.Item to="*">
                                     Evaluación del profesor
                                 </NavDropdown.Item>
                             </NavDropdown>
+                                {linkRegister}
+                                {linklogin}
+                        { userState ? <NavDropdown title={greet} id="nav-dropdown">
+                            {userState ? <NavDropdown.Item><a className="text-dark aLink" onClick={() => context.setUser({})}> Cerrar sesion</a></NavDropdown.Item> : null}
+                        </NavDropdown> : null }
+                                <div className="w-25">
+                                    {showImg}
+                                </div>
                         </Nav>
-                    </div>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

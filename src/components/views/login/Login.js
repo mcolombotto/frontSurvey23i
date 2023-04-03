@@ -27,7 +27,7 @@ const Login = ({ setLoggedUser }) => {
       !validateEmail(inputs.email) ||
       !validatePassword(inputs.password)
     ) {
-      Swal.fire("Oops!!", "Some data is invalid", "Error");
+      Swal.fire("Oops!!", "Algún dato está incorrecto", "Error");
       return;
     }
    
