@@ -14,6 +14,8 @@ const SurveyList = (props) => {
           surveyItemList={props.surveyItemList}
           setSurveyItem={props.setSurveyItem}
           deleteSurveyItem={props.deleteSurveyItem}
+          surveyItem={props.surveyItem}
+          setSurveyItemList={props.setSurveyItemList}
         ></SurveyItem>
         ))}
         </ListGroup>

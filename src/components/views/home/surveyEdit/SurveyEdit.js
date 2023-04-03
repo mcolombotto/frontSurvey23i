@@ -134,10 +134,11 @@ const SurveyEdit = ({ URL, getApi }) => {
             surveyItemList={survey.surveyItemList}
             setSurveyItem={setSurveyItem}
             deleteSurveyItem={deleteSurveyItem}
+            surveyItem={surveyItem}
           ></SurveyList>)
 :(<></>) }
           <div className="text-end mt-2">
-            <Button className="me-1" variant="secondary" type="submit">
+            <Button className="me-1" variant="secondary" >
               Volver
             </Button>
             <Button className="ms-1" variant="warning" type="submit">

@@ -19,8 +19,13 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
         </Link>
         <Link
           to="/survey/create"
+        
           className="btn-red text-decoration-none text-center"
-        > <Button variant="primary">
+        > <Button variant="primary"
+          onClick={()=>{
+            localStorage.setItem("newSurveyItemList", JSON.stringify([]));
+          localStorage.setItem("surveyName", JSON.stringify(""));
+          localStorage.setItem("category", JSON.stringify(""))}}>
           Nueva Encuesta
             
         </Button>
