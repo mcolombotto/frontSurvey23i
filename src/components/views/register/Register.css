@@ -24,60 +24,8 @@
 	font-size: 14px;
     font-family: 'Questrial', sans-serif;
 }
-/* 
 
-
-
-
-.form input,
-.form textarea {
-	width: 100%;
-	border-radius: 5px;
-	border: 2px solid #e2e2e2;
-	font-size: 18px;
-	padding: 10px;
-	margin-bottom: 5px;
-	color: #1f1f1f;
+.buttonPosition{
+ top: 32px;
+ right: 3px;
 }
-
-.form input:focus {
-	outline: none;
-	border: 2px solid #0085FF;
-}
-
-.form .error {
-	color: #e92b2d;
-	font-weight: 600;
-	font-size: 12px;
-}
- ....borrar radius imput textarea y otros 
-
-.form button[type="submit"] {
-	display: block;
-	background: #0085FF;
-	font-weight: 600;
-	font-family: 'Open Sans', sans-serif;
-	border: none;
-	cursor: pointer;
-	width: 100%;
-	padding: 10px;
-	border-radius: 5px;
-	color: #fff;
-	font-size: 16px;
-	transition: .3s ease all;
-}
-
-.form button[type="submit"]:hover {
-	background: #0051ff;
-}
-
-.form .successfuly {
-	text-align: center;
-	font-size: 14px;
-	padding-top: 20px;
-	color: #02a802;
-}
-
-.form input[type="radio"] {
-	width: auto;
-} */
