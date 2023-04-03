@@ -10,16 +10,15 @@ import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
     const [errorPassword, setErrorPassword] = useState(false);
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
     const [typeInput, setTypeInput] = useState('password')
+    
     const context = useContext(UserContext);
-    const newUserName = context.user.username
-    const Swal = require('sweetalert2');
     const navigate = useNavigate()
-    //console.log('context', context, context.user.username, context.user.img);
    
     const onSubmit = data => {
         setErrorPassword(false);
@@ -100,15 +99,21 @@ const Register = () => {
                             onBlurCapture={(e)=>setPassword(e.target.value)}
                             {...register("password1", { required: true, maxLength: 90, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,90}/ })} 
                         />
-                        <button className='position-absolute buttonPosition btn' onClick={() => { typeInput === 'password' ? setTypeInput('text') : setTypeInput('password') }}>  {typeInput === 'password' ? <FaEyeSlash /> : < FaEye />}</button>
+                        <button
+                            type="button"
+                            className='position-absolute buttonPosition btn'
+                            onClick={() => { typeInput === 'password' ? setTypeInput('text') : setTypeInput('password') }}
+                        > 
+                            {typeInput === 'password' ? <FaEyeSlash /> : < FaEye />}
+                        </button>
                         {errors.password1 && errors.password1.type === 'required' && <span className='error'>Este campo es requerido. </span>}
                         {errors.password1 && errors.password1.type === 'maxLength' && <span className='error'> Este campo tiene un maximo de 90 caracteres</span>}
-                        {errors.password1 && errors.password1.type === 'pattern' && <span className='error'>La contraseña no es valida. Esta debe tener mìnimo 8 caracteres,
-                            al menos una letra mayúscula, al menos una letra minucula y al menos un caracter especial (@$!%*?&) </span>}
-                          {/* // TODO ICONOS
-    //
-      //   */}
-
+                        {errors.password1 && errors.password1.type === 'pattern' && (
+                            <span className='error'>
+                                La contraseña no es valida. Esta debe tener mìnimo 8 caracteres, al menos una letra mayúscula,
+                                al menos una letra minucula y al menos un caracter especial (@$!%*?&)
+                            </span>
+                        )}
                     </div>
                     <div className='mb-3 position-relative'>
                         <Form.Label>Repetir contraseña<span className='text-danger font-weight-bold'>*</span></Form.Label>
@@ -122,7 +127,13 @@ const Register = () => {
                         {errors.password2 && errors.password2.type === 'pattern' && <span className='error'>La contraseña no es valida. Esta debe tener mìnimo 8 caracteres,
                             al menos una letra mayúscula, al menos una letra minucula y al menos un caracter especial (@$!%*?&)</span>}
                         {errorPassword && <span className='error'>Las contraseñas no coinciden</span>}
-                        <button className='position-absolute buttonPosition btn' onClick={() => { typeInput === 'password' ? setTypeInput('text') : setTypeInput('password') }}>  {typeInput === 'password' ? <FaEyeSlash /> : < FaEye />}</button>
+                        <button
+                            type="button"
+                            className='position-absolute buttonPosition btn'
+                            onClick={() => { typeInput === 'password' ? setTypeInput('text') : setTypeInput('password') }}
+                        >
+                            {typeInput === 'password' ? <FaEyeSlash /> : < FaEye />}
+                        </button>
                     </div>
                     <div>
                         <button className="btn btn-danger" type="submit"> Enviar</button>
