@@ -97,13 +97,13 @@ const SurveyCreate = ({ URL, getApi }) => {
           console.log(result.isConfirmed, "Enviando a BD", URL);
           const res = await axios.post(
             URL,
-            newSurvey /* , {
+            newSurvey , {
               headers: {
                 "Content-Type": "application/json",
                 "x-access-token": JSON.parse(localStorage.getItem("user-token"))
                   .token,
               },
-            } */
+            }
           );
           console.log(res.status, res.status === 201);
 

@@ -40,7 +40,7 @@ const Register = ({ setLoggedUser }) => {
       const res = await axios.post(`${URL}/register`, newUser);
       console.log(res);
       if (res.status === 201) {
-        Swal.fire("Created!", "Your user has been created.", "success");
+        Swal.fire("Creado!", "Tu usuario ha sido creado.", "éxito");
     
         const data = res.data 
         console.log(data);
