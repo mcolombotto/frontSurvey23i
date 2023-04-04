@@ -16,6 +16,7 @@ import Register from "./components/views/register/Register";
 import Error404 from "./components/views/error404/Error404";
 import CategoryTable from "./components/views/home/categoryTable/categoryTable";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
+import UserContext from './components/layout/context/UserContext'
 
 function App() {
   const [surveys, setSurveys] = useState([]);
@@ -24,31 +25,24 @@ function App() {
     categoryName : "",
     categoryStatus : "",
   });
+  const [user, setUser] = React.useState({});
+  const token = localStorage.getItem('token');
+  console.log('user', user);
+  console.log('token',token);
 
-  const [categoryItemList, setCategoryItemList] = useState([
-/*     { categoryName : "Encuesta de clima laboral",
-      categoryStatus : true},
-      {categoryName : "Satisfacción de un servicio",
-      categoryStatus : true},
-      {categoryName : "Investigacion",
-      categoryStatus : true}
-  */ ]);
+  const [categoryItemList, setCategoryItemList] = useState([]);
 
   const URL = process.env.REACT_APP_API_SURVEYS;
 
   const URL2 = process.env.REACT_APP_API_CATEGORY;
 
   useEffect(() => {
-    //llamado a la API
     getApi();
   }, []);
 
   const getApi = async () => {
     try {
-      /*  const res = await fetch(URL);
-      const productApi = await res.json();
-      setProducts(productApi);
-       */
+      
       const res = await axios.get(URL);
       const cat = await axios.get(URL2);
       //console.log(res.data);
@@ -62,6 +56,7 @@ function App() {
   };
 
   return (
+   <UserContext.Provider value={{ user, setUser }}>
     <BrowserRouter>
       <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
       <main>
@@ -127,12 +122,12 @@ function App() {
           />
           <Route
             exact
-            path="/auth/login/"
+            path="/login"
             element={<Login setLoggedUser={setLoggedUser} />}
           />
           <Route
             exact
-            path="/auth/register/"
+            path="/register"
             element={<Register setLoggedUser={setLoggedUser} />}
           />
           <Route exact path="*" element={<Error404 />} />
@@ -140,20 +135,9 @@ function App() {
       </main>
       <Footer />
     </BrowserRouter>
+   </UserContext.Provider>
   );
 }
 
 export default App;
-/*
 
-import { BrowserRouter, Routes, Route  } from 'react-router-dom';
-import Navigation from './components/layout/Navigation';
-<BrowserRouter>
-  <Navigation />
-  <main>
-    <Routes>
-      <Route exact path="/" element={<Home />} />
-
-    </Routes>
-  </main>
-</BrowserRouter> */
