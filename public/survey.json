@@ -1,0 +1,148 @@
+[
+    {
+      "_id": "6426e7e42af0c6fdaddb942c",
+      "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
+      "surveyName": "Empresa X",
+      "category": "Encuesta de clima laboral",
+      "status": true,
+      "surveyItemList": [
+        {
+          "question": "Recomendaría este lugar pára trabajar?",
+          "responseType": "Booleana"
+        },
+        {
+          "question": "Como calificaría nuestra empresa con respecto a las demas del mercado?",
+          "responseType": "Numerica"
+        },
+        {
+          "question": "Como diría que es su relación con sus superiores",
+          "responseType": "Cualitativa"
+        },
+        {
+          "question": "Para finalizar realice algun comentario que crea oportuno.",
+          "responseType": "Texto Libre"
+        }
+      ],
+      "surveyAnswerList": [],
+      "__v": 0
+    },
+    {
+      "_id": "6426eb302af0c6fdaddb944e",
+      "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
+      "surveyName": "Servicio Post venta X",
+      "category": "Satisfacción de un servicio",
+      "status": false,
+      "surveyItemList": [
+        {
+          "question": "Cual es el grado de conformidad de nuestro servicio posventa?",
+          "responseType": "Numerica"
+        },
+        {
+          "question": "Recomendaria este servicio a otras personas?",
+          "responseType": "Booleana"
+        },
+        {
+          "question": "Deje algun comentario que crea conveniente",
+          "responseType": "Texto Libre"
+        }
+      ],
+      "surveyAnswerList": [],
+      "__v": 0
+    },
+    {
+      "_id": "64270dd6f52081711040db13",
+      "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
+      "surveyName": "Investigacion de Mercado Gaseosas",
+      "category": "Investigacion",
+      "status": false,
+      "surveyItemList": [
+        {
+          "question": "Cuantas Marcas de bebidas gaseosa conoce",
+          "responseType": "Numerica"
+        },
+        {
+          "question": "Se considera consumidor frecuente de estas bebidas?",
+          "responseType": "Booleana"
+        },
+        {
+          "question": "Cual es su opinion de la variedad de precios",
+          "responseType": "Texto Libre"
+        }
+      ],
+      "surveyAnswerList": [],
+      "__v": 0
+    },
+    {
+      "_id": "64270efff52081711040db16",
+      "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
+      "surveyName": "Empresa Y",
+      "category": "Encuesta de clima laboral",
+      "status": false,
+      "surveyItemList": [
+        {
+          "question": "Considera nuestra compañia un buen lugar para trabajar?",
+          "responseType": "Booleana"
+        },
+        {
+          "question": "Cual es el grado de satisfacción que le ta pertenecer a nuestra empresa",
+          "responseType": "Numerica"
+        },
+        {
+          "question": "Considera el ambiente generado por los lideres de la compañia es:",
+          "responseType": "Cualitativa"
+        },
+        {
+          "question": "Por ultimo dejenos un comentario que crea relevante",
+          "responseType": "Texto Libre"
+        }
+      ],
+      "surveyAnswerList": [],
+      "__v": 0
+    },
+    {
+      "_id": "64270fa7f52081711040db19",
+      "surveyName": "Post Venta Concesionario Y",
+      "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
+      "category": "Satisfacción de un servicio",
+      "status": false,
+      "surveyItemList": [
+        {
+          "question": "Como puntuaria el servicio brindado por nuestros representantes",
+          "responseType": "Cualitativa"
+        },
+        {
+          "question": "Nos elegiría nuevamente para comprar un nuevo vehiculo",
+          "responseType": "Booleana"
+        },
+        {
+          "question": "Dejenos su opinion",
+          "responseType": "Texto Libre"
+        }
+      ],
+      "surveyAnswerList": [],
+      "__v": 0
+    },
+    {
+      "_id": "64271292f52081711040db1e",
+      "surveyName": "Peluquerias Caninas",
+      "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
+      "category": "Investigacion",
+      "status": false,
+      "surveyItemList": [
+        {
+          "question": "Utiliza el servicio de peluquerías caninas?",
+          "responseType": "Booleana"
+        },
+        {
+          "question": "Conoce varias ofertas de este servicio?",
+          "responseType": "Booleana"
+        },
+        {
+          "question": "Cual es el grado de conformidad que tiene con el servicio que utiliza en la actualidad",
+          "responseType": "Numerica"
+        }
+      ],
+      "surveyAnswerList": [],
+      "__v": 0
+    }
+  ]
