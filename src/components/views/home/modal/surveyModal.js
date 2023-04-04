@@ -37,6 +37,7 @@ const SurveyModal = (props) => {
                 <Form.Control
                   type="text"
                   placeholder="Ingrese la pregunta aqui"
+                  maxLength="100"
                   name="question"
                   autoFocus
                   onChange={(e) => {

@@ -38,6 +38,7 @@ function ModalEdit(props) {
                   name="question"
                   defaultValue={props.surveyItemList.data.question}
                   autoFocus
+                  maxLength="100"
                   onChange={(e) => {
                     setIndex(
                       props.surveyItemList.surveyItemList.indexOf(

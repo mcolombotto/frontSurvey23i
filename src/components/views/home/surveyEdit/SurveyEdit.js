@@ -22,7 +22,6 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const { id } = useParams();
 
   const surveyNameRef = useRef("");
-  const categoryRef = useRef("");
 
   const navigate = useNavigate();
 
@@ -109,6 +108,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
             <Form.Control
               type="text"
               placeholder=""
+              maxLength="50"
               defaultValue={survey.surveyName}
               ref={surveyNameRef}
             />

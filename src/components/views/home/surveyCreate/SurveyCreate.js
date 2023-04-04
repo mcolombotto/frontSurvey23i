@@ -28,7 +28,6 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
 
   const [answerList, setAnswerList] = useState([]);
 
-
   const deleteSurveyItem = (itemName) => {
     let filteredArray = surveyItemList.filter(
       (surveyItem) => surveyItem !== itemName
@@ -53,14 +52,11 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
     console.log("Submit");
     e.preventDefault();
 
- 
-    if (
-      !validateSurveyName(inputs.surveyName)
-    ) {
+    if (!validateSurveyName(inputs.surveyName)) {
       Swal.fire("Oop!!", "Some data is invalid", "Error");
       return;
     }
-   
+
     const newSurvey = {
       surveyName: inputs.surveyName,
       category: inputs.category,
@@ -81,14 +77,8 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-
-
           console.log(result.isConfirmed, "Enviando a BD", URL);
-          const res = await axios.post(
-            URL,
-            newSurvey 
-
-          );
+          const res = await axios.post(URL, newSurvey);
           console.log(res.status, res.status === 201);
 
           if (res.status === 201) {
@@ -120,25 +110,24 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
     <div className>
       <Container className="py-5">
         <div className="d-flex justify-content-between  ">
-
-        <h1>Crear una nueva encuesta</h1>
-        <Link to="/survey/table"
-                  
-                  className="m-2 btn-red text-decoration-none text-center"
-                >
-                  
-                  <Button variant="secondary" >Volver </Button>
-                </Link>{/*  */}
+          <h1>Crear una nueva encuesta</h1>
+          <Link
+            to="/survey/table"
+            className="m-2 btn-red text-decoration-none text-center"
+          >
+            <Button variant="secondary">Volver </Button>
+          </Link>
+          {/*  */}
         </div>
         <hr />
         <Form className="my-5" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="Text">
             {" "}
-          
             <Form.Label>Nombre de la encuesta</Form.Label>
             <Form.Control
               type="text"
               name="surveyName"
+              maxLength="50"
               required
               value={JSON.parse(localStorage.getItem("surveyName"))}
               onChange={(e) => {
@@ -181,19 +170,15 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
             </FormGroup>
           </Form.Group>
           <div className="text-end">
-
             <SurveyModal
               surveyItemList={surveyItemList}
               setSurveyItem={setSurveyItem}
               surveyItem={surveyItem}
-
               setSurveyItemList={setSurveyItemList}
               handleSubmit={handleSubmit}
             ></SurveyModal>
-
           </div>
         </Form>
-
       </Container>
     </div>
   );
