@@ -1,0 +1,13 @@
+.menu{
+  background: rgb(10,10,10);
+  background: linear-gradient(90deg, rgba(10,10,10,1) 19%, rgba(5,5,54,1) 44%, rgba(3,3,40,1) 83%);
+}
+.cantainer-link-nav{
+  padding: 0px 90px 0px 0px;
+}
+
+.aLink{
+  text-decoration: none;
+  color: var(--bs-navbar-active-color);
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
