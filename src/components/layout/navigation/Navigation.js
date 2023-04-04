@@ -22,7 +22,7 @@ function Navigation()  {
         <Navbar className='menu' variant="dark" expand="lg">
             <Container>
                 <Navbar.Brand>
-                    <Logo/>
+                    <Logo />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar-nav" />
                 <Navbar.Collapse id="navbar-nav">
@@ -74,4 +74,3 @@ function Navigation()  {
 
 
 export default Navigation;
-
