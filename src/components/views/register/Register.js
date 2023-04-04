@@ -1,118 +1,165 @@
-import React, { useState } from "react";
-import { Alert, Container, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import axios from "../../../config/axiosInit";
-import { validateUsername, validateEmail, validatePassword } from '../../helpers/validateUser'
+import React, { useState, useContext } from 'react';
+import UserContext from '../../layout/context/UserContext';
+import { useForm } from "react-hook-form";
+import { Container, Form } from "react-bootstrap";
+import './Register.css';
+import { FaEye } from "react-icons/fa"
+import { FaEyeSlash } from "react-icons/fa"
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
-const Register = ({ setLoggedUser }) => {
-  const [inputs, setInputs] = useState({});
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const URL = process.env.REACT_APP_API_SURVEYS_USER
+const Register = () => {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
-  };
+    const [errorPassword, setErrorPassword] = useState(false);
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [typeInput, setTypeInput] = useState('password')
 
-  const navigate = useNavigate();
+    const context = useContext(UserContext);
+    const navigate = useNavigate()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(inputs);
-    if (
-        !validateUsername(inputs.username) ||
-        !validateEmail(inputs.email) ||
-        !validatePassword(inputs.password)
-      ) {
-        Swal.fire("Oops!!", "Algún dato está incorrecto", "Error");
-        return;
-      }
+    const URL = process.env.REACT_APP_API_SURVEYS_USER;
 
-    const newUser = {
-      username: inputs.username,
-      email: inputs.email,
-      password: inputs.password,
-    };
-    try {
-      const res = await axios.post(`${URL}/register`, newUser);
-      console.log(res);
-      if (res.status === 201) {
-        Swal.fire("Creado!", "Tu usuario ha sido creado.", "éxito");
+    const onSubmit = data => {
+        setErrorPassword(false);
     
-        const data = res.data 
-        console.log(data);
-        localStorage.setItem("user-token", JSON.stringify(data));
-        setLoggedUser(data);
-        navigate("/survey/table");
-      }
-    } catch (error) {
-      console.log(error);
-      setError(true);
-      error.response.data?.message && setErrorMessage(error.response.data?.message)
+        if (data.password1 !== data.password2) {
+            setErrorPassword(true);
+        } else {
+            fetch('https://randomuser.me/api/')
+                .then((resp) => resp.json())
+                .then(async (data) => {
+                    const myUser = {
+                        username: data.results[0].login.username,
+                        email: email,
+                        password: password,
+                        uuid: data.results[0].login.uuid,
+                        img: data.results[0].picture.large,
+                        role:'user_role',
+                        estate: true
+                    } 
+                    context.setUser(myUser)
+                    
+                    reset(formValues => ({
+                        ...formValues,
+                        name: '',
+                        email: '',
+                        password1: '',
+                        password2: '',
+                    }));
+
+                    if(context.user){
+                        try {
+                            const res = await fetch(URL, {
+                                method: 'POST',
+                                headers: {
+                                    'content-type': 'application/json'
+                                },
+                                body: JSON.stringify(context.user),
+                            })
+                            const info = await res.json();
+                            console.log('info', info);
+                            Swal.fire(`Tu registro fue exitoso`)
+                            setTimeout(() => { navigate("/") }, 2500)
+                        } catch (error) {
+                            console.log(error);
+                            alert('Ocurrió un problema, vuelve a intentarlo.')
+                        }
+                    };
+                  
+                    
+
+                })
+                .catch(error => console.error(error))    
+        }
     }
-  };
+      
+    return (
+        <Container className="py-5">
+            <div className='form-container row mainRegister'>
+                <form className="my-5 form col-sm-8 col-lg-6" onSubmit={handleSubmit(onSubmit)}>
+                    <div className='mb-3'>
+                        <h1 className='text-center'>Registro</h1>
+                    </div>
+                    <div className='mb-3'>
+                        <Form.Label>Nombre de usuario<span className='text-danger font-weight-bold'>*</span> </Form.Label>
+                        <input 
+                            className="form-control " 
+                            placeholder="Ej: John Perez"
+                            {...register("name", { required: true, maxLength: 100, pattern: /^[A-Za-z\s?]+$/ })}
+                        />
+                       
+                        {errors.name && errors.name.type === 'required' && <span className='error'>Este campo es requerido. </span>}
+                        {errors.name && errors.name.type === 'maxLength' && <span className='error'>Este campo tiene un máximo de 60 </span>}
+                        {errors.name && errors.name.type === 'pattern' && <span className='error'>En este campo sólo puedes ingresar letras</span>}
+                        
+                    </div>
+                    <div className='mb-3'>
+                        <Form.Label>Email<span className='text-danger font-weight-bold'>*</span></Form.Label>
+                        <input 
+                            className="form-control " 
+                            type='email'
+                            placeholder="Ej: John_Perez@email.com"
+                            onBlurCapture={(e) => setEmail(e.target.value)}
+                            {...register("email", { required: true, maxLength: 100, pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ })} 
+                        />
+                        {errors.email && errors.email.type === 'required' && <span className='error'>Este campo es requerido. </span>}
+                        {errors.email && errors.email.type === 'maxLength' && <span className='error'>Este campo tiene un máximo de 60 caracteres</span>}
+                        {errors.email && errors.email.type === 'pattern' && <span className='error'> El correo tiene un formato incorrecto. Formato esperado: email@email.com </span>}
+                    </div>
+                    <div className='mb-3 position-relative'>
+                        <Form.Label>Contraseña<span className='text-danger font-weight-bold'>*</span></Form.Label>
+                        <input 
+                            className="form-control " 
+                            type={typeInput}
+                            onBlurCapture={(e)=>setPassword(e.target.value)}
+                            {...register("password1", { required: true, maxLength: 100, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,90}/ })} 
+                        />
+                        <button
+                            type="button"
+                            className='position-absolute buttonPosition btn'
+                            onClick={() => { typeInput === 'password' ? setTypeInput('text') : setTypeInput('password') }}
+                        > 
+                            {typeInput === 'password' ? <FaEyeSlash /> : < FaEye />}
+                        </button>
+                        {errors.password1 && errors.password1.type === 'required' && <span className='error'>Este campo es requerido. </span>}
+                        {errors.password1 && errors.password1.type === 'maxLength' && <span className='error'> Este campo tiene un máximo de 90 caracteres</span>}
+                        {errors.password1 && errors.password1.type === 'pattern' && (
+                            <span className='error'>
+                                La contraseña no es válida. Esta debe tener mínimo 8 caracteres, al menos una letra mayúscula,
+                                al menos una letra minúscula y al menos un caracter especial (@$!%*?&)
+                            </span>
+                        )}
+                    </div>
+                    <div className='mb-3 position-relative'>
+                        <Form.Label>Repetir contraseña<span className='text-danger font-weight-bold'>*</span></Form.Label>
+                        <input 
+                            className="form-control " 
+                            type={typeInput}
+                            {...register("password2", { required: true, maxLength: 90, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,90}$/ })} 
+                        />
+                        {errors.password2 && errors.password2.type === 'required' && <span className='error'>Este campo es requerido. </span>}
+                        {errors.password2 && errors.password2.type === 'maxLength' && <span className='error'>Este campo tiene un máximo de 90 caracteres</span>}
+                        {errors.password2 && errors.password2.type === 'pattern' && <span className='error'>La contraseña no es válida. Esta debe tener mínimo 8 caracteres,
+                            al menos una letra mayúscula, al menos una letra minúscula y al menos un caracter especial (@$!%*?&)</span>}
+                        {errorPassword && <span className='error'>Las contraseñas no coinciden</span>}
+                        <button
+                            type="button"
+                            className='position-absolute buttonPosition btn'
+                            onClick={() => { typeInput === 'password' ? setTypeInput('text') : setTypeInput('password') }}
+                        >
+                            {typeInput === 'password' ? <FaEyeSlash /> : < FaEye />}
+                        </button>
+                    </div>
+                    <div>
+                        <button className="btn btn-danger" type="submit"> Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </Container >
+       
+    );
+}
 
-  return (
-    <div>
-      <Container className="py-5">
-        <h1>Register</h1>
-        <hr />
-        <Form className="my-5" onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicUserName">
-            <Form.Label>Username*</Form.Label>
-            <Form.Control
-              type="text"
-              minlength="6"
-              maxlength="100"
-              placeholder="Ej: JohnDoe"
-              required
-              name="username"
-              value={inputs.username || ""}
-              onChange={(e) => handleChange(e)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email*</Form.Label>
-            <Form.Control
-              type="text"
-              pattern="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/"
-              placeholder="johndoe@gmail.com"
-              required
-              name="email"
-              value={inputs.email || ""}
-              onChange={(e) => handleChange(e)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password*</Form.Label>
-            <Form.Control
-              type="password"
-              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,100}"
-              placeholder="Ej: Ingrese su password"
-              required
-              name="password"
-              value={inputs.password || ""}
-              onChange={(e) => handleChange(e)}
-            />
-          </Form.Group>
-          <Link to="/auth/login" className="btn-primary text-decoration-none">
-            Back to login
-          </Link>
-          <div className="text-center">
-            <button className="btn-yellow">Send</button>
-          </div>
-        </Form>
-        {error ? (
-        <Alert variant="danger" onClick={() => setError(false)} dismissible>
-          {errorMessage}
-        </Alert>
-      ) : null}
-      </Container>
-    </div>
-  );
-};
-
-export default Register;
+export default Register

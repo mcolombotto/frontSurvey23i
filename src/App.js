@@ -15,10 +15,12 @@ import SurveyCreate from "./components/views/home/surveyCreate/SurveyCreate";
 import SurveyEdit from "./components/views/home/surveyEdit/SurveyEdit";
 import SurveyDetails from "./components/views/home/surveyDetails/SurveyDetails";
 import axios from "axios";
+import UserContext from './components/layout/context/UserContext'
 
 function App() {
   const [surveys, setSurveys] = useState([]);
   const [loggedUser, setLoggedUser] = useState({});
+  const [user, setUser] = useState({});
 
   const URL = process.env.REACT_APP_API_SURVEYS;
 
@@ -38,6 +40,7 @@ function App() {
   };
 
   return (
+    <UserContext.Provider value={{ user, setUser }}>
     <div>
       <BrowserRouter>
         <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
@@ -81,7 +84,7 @@ function App() {
             />
             <Route
               exact
-              path="/auth/register"
+              path="/register"
               element={<Register setLoggedUser={setLoggedUser} />}
             />
             <Route exact path="*" element={<Error404 />} />
@@ -96,6 +99,7 @@ function App() {
         <Footer />
       </BrowserRouter>
     </div>
+    </UserContext.Provider>
   );
 }
 
