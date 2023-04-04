@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import UserContext from '../../layout/context/UserContext';
 import { useForm } from "react-hook-form";
 import { Container, Form } from "react-bootstrap";
@@ -36,7 +36,10 @@ const Register = () => {
                         email: data.email,
                         password: data.password1
                     }),
-                })
+                });
+
+                const response = await res.json();
+                const { token, uid, userName, message } = response;
 
                 if (res.status === 200) {
                     reset(formValues => ({
@@ -46,24 +49,40 @@ const Register = () => {
                         password1: '',
                         password2: '',
                     }));
-
-                    const { token, uid, userName } = await res.json();
                     
+                    localStorage.setItem('token', token);
+
                     context.setUser({
-                        token, // TODO: Guardarlo en localstorage y quitarlo del usuario guardado
                         uuid: uid,
                         username: userName,
                         email: data.email,
                         estate: true,
                         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUJt3kjJp8q750SzS-kr7cMITugGpEh-Vdq0NeWS4&s'
                     });
-                    Swal.fire(`Tu registro fue exitoso`)
-                    setTimeout(() => { navigate("/") }, 2500)
+
+                    Swal.fire(message);
+                    return setTimeout(() => { navigate("/") }, 2500)
+                } 
+
+                if (res.status === 400) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: message,
+                    })
                 } else {
-                    alert('ocurrio un problema, vuelve a intentarlo.')
-                }
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Ocurrio un problema, vuelve a intentarlo!',
+                    })
+                };
             } catch (error) {
-                alert('ocurrio un problema, vuelve a intentarlo.')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'El envío de datos falló!',
+                })
             }
        };
     }
@@ -129,7 +148,7 @@ const Register = () => {
                             <input
                                 className="form-control "
                                 type={typeInput}
-                                {...register("password2", { required: true, maxLength: 90, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,90}$/ })}
+                                {...register("password2", { required: true, maxLength: 100, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,90}$/ })}
                             />
                             {errors.password2 && errors.password2.type === 'required' && <span className='error'>Este campo es requerido. </span>}
                             {errors.password2 && errors.password2.type === 'maxLength' && <span className='error'>Este campo tiene un maximo de 90 caracteres</span>}

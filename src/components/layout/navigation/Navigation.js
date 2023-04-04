@@ -12,6 +12,12 @@ import Logo from "../logo/Logo";
 function Navigation()  {
     const context = useContext(UserContext);
     const { img: urlImg, username, estate: loggedUser } = context.user;
+
+    const handleLogout = () => {
+        context.setUser({});
+        localStorage.removeItem('token');
+    }
+
     return (
         <Navbar className='menu' variant="dark" expand="lg">
             <Container>
@@ -22,7 +28,7 @@ function Navigation()  {
                 <Navbar.Collapse id="navbar-nav">
                     <Nav className='ms-auto'>
                             <Link className="nav-link" to="/">Home</Link>
-                            <NavDropdown title="Plantillas" id="nav-dropdown">
+                            <NavDropdown title="Plantillas"  id="nav-dropdown">
                                 <NavDropdown.Item to="*">Estudios de mercado</NavDropdown.Item>
                                 <NavDropdown.Item to="*">
                                 Evaluación de eventos
@@ -38,8 +44,8 @@ function Navigation()  {
                                 </>
                             )}
                             {loggedUser && (
-                                <Dropdown className="d-inline mx-2">
-                                    <Dropdown.Toggle id="dropdown-autoclose-true" className="btn btn-dark">
+                                <Dropdown className="d-inline">
+                                    <Dropdown.Toggle id="dropdown-autoclose-true" className="btn btn-dark p-1">
                                         <span>{username}</span>
                                         <img
                                             src={urlImg}
@@ -53,7 +59,7 @@ function Navigation()  {
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
-                                        <NavDropdown.Item as="button" onClick={() => context.setUser({})}>
+                                        <NavDropdown.Item as="button" onClick={handleLogout}>
                                             Cerrar sesion
                                         </NavDropdown.Item>
                                     </Dropdown.Menu>

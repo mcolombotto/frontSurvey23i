@@ -11,9 +11,11 @@ import UserContext from './components/layout/context/UserContext'
 import Login from './components/views/login/Login'
 
 function App() {
-    const [user, setUser] = React.useState({});
-    console.log('>user', user);
-   
+  const [user, setUser] = React.useState({});
+  const token = localStorage.getItem('token');
+  console.log('user', user);
+  console.log('token',token);
+
   return (
       <UserContext.Provider value={{ user, setUser }}>
         <Router>
