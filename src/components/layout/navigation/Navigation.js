@@ -22,13 +22,13 @@ function Navigation() {
                 <Navbar.Collapse id="navbar-nav">
                     <Nav className='ms-auto'>
                         <Link className="nav-link" to="/">Home</Link>
-                        <NavDropdown title="Plantillas" id="nav-dropdown">
-                            <NavDropdown.Item to="*">Estudios de mercado</NavDropdown.Item>
+                        <NavDropdown title="Encuestas" id="nav-dropdown">
+                            <NavDropdown.Item to="*">Clima laboral</NavDropdown.Item>
                             <NavDropdown.Item to="*">
-                                Evaluación de eventos
+                                Satisfacciòn de un servicio
                             </NavDropdown.Item>
                             <NavDropdown.Item to="*">
-                                Evaluación del profesor
+                                Investigaciòn
                             </NavDropdown.Item>
                         </NavDropdown>
                         {!loggedUser && (
