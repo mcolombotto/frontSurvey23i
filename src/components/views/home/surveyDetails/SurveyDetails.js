@@ -30,6 +30,13 @@ const SurveyDetails = ({ URL }) => {
         {survey.surveyName}
       </h1>
 
+      <Link to="/survey/table"
+                  className="d-flex justify-content-end text-decoration-none text-center"
+                 
+                >
+                  
+                  <Button variant="secondary" >Volver </Button>
+                </Link>
       <div className="d-flex align-items-center justify-content-between">
         <p className="my-4 fs-4"> Categoria de encuesta : {survey.category}</p>
       </div>

@@ -11,7 +11,7 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
         <h1 className="text-center">Tabla de Encuestas</h1>
       <div className="d-flex align-items-center justify-content-between">
         <Link
-          to="/survey/createCategory"
+          to="/category/table"
           className="btn-red text-decoration-none text-center"
         > <Button variant="primary">
           Nueva Categoria

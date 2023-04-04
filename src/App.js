@@ -16,18 +16,28 @@ import Register from "./components/views/register/Register";
 import Error404 from "./components/views/error404/Error404";
 import CategoryTable from "./components/views/home/categoryTable/categoryTable";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
+import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [surveys, setSurveys] = useState([]);
   const [loggedUser, setLoggedUser] = useState({});
-  const [categoryItem, setCategoryItem] = useState("");
+  const [categoryItem, setCategoryItem] = useState({
+    categoryName : "",
+    categoryStatus : "",
+  });
+
   const [categoryItemList, setCategoryItemList] = useState([
-    "Encuesta de clima laboral",
-    "Satisfacción de un servicio",
-    "Investigacion",
-  ]);
+/*     { categoryName : "Encuesta de clima laboral",
+      categoryStatus : true},
+      {categoryName : "Satisfacción de un servicio",
+      categoryStatus : true},
+      {categoryName : "Investigacion",
+      categoryStatus : true}
+  */ ]);
 
   const URL = process.env.REACT_APP_API_SURVEYS;
+
+  const URL2 = process.env.REACT_APP_API_CATEGORY;
 
   useEffect(() => {
     //llamado a la API
@@ -41,9 +51,12 @@ function App() {
       setProducts(productApi);
        */
       const res = await axios.get(URL);
+      const cat = await axios.get(URL2);
       //console.log(res.data);
       const surveyApi = res.data;
+      const categoryApi = cat.data;
       setSurveys(surveyApi);
+      setCategoryItemList(categoryApi);
     } catch (error) {
       // console.log(error);
     }
@@ -72,7 +85,12 @@ function App() {
                   path="/category/table"
                   element={
                     <CategoryTable categoryItemList={categoryItemList}
-                    categoryItem={categoryItem} />
+                    setCategoryItemList={setCategoryItemList} 
+                    categoryItem = {categoryItem}
+                    setCategoryItem = {setCategoryItem}
+                    getApi={getApi}
+                    URL = {URL2}
+                    />
                   }
                 />
                 <Route

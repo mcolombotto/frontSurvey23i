@@ -122,9 +122,15 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
                 setSurvey({ ...survey, category: target.value })
               }
             >
-              {categoryItemList.map((categoryItem) => (
-                <option value={categoryItem}>{categoryItem} </option>
-              ))}
+              {categoryItemList.map((categoryItem) => {
+                return categoryItem.categoryStatus ? (
+                  <option value={categoryItem.categoryName}>
+                    {categoryItem.categoryName}{" "}
+                  </option>
+                ) : (
+                  <></>
+                );
+              })}
             </Form.Select>
           </Form.Group>
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "../../../config/axiosInit";
 import {
@@ -17,18 +17,16 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(true);
 
- 
-
   //Preguntas
   const [surveyItem, setSurveyItem] = useState({
     question: "",
     responseType: "",
   });
-  const [surveyItemList, setSurveyItemList] = useState(JSON.parse(localStorage.getItem("newSurveyItemList"))||[]);
+  const [surveyItemList, setSurveyItemList] = useState(
+    JSON.parse(localStorage.getItem("newSurveyItemList")) || []
+  );
   //Respuestas
   const [answerList, setAnswerList] = useState([]);
-
- 
 
   // Borrar item de la lista de preguntas
   const deleteSurveyItem = (itemName) => {
@@ -37,7 +35,7 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
     );
     setSurveyItemList(filteredArray);
     localStorage.setItem("newSurveyItemList", JSON.stringify(filteredArray));
-    console.log("se borra en LS")
+    console.log("se borra en LS");
   };
 
   const navigate = useNavigate();
@@ -54,7 +52,7 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const handleSubmit = (e) => {
     console.log("Submit");
     e.preventDefault();
-    
+
     //validar los campos
     if (
       !validateSurveyName(inputs.surveyName) /* ||
@@ -113,7 +111,7 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
               "success"
             );
             //resetear el form
-           /*  e.target.reset(); */
+            /*  e.target.reset(); */
             //recargar la tabla
             getApi();
             //navegar hasta la tabla
@@ -134,14 +132,20 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   };
 
   return (
-    
-
-
-    <div  className>
+    <div className>
       <Container className="py-5">
+        <div className="d-flex justify-content-between  ">
+
         <h1>Crear una nueva encuesta</h1>
+        <Link to="/survey/table"
+                  
+                  className="m-2 btn-red text-decoration-none text-center"
+                >
+                  
+                  <Button variant="secondary" >Volver </Button>
+                </Link>{/*  */}
+        </div>
         <hr />
-        {/* Form Survey */}
         <Form className="my-5" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="Text">
             {" "}
@@ -166,9 +170,15 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
                 handleChange(e);
               }}
             >
-              {categoryItemList.map((categoryItem) => (
-                <option value={categoryItem}>{categoryItem} </option>
-              ))}
+              {categoryItemList.map((categoryItem) => {
+                return categoryItem.categoryStatus ? (
+                  <option value={categoryItem.categoryName}>
+                    {categoryItem.categoryName}{" "}
+                  </option>
+                ) : (
+                  <></>
+                );
+              })}
             </Form.Select>
 
             <FormGroup>

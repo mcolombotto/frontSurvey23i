@@ -130,7 +130,7 @@ const Survey = ({ survey, URL, getApi }) => {
           <Button
             variant="primary"
             className=" mx-1"
-            onClick={() => handleDelete(survey._id)}
+            
           >
             <FontAwesomeIcon icon={faChartLine} />
           </Button>
