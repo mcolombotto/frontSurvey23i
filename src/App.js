@@ -17,20 +17,22 @@ function App() {
   console.log('token',token);
 
   return (
+    <div className='app'>
       <UserContext.Provider value={{ user, setUser }}>
         <Router>
             <Navigation />
-            <main>
-            <Routes>
-                <Route exact path='/' element={ <Home/> }/>
-                <Route exact path='/register' element={<Register/>}/>
-                <Route exact path='*' element={<Error404/> }/>
-                <Route exact path='/login' element={<Login/>} />
-            </Routes>
+            <main className='content'>
+              <Routes>
+                  <Route exact path='/' element={ <Home/> }/>
+                  <Route exact path='/register' element={<Register/>}/>
+                  <Route exact path='*' element={<Error404/> }/>
+                  <Route exact path='/login' element={<Login/>} />
+              </Routes>
             </main>
             <Footer/>
         </Router>   
       </UserContext.Provider>
+    </div> 
   );
 }
 
