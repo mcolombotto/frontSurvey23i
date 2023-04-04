@@ -12,11 +12,10 @@ function ModalEdit(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  /*   console.log("ELEMENTO CLICKEADO", props.question);*/
   console.log(
     props.surveyItemList.surveyItemList.indexOf(props.surveyItemList.data)
   );
-  /*  console.log(props); */
+
   return (
     <div>
       <>

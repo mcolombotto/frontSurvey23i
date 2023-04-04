@@ -41,18 +41,6 @@ const SurveyItem = (props) => {
         </div>
       </ListGroup.Item>
 
-      {/*    <Form.Control
-          type="text"
-          className="me-2"
-          placeholder="Escriba aqui el cuerpo de la pregunta"
-          name="surveyItemName"
-          onChange={(e) => {props.setSurveyItem(e.target.value);
-            console.log(e.target.value)
-            console.log(props.surveyItemList);
-          console.log(props.SurveyItemList);
-        }}
-          
-        /> */}
     </>
   );
 };

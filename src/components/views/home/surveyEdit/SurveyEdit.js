@@ -26,7 +26,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
 
   const navigate = useNavigate();
 
-    // Borrar item de la lista de preguntas
+   
     const deleteSurveyItem = (itemName) => {
       let filteredArray = surveyItemList.filter(
         (surveyItem) => surveyItem !== itemName
@@ -59,12 +59,12 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
 
     if (
       !validateSurveyName(surveyNameRef.current.value) 
-      /* !validateCategory(categoryRef.current.value) */
+
     ) {
       Swal.fire("Ops!", "Some data is invalid.", "error");
       return;
     }
-    //guardar el objeto
+
     const surveyUpdated = {
       surveyName: surveyNameRef.current.value,
       category: survey.category,
@@ -102,7 +102,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
       <Container className="py-5">
         <h1>Editar Encuesta</h1>
         <hr />
-        {/* Form Product */}
+ 
         <Form className="my-5" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formSurveyName">
             <Form.Label>Nombre de la Encuesta</Form.Label>

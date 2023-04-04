@@ -39,11 +39,6 @@ const Survey = ({ survey, URL, getApi }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          //la petición delete con fetch
-          /*  const res = await fetch(`${URL}/${id}`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-          }); */
 
           const res = await axios.delete(`${URL}/${id}`, {
             //TOKEN PARA QUE SOLO EL ADMIN PUEDA BORRAR
@@ -56,12 +51,12 @@ const Survey = ({ survey, URL, getApi }) => {
 
           if (res.status === 200) {
             Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            //volver a recargar la tabla
+
             getApi();
           }
         } catch (error) {
           console.log(error);
-          //agregar cartel al usuario que informe del error
+
         }
       }
     });

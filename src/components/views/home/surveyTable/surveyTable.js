@@ -57,7 +57,7 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
         </Table>
       ) : (
         <div className="no-products-found d-flex align-items-center justify-content-center">
-          {/* No products found message */}
+
           <h1> 🤷‍♂️No hay encuestas guardadas </h1>
         </div>
       )}

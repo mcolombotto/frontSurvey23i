@@ -40,9 +40,7 @@ const SurveyModal = (props) => {
                   name="question"
                   autoFocus
                   onChange={(e) => {
-                    /* console.log(e.target.name);
-                    console.log(e.target.value);
-                    console.log(props.surveyItem); */
+
                     props.surveyItem.question = e.target.value;
                     props.setSurveyItem(props.surveyItem);
                     
@@ -58,9 +56,7 @@ const SurveyModal = (props) => {
 
                     props.surveyItem.responseType = e.target.value;
                     props.setSurveyItem(props.surveyItem);
-                    /* console.log(props.surveyItem)
-                    props.surveyItem.responseType = "";
-                    console.log(props.surveyItem) */
+
                   }}>
                   <option >Tipo de respuesta</option>
                   <option value="Booleana">Si / No</option>

@@ -47,10 +47,7 @@ const SurveyDetails = ({ URL }) => {
             data={question}
             key={index}
             surveyItemList={survey.surveyItemList}
-            responseType={responseType} /* 
-            surveyItemList={props.surveyItemList}
-            setSurveyItem={props.setSurveyItem}
-            deleteSurveyItem={props.deleteSurveyItem} */
+            responseType={responseType} 
           ></SurveyPreview>
         ))
       ) : (
