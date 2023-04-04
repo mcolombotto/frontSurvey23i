@@ -19,6 +19,7 @@ const SurveyList = (props) => {
         ></SurveyItem>
         ))}
         </ListGroup>
+    
   );
 };
 
