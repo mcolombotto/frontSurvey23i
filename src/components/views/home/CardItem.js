@@ -16,7 +16,7 @@ function Card({ _id,imageSource, surveyName }) {
         <button target="_blank"
           className="btn btn-outline-secondary border-0"
           rel="noreferrer"
-          onClick={() => navigate(``)}>
+          onClick={() => navigate(`/survey/${_id}`)}>
               Ir a {surveyName}
           </button>
 
