@@ -8,11 +8,11 @@ import Error404 from './components/views/error404/Error404'
 import Footer from './components/layout/footer/Footer';
 import Register from './components/views/register/Register'
 import UserContext from './components/layout/context/UserContext'
-import Us from './components/views/us/Us'
 import Login from './components/views/login/Login'
 
 function App() {
     const [user, setUser] = React.useState({});
+    console.log('>user', user);
    
   return (
       <UserContext.Provider value={{ user, setUser }}>
@@ -24,7 +24,6 @@ function App() {
                 <Route exact path='/register' element={<Register/>}/>
                 <Route exact path='*' element={<Error404/> }/>
                 <Route exact path='/login' element={<Login/>} />
-                <Route exact path='/nosotros' element={<Us/>} />
             </Routes>
             </main>
             <Footer/>

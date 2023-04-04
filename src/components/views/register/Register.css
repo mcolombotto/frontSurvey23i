@@ -1,5 +1,9 @@
 .mainRegister{
-    background-color: #e92b2d;
+background: rgb(255,255,255);
+background: radial-gradient(circle, rgba(255,255,255,1) 41%, rgba(205,255,224,1) 100%);
+}
+.register{
+    background-color: #EFFFF5;
 }
 .form-container {
 	min-height: 100vh;
@@ -14,7 +18,7 @@
 	background: #fff;
 	border-radius: 5px;
 	padding: 20px;
-	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 21px;
     font-family: 'Questrial', sans-serif;
 }
 
