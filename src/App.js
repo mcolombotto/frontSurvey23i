@@ -14,6 +14,7 @@ import Footer from "./components/layout/footer/Footer";
 import Login from "./components/views/login/Login";
 import Register from "./components/views/register/Register";
 import Error404 from "./components/views/error404/Error404";
+import CategoryTable from "./components/views/home/categoryTable/categoryTable";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 
 function App() {
@@ -64,6 +65,14 @@ function App() {
                   path="/survey/table"
                   element={
                     <SurveysTable surveys={surveys} URL={URL} getApi={getApi} />
+                  }
+                />
+                <Route
+                  exact
+                  path="/category/table"
+                  element={
+                    <CategoryTable categoryItemList={categoryItemList}
+                    categoryItem={categoryItem} />
                   }
                 />
                 <Route

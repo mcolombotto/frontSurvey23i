@@ -144,10 +144,10 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
             <Button className="me-1" variant="secondary" >
               Volver
             </Button>
+            </Link>
             <Button className="ms-1" variant="warning" type="submit">
               Guardar
             </Button>
-            </Link>
           </div>
         </Form>
       </Container>
