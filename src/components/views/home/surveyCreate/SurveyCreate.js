@@ -55,8 +55,7 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
 
     //validar los campos
     if (
-      !validateSurveyName(inputs.surveyName) /* ||
-      !validateCategory(inputs.category) */
+      !validateSurveyName(inputs.surveyName)
     ) {
       Swal.fire("Oop!!", "Some data is invalid", "Error");
       return;
@@ -154,6 +153,7 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
             <Form.Control
               type="text"
               name="surveyName"
+              required
               value={JSON.parse(localStorage.getItem("surveyName"))}
               onChange={(e) => {
                 handleChange(e);
