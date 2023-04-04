@@ -73,7 +73,7 @@ const Login = () => {
     return (
         <div className='login'>
             <Container className="py-5 ">
-                <div className='form-container row justify-content-center'>
+                <div className='row justify-content-center'>
                     <div className='mb-3'>
                         <h1 className='text-center'>Login</h1>
                     </div>
