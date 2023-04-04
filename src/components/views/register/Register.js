@@ -170,8 +170,6 @@ const Register = () => {
                 </div>
             </Container >    
         </div>
-        
-       
     )
 }
 
