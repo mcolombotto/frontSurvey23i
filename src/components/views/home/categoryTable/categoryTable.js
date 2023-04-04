@@ -56,7 +56,7 @@ const CategoryTable = ({ setCategoryItemList, categoryItemList, setCategoryItem,
                if (res.status === 201) {
                 Swal.fire("Creada!", "Se creó nueva categoría", "success");
                 getApi();
-                navigate("/category/table"); 
+                navigate(0); 
               }
             } catch (error) {
                 console.log(error);
@@ -65,10 +65,6 @@ const CategoryTable = ({ setCategoryItemList, categoryItemList, setCategoryItem,
     }
         )
 }
-
-
-
-
 
 
 return (
@@ -108,10 +104,13 @@ return (
               ))}
             <tr>
                 <td>
+                    <Form.Group>
+
                 <Form.Control type="text"  placeholder="Nueva categoria" onChange={(e)=>{
                     categoryItem.categoryName = e.target.value;
                     setCategoryItem(categoryItem);
                 }}/>
+                    </Form.Group>
                 </td>
                 <td>
            
@@ -119,9 +118,9 @@ return (
               <td>
                 <Link
                   
-                  className="m-2 btn-red text-decoration-none text-center"
+                  className="m-2 text-decoration-none text-center"
                 >
-                  {" "}
+                 
                   <Button variant="primary" onClick={handleSubmit}>Nueva </Button>
                 </Link>
               </td>

@@ -16,7 +16,6 @@ import Register from "./components/views/register/Register";
 import Error404 from "./components/views/error404/Error404";
 import CategoryTable from "./components/views/home/categoryTable/categoryTable";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
-import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [surveys, setSurveys] = useState([]);
