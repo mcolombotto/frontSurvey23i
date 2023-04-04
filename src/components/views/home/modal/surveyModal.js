@@ -87,12 +87,13 @@ const SurveyModal = (props) => {
                 
                 console.log("ARRAY" , props.surveyItemList);
                 console.log("ITEM" ,props.surveyItem);
+                localStorage.setItem("newSurveyItemList", JSON.stringify([...props.surveyItemList,props.surveyItem]))
                 props.setSurveyItemList([...props.surveyItemList,props.surveyItem]);
                 console.log(props.surveyItemList);
                 props.setSurveyItem({
-                    question : "",
-                    responseType : "",
-                  });
+                  question : "",
+                  responseType : "",
+                });
                 handleClose();
               }}
             >

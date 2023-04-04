@@ -12,27 +12,23 @@ import SurveyList from "../surveyList/surveyList";
 import SurveyModal from "../modal/surveyModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const SurveyCreate = ({ URL, getApi }) => {
+const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(true);
+
+ 
 
   //Preguntas
   const [surveyItem, setSurveyItem] = useState({
     question: "",
     responseType: "",
   });
-  const [surveyItemList, setSurveyItemList] = useState([]);
+  const [surveyItemList, setSurveyItemList] = useState(JSON.parse(localStorage.getItem("newSurveyItemList"))||[]);
   //Respuestas
   const [answerList, setAnswerList] = useState([]);
 
-  //Categorias
-  const [categoryItem, setCategoryItem] = useState("Encuesta de clima laboral");
-  const [categoryItemList, setCategoryItemList] = useState([
-    "Encuesta de clima laboral",
-    "Satisfacción de un servicio",
-    "Investigacion"
-  ]);
+ 
 
   // Borrar item de la lista de preguntas
   const deleteSurveyItem = (itemName) => {
@@ -40,6 +36,8 @@ const SurveyCreate = ({ URL, getApi }) => {
       (surveyItem) => surveyItem !== itemName
     );
     setSurveyItemList(filteredArray);
+    localStorage.setItem("newSurveyItemList", JSON.stringify(filteredArray));
+    console.log("se borra en LS")
   };
 
   const navigate = useNavigate();
@@ -49,6 +47,8 @@ const SurveyCreate = ({ URL, getApi }) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
+
+    localStorage.setItem(event.target.name, JSON.stringify(value));
   };
 
   const handleSubmit = (e) => {
@@ -69,7 +69,6 @@ const SurveyCreate = ({ URL, getApi }) => {
       category: inputs.category,
       status: false,
       surveyItemList: surveyItemList,
-      answerList: answerList,
     };
     console.log("surveyItemList", surveyItemList);
     console.log("newSurvey", newSurvey);
@@ -97,13 +96,13 @@ const SurveyCreate = ({ URL, getApi }) => {
           console.log(result.isConfirmed, "Enviando a BD", URL);
           const res = await axios.post(
             URL,
-            newSurvey , {
+            newSurvey /* , {
               headers: {
                 "Content-Type": "application/json",
                 "x-access-token": JSON.parse(localStorage.getItem("user-token"))
                   .token,
               },
-            }
+            } */
           );
           console.log(res.status, res.status === 201);
 
@@ -135,7 +134,10 @@ const SurveyCreate = ({ URL, getApi }) => {
   };
 
   return (
-    <div className>
+    
+
+
+    <div  className>
       <Container className="py-5">
         <h1>Crear una nueva encuesta</h1>
         <hr />
@@ -148,7 +150,7 @@ const SurveyCreate = ({ URL, getApi }) => {
             <Form.Control
               type="text"
               name="surveyName"
-              value={inputs.surveyName || ""}
+              value={JSON.parse(localStorage.getItem("surveyName"))}
               onChange={(e) => {
                 handleChange(e);
               }}
@@ -159,7 +161,7 @@ const SurveyCreate = ({ URL, getApi }) => {
             <Form.Label>Categoria</Form.Label>
             <Form.Select
               name="category"
-              value={inputs.category || ""}
+              value={JSON.parse(localStorage.getItem("category"))}
               onChange={(e) => {
                 handleChange(e);
               }}
@@ -176,6 +178,8 @@ const SurveyCreate = ({ URL, getApi }) => {
                   surveyItemList={surveyItemList}
                   setSurveyItem={setSurveyItem}
                   deleteSurveyItem={deleteSurveyItem}
+                  surveyItem={surveyItem}
+                  setSurveyItemList={setSurveyItemList}
                 ></SurveyList>
               }
             </FormGroup>
@@ -186,6 +190,7 @@ const SurveyCreate = ({ URL, getApi }) => {
               variant="primary"
                onClick={(e) => {
                 e.preventDefault();
+
                 setSurveyItemList([...surveyItemList, surveyItem]);
                 setSurveyItem(""); 
                

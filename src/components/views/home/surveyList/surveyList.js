@@ -1,6 +1,6 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-import SurveyItem from "../surveyList/surveyItem";
+import SurveyItem from "./surveyItem";
 
 const SurveyList = (props) => {
   return (
@@ -14,10 +14,11 @@ const SurveyList = (props) => {
           surveyItemList={props.surveyItemList}
           setSurveyItem={props.setSurveyItem}
           deleteSurveyItem={props.deleteSurveyItem}
+          surveyItem={props.surveyItem}
+          setSurveyItemList={props.setSurveyItemList}
         ></SurveyItem>
         ))}
         </ListGroup>
-    
   );
 };
 

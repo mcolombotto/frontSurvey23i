@@ -1,3 +1,4 @@
+import { tsIndexedAccessType } from "@babel/types";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -5,18 +6,24 @@ import Modal from "react-bootstrap/Modal";
 import Survey from "../surveyTable/Survey";
 
 function ModalEdit(props) {
+  const [index, setIndex] = useState(0);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  /*   console.log("ELEMENTO CLICKEADO", props.question);*/
+  console.log(
+    props.surveyItemList.surveyItemList.indexOf(props.surveyItemList.data)
+  );
+  /*  console.log(props); */
   return (
     <div>
       <>
-      <Button variant="btn btn-outline-warning me-0" onClick={handleShow}>
+        <Button variant="btn btn-outline-warning me-0" onClick={handleShow}>
           Editar
         </Button>
-        
-        
+
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Modificar pregunta existente</Modal.Title>
@@ -30,14 +37,24 @@ function ModalEdit(props) {
                 <Form.Control
                   type="text"
                   name="question"
-                  value={props.surveyItemList}
+                  defaultValue={props.surveyItemList.data.question}
                   autoFocus
                   onChange={(e) => {
-                    /* console.log(e.target.name);
-                      console.log(e.target.value);
-                      console.log(props.surveyItem); */
-                    props.surveyItem.question = e.target.value;
-                    props.setSurveyItem(props.surveyItem);
+                    setIndex(
+                      props.surveyItemList.surveyItemList.indexOf(
+                        props.surveyItemList.data
+                      )
+                    );
+                    console.log(e.target.name);
+                    console.log(e.target.value);
+                    props.surveyItemList.surveyItem.responseType =
+                      props.surveyItemList.data.responseType;
+                    props.surveyItemList.surveyItem.question = e.target.value;
+                    props.surveyItemList.setSurveyItem(
+                      props.surveyItemList.surveyItem
+                    );
+
+                    console.log(props.surveyItemList.surveyItem);
                   }}
                 />
               </Form.Group>
@@ -47,12 +64,20 @@ function ModalEdit(props) {
               >
                 <Form.Select
                   aria-label="Default select example"
+                  defaultValue={props.surveyItemList.data.responseType}
                   onChange={(e) => {
-                    props.surveyItem.responseType = e.target.value;
-                    props.setSurveyItem(props.surveyItem);
-                    /* console.log(props.surveyItem)
-                      props.surveyItem.responseType = "";
-                      console.log(props.surveyItem) */
+                    setIndex(
+                        props.surveyItemList.surveyItemList.indexOf(
+                          props.surveyItemList.data
+                        )
+                      );
+                      props.surveyItemList.surveyItem.question =
+                      props.surveyItemList.data.question;
+                    props.surveyItemList.surveyItem.responseType =
+                      e.target.value;
+                    props.surveyItemList.setSurveyItem(
+                      props.surveyItemList.surveyItem
+                    );
                   }}
                 >
                   <option>Tipo de respuesta</option>
@@ -77,14 +102,14 @@ function ModalEdit(props) {
               onClick={(e) => {
                 e.preventDefault();
 
-                console.log("ARRAY", props.surveyItemList);
-                console.log("ITEM", props.surveyItem);
-                props.setSurveyItemList([
-                  ...props.surveyItemList,
-                  props.surveyItem,
-                ]);
-                console.log(props.surveyItemList);
-                props.setSurveyItem({
+                props.surveyItemList.surveyItemList.splice(
+                  index,
+                  1,
+                  props.surveyItemList.surveyItem
+                );
+
+
+                props.surveyItemList.setSurveyItem({
                   question: "",
                   responseType: "",
                 });
