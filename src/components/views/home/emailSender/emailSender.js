@@ -33,37 +33,31 @@ const Survey = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const templateParams = {
-      surveyName: survey.surveyName,
-      surveyAnswers: answers.map(answer => ({
-        question: answer.question,
-        answer: typeof answer.answer === "boolean" ? answer.answer.toString() : answer.answer
-      }))
-    };
-    console.log("Template Params:", templateParams);
+    const surveyResponses = answers.map(answer => `[${answer.question}]: ${answer.answer}`).join('\n');
+    const emailBody = `Survey Responses for ${survey.surveyName}\n\n${surveyResponses}`;
     axios({
       method: 'post',
-      url: 'https://api.mailgun.net/v3/sandboxb39ebf67bacd471990794d6eba2bd600.mailgun.org/messages',
+      url: 'https://api.mailgun.net/v3/sandboxc0abb916a40847678bfc04dd19fb3b45.mailgun.org/messages',
       auth: {
         username: 'api',
-        password: 'd5686cf50ed1963ea69e283180426d06-81bd92f8-6d58e1c7'
+        password: '4ee837c8e612285a12e7bff2fd45331d-81bd92f8-88017272'
       },
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       params: {
         from: 'example@example.com',
-        to: 'emailjstestreact@gmail.com',
+        to: 'mailgunjstestreact@gmail.com',
         subject: 'Survey Response from ' + survey.surveyName,
-        text: JSON.stringify(templateParams)
+        text: emailBody
       }
     })
-      .then(function(response) {
-        console.log('SUCCESS!', response.status, response.data.message);
-      })
-      .catch(function(error) {
-        console.log('FAILED...', error.response.status, error.response.data.message);
-      });
+    .then(function(response) {
+      console.log('SUCCESS!', response.status, response.data.message);
+    })
+    .catch(function(error) {
+      console.log('FAILED...', error.response.status, error.response.data.message);
+    });
   };
 
   if (!survey) {
