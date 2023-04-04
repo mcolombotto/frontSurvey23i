@@ -24,7 +24,6 @@ function App() {
                         <Route exact path='/register' element={<Register />} />
                         <Route exact path='*' element={<Error404 />} />
                         <Route exact path='/login' element={<Login />} />
-                        <Route exact path='*' element={<Error404 />} />
                     </Routes>
                 </main>
                 <Footer />
