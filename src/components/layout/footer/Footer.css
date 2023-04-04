@@ -1,10 +1,8 @@
 .footer-style{
-    background: rgb(10,10,10);
-    background: linear-gradient(90deg, rgba(10,10,10,1) 19%, rgba(5,5,54,1) 44%, rgba(3,3,40,1) 83%);
-    position: absolute;
-    bottom: 0;
+     background: rgb(10,10,10);
+     background: linear-gradient(90deg, rgba(10,10,10,1) 19%, rgba(5,5,54,1) 44%, rgba(3,3,40,1) 83%);
 };
 
 .font{
-    font-family: 'Questrial', sans-serif;
+     font-family: 'Questrial', sans-serif;
 };

@@ -39,14 +39,24 @@ const Survey = ({ survey, URL, getApi }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          //la petición delete con fetch
+          /*  const res = await fetch(`${URL}/${id}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          }); */
 
           const res = await axios.delete(`${URL}/${id}`, {
-
+            //TOKEN PARA QUE SOLO EL ADMIN PUEDA BORRAR
+            /*  headers: {
+              "Content-Type": "application/json",
+              "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+                .token,
+            }, */
           });
 
           if (res.status === 200) {
             Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            
+            //volver a recargar la tabla
             getApi();
           }
         } catch (error) {
@@ -120,7 +130,7 @@ const Survey = ({ survey, URL, getApi }) => {
           <Button
             variant="primary"
             className=" mx-1"
-            onClick={() => handleDelete(survey._id)}
+            
           >
             <FontAwesomeIcon icon={faChartLine} />
           </Button>

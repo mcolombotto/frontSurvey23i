@@ -6,8 +6,3 @@
   padding: 0px 90px 0px 0px;
 }
 
-.aLink{
-  text-decoration: none;
-  color: var(--bs-navbar-active-color);
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-}

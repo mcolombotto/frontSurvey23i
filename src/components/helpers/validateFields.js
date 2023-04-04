@@ -13,9 +13,7 @@ export const validateSurveyName = (field) => {
   export const validateCategory = (field) => {
     if (
       /* regExpCategory.test(field) && */
-      field.trim() !== "" /* &&
-      (field === "Privada" ||
-        field === "Publica" ) */
+      field.trim() !== "" 
 
     ) {
       return true;
