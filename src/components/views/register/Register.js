@@ -7,11 +7,13 @@ import { FaEye } from "react-icons/fa"
 import { FaEyeSlash } from "react-icons/fa"
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const [errorPassword, setErrorPassword] = useState(false);
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [typeInput, setTypeInput] = useState('password')
@@ -31,7 +33,7 @@ const Register = () => {
                 .then((resp) => resp.json())
                 .then(async (data) => {
                     const myUser = {
-                        username: data.results[0].login.username,
+                        username: username,
                         email: email,
                         password: password,
                         uuid: data.results[0].login.uuid,
@@ -51,13 +53,9 @@ const Register = () => {
 
                     if(context.user){
                         try {
-                            const res = await fetch(URL, {
-                                method: 'POST',
-                                headers: {
-                                    'content-type': 'application/json'
-                                },
-                                body: JSON.stringify(context.user),
-                            })
+                            const res = await axios.post(
+                                URL,
+                                context.user);
                             const info = await res.json();
                             console.log('info', info);
                             Swal.fire(`Tu registro fue exitoso`)
@@ -87,6 +85,7 @@ const Register = () => {
                         <input 
                             className="form-control " 
                             placeholder="Ej: John Perez"
+                            onBlurCapture={(e) => setUsername(e.target.value)}
                             {...register("name", { required: true, maxLength: 100, pattern: /^[A-Za-z\s?]+$/ })}
                         />
                        
