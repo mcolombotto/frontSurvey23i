@@ -19,7 +19,7 @@ function Slider({ slides }) {
     >
       {slides.filter(i => i.status === true).map((slide) => (
         <Carousel.Item>
-          <Link to={``}>
+          <Link to={`/survey/${slide._id}`}>
           <img className="d-block w-100"
             src={slide.imageSource}
             alt="Slide"
