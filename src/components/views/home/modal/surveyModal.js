@@ -41,10 +41,8 @@ const SurveyModal = (props) => {
                   name="question"
                   autoFocus
                   onChange={(e) => {
-
                     props.surveyItem.question = e.target.value;
                     props.setSurveyItem(props.surveyItem);
-                    
                   }}
                 />
               </Form.Group>
@@ -52,14 +50,14 @@ const SurveyModal = (props) => {
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Select aria-label="Default select example"
-                onChange={(e) => {
-
+                <Form.Select
+                  aria-label="Default select example"
+                  onChange={(e) => {
                     props.surveyItem.responseType = e.target.value;
                     props.setSurveyItem(props.surveyItem);
-
-                  }}>
-                  <option >Tipo de respuesta</option>
+                  }}
+                >
+                  <option>Tipo de respuesta</option>
                   <option value="Booleana">Si / No</option>
                   <option value="Texto Libre">Texto Libre</option>
                   <option value="Numerica">
@@ -78,19 +76,25 @@ const SurveyModal = (props) => {
             </Button>
             <Button
               variant="primary"
-              
               onClick={(e) => {
                 e.preventDefault();
-                
-                console.log("ARRAY" , props.surveyItemList);
-                console.log("ITEM" ,props.surveyItem);
-                localStorage.setItem("newSurveyItemList", JSON.stringify([...props.surveyItemList,props.surveyItem]))
-                props.setSurveyItemList([...props.surveyItemList,props.surveyItem]);
+                console.log("ARRAY", props.surveyItemList);
+                console.log("ITEM", props.surveyItem);
+                localStorage.setItem(
+                  "newSurveyItemList",
+                  JSON.stringify([...props.surveyItemList, props.surveyItem])
+                );
+                props.setSurveyItemList([
+                  ...props.surveyItemList,
+                  props.surveyItem,
+                ]);
                 console.log(props.surveyItemList);
+
                 props.setSurveyItem({
-                  question : "",
-                  responseType : "",
+                  question: "",
+                  responseType: "",
                 });
+
                 handleClose();
               }}
             >

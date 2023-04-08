@@ -81,26 +81,26 @@ const Survey = ({ survey, URL, getApi }) => {
 
 
   return (
-    <tr>
+    <tr >
       {/* <td>{survey._id}</td> */}
-      <td>{survey.surveyName}</td>
-      <td>{survey.category}</td>
+      <td className="text-light">{survey.surveyName}</td>
+      <td className="text-light">{survey.category}</td>
       <td className="d-flex justify-content-center">
-        <ToggleButton
+        <ToggleButton className="my-1 text-light"
           type="checkbox"
-          variant="secondary"
+          variant="outline"
           onClick={() => handleActivate(survey._id)}
         >
           {visible(survey.status)}{" "}
         </ToggleButton>
       </td>
-      <td className="w-25">
+      <td >
         <div className="d-flex justify-content-center">
           <Link
           to={`/survey/details/${survey._id}`}>
           
           <Button
-            variant="success"
+            variant="outline-success"
             className="mx-1"
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -110,20 +110,20 @@ const Survey = ({ survey, URL, getApi }) => {
             to={`/survey/edit/${survey._id}`}
             className="btn-orange mx-1 text-decoration-none text-center"
           >
-            <Button variant="warning">
+            <Button variant="outline-warning">
               <FontAwesomeIcon icon={faPencil} />
             </Button>
           </Link>
 
           <Button
-            variant="danger"
+            variant="outline-danger"
             className=" mx-1"
             onClick={() => handleDelete(survey._id)}
           >
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>
           <Button
-            variant="primary"
+            variant="outline-primary"
             className=" mx-1"
             
           >

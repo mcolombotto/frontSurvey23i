@@ -9,6 +9,7 @@ import {
 } from "../../../helpers/validateFields";
 import axios from "../../../config/axiosInit";
 import SurveyList from "../SurveyList/surveyList";
+import SurveyModal from "../modal/surveyModal";
 
 const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const [surveyItem, setSurveyItem] = useState({
@@ -25,13 +26,12 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
 
   const navigate = useNavigate();
 
-   
-    const deleteSurveyItem = (itemName) => {
-      let filteredArray = surveyItemList.filter(
-        (surveyItem) => surveyItem !== itemName
-      );
-      setSurveyItemList(filteredArray);
-    };
+  const deleteSurveyItem = (itemName) => {
+    let filteredArray = surveyItemList.filter(
+      (surveyItem) => surveyItem !== itemName
+    );
+    setSurveyItemList(filteredArray);
+  };
 
   useEffect(() => {
     console.log("Useefect");
@@ -39,27 +39,22 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   }, []);
 
   const getOne = async () => {
-    console.log("INICIO DE GETONE")
+    console.log("INICIO DE GETONE");
 
     try {
       const res = await axios.get(`${URL}/${id}`);
       const surveyApi = res.data;
       setSurvey(surveyApi);
-
     } catch (error) {
       console.log(error);
     }
-    
   };
 
   const handleSubmit = (e) => {
     console.log("INICIO DEL SUBMIT");
     e.preventDefault();
 
-    if (
-      !validateSurveyName(surveyNameRef.current.value) 
-
-    ) {
+    if (!validateSurveyName(surveyNameRef.current.value)) {
       Swal.fire("Ops!", "Some data is invalid.", "error");
       return;
     }
@@ -99,9 +94,17 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   return (
     <div>
       <Container className="py-5">
-        <h1>Editar Encuesta</h1>
-        <hr />
- 
+      <div className="d-flex justify-content-between  ">
+          <h1>Editar una encuesta existente</h1>
+          <Link
+            to="/survey/table"
+            className="m-2 btn-red text-decoration-none text-center"
+          >
+            <Button variant="secondary">Volver </Button>
+          </Link>
+          {/*  */}
+        </div>
+
         <Form className="my-5" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formSurveyName">
             <Form.Label>Nombre de la Encuesta</Form.Label>
@@ -136,24 +139,32 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
 
           <Form.Label className="my-3">Cuerpo de la Encuesta</Form.Label>
 
-           {survey.surveyItemList !== undefined ? (
+          {survey.surveyItemList !== undefined ? (
             <SurveyList
-            surveyItemList={survey.surveyItemList}
-            setSurveyItem={setSurveyItem}
-            deleteSurveyItem={deleteSurveyItem}
-            surveyItem={surveyItem}
-          ></SurveyList>)
-:(<></>) }
+              surveyItemList={survey.surveyItemList}
+              setSurveyItem={setSurveyItem}
+              deleteSurveyItem={deleteSurveyItem}
+              surveyItem={surveyItem}
+            ></SurveyList>
+          ) : (
+            <></>
+          )}
           <div className="text-end mt-2">
-          <Link
-          to={`/survey/table/`}>
-            <Button className="me-1" variant="secondary" >
-              Volver
-            </Button>
+          <SurveyModal
+              surveyItemList={surveyItemList}
+              setSurveyItem={setSurveyItem}
+              surveyItem={surveyItem}
+              setSurveyItemList={setSurveyItemList}
+              handleSubmit={handleSubmit}
+            ></SurveyModal>
+            {/* <Link to={`/survey/table/`}>
+              <Button className="me-1" variant="secondary">
+                Volver
+              </Button>
             </Link>
             <Button className="ms-1" variant="warning" type="submit">
               Guardar
-            </Button>
+            </Button> */}
           </div>
         </Form>
       </Container>

@@ -1,4 +1,4 @@
-const regExpSurveyName = /^[A-Za-z\s?]+$/;
+const regExpSurveyName =/^[A-Za-z0-9\s?]+$/;
 const regExpCategory = /^[A-Za-z\s\s?]+$/;
 
 export const validateSurveyName = (field) => {

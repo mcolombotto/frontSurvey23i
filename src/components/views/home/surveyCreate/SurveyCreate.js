@@ -11,11 +11,13 @@ import { Container, Form, Button, FormGroup } from "react-bootstrap";
 import SurveyList from "../SurveyList/surveyList";
 import SurveyModal from "../modal/surveyModal";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./surveyCreate.css"
 
 const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(true);
+
 
   //Preguntas
   const [surveyItem, setSurveyItem] = useState({
@@ -107,24 +109,25 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   };
 
   return (
-    <div className>
-      <Container className="py-5">
+    <div >
+      <Container className="py-5 w-75">
         <div className="d-flex justify-content-between  ">
-          <h1>Crear una nueva encuesta</h1>
+          <h2 className=" text-center text-light">Crear una nueva encuesta</h2>
           <Link
             to="/survey/table"
             className="m-2 btn-red text-decoration-none text-center"
           >
-            <Button variant="secondary">Volver </Button>
+            <Button variant="outline-light">Volver </Button>
           </Link>
+          
           {/*  */}
         </div>
         <hr />
-        <Form className="my-5" onSubmit={handleSubmit}>
+        <Form  className="my-5 text-light" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="Text">
             {" "}
             <Form.Label>Nombre de la encuesta</Form.Label>
-            <Form.Control
+            <Form.Control  
               type="text"
               name="surveyName"
               maxLength="50"
@@ -134,6 +137,7 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
                 handleChange(e);
               }}
             />
+            
           </Form.Group>
 
           <Form.Group className="mb-3">

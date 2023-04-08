@@ -3,26 +3,28 @@ import { Container, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Survey from "./Survey";
 import {Button} from "react-bootstrap";
-
+import "./surveyTable.css"
 const SurveysTable = ({ surveys, URL, getApi }) => {
 
   return (
-    <Container>
-        <h1 className="text-center">Tabla de Encuestas</h1>
+      <div className="w-75 container">
+        
+    <Container className="text-light text-center">
+        <h2 className="my-3 ">Tabla de Encuestas</h2>
       <div className="d-flex align-items-center justify-content-between">
         <Link
           to="/category/table"
           className="btn-red text-decoration-none text-center"
-        > <Button variant="primary">
-          Nueva Categoria
+          > <Button variant="outline-light">
+          Categorias
             
         </Button>
         </Link>
         <Link
           to="/survey/create"
-        
+          
           className="btn-red text-decoration-none text-center"
-        > <Button variant="primary"
+        > <Button variant="outline-light"
           onClick={()=>{
             localStorage.setItem("newSurveyItemList", JSON.stringify([]));
           localStorage.setItem("surveyName", JSON.stringify(""));
@@ -35,7 +37,7 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
       <hr/>
       {/* Table of surveys */}
       {surveys?.length !== 0 ? (
-        <Table bordered hover responsive className="align-middle mt-3">
+        <Table hover responsive className=" text-light align-middle mt-3">
           <thead>
             <tr>
               <th>Nombre de Encuesta</th>
@@ -47,12 +49,12 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
           <tbody>
             {surveys?.map((survey) => (
               <Survey
-                key={survey._id}
+              key={survey._id}
                 survey={survey}
                 URL={URL}
                 getApi={getApi}
-              />
-            ))}
+                />
+                ))}
           </tbody>
         </Table>
       ) : (
@@ -62,6 +64,7 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
         </div>
       )}
     </Container>
+      </div>
   );
 };
 

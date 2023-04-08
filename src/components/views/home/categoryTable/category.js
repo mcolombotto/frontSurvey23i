@@ -14,18 +14,26 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
-const Category = ({ categoryItemList, setCategoryItemList, category ,URL,getApi}) => {
+const Category = ({
+  categoryItemList,
+  surveys,
+  setCategoryItemList,
+  category,
+  URL,
+  getApi,
+}) => {
   const navigate = useNavigate();
-
   const deleteCategoryItem = (id) => {
     Swal.fire({
       title: "Estas seguro?",
       text: "Esta acción no se puede revertir",
       icon: "warning",
       showCancelButton: true,
+      color: "#fff",
+      background: "#000",
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Delete",
+      confirmButtonText: "Borrar",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -45,7 +53,15 @@ const Category = ({ categoryItemList, setCategoryItemList, category ,URL,getApi}
           });
 
           if (res.status === 200) {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            Swal.fire({
+              title: "Eliminada!",
+              text: "Se eliminó una categoría",
+              icon: "success",
+              color: "#fff",
+              background: "#000",
+              showConfirmButton: false,
+              timer: 2000,
+            });
             //volver a recargar la tabla
             getApi();
           }
@@ -61,19 +77,16 @@ const Category = ({ categoryItemList, setCategoryItemList, category ,URL,getApi}
     try {
       const res = await axios.get(`${URL}/${id}`);
       let categoryLoaded = res.data;
-      console.log("ANTES",categoryLoaded); 
+      console.log("ANTES", categoryLoaded);
       categoryLoaded.categoryStatus = !categoryLoaded.categoryStatus;
-      console.log("DESPUES",categoryLoaded); 
-     
+      console.log("DESPUES", categoryLoaded);
+
       await axios.put(`${URL}/${id}`, categoryLoaded);
-       navigate(0); 
-  }catch (error) {
-    console.log(error);
-  }
-  }
-
-
-
+      navigate(0);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   let visible = (data) => {
     if (data) {
@@ -85,21 +98,41 @@ const Category = ({ categoryItemList, setCategoryItemList, category ,URL,getApi}
 
   return (
     <tr>
-      <td>{category.categoryName}</td>
-      <td>{<Button variant="secondary" onClick={()=>{handleActivate(category._id)}}>{visible(category.categoryStatus)}</Button>}</td>
-      <td >
-        
+      <td className="text-light">{category.categoryName}</td>
+      <td>
+        {
+          <Button
+            className="text-light"
+            variant="outline"
+            onClick={() => {
+              handleActivate(category._id);
+            }}
+          >
+            {visible(category.categoryStatus)}
+          </Button>
+        }
+      </td>
+      <td>
         <Button
-          variant="danger"
-          className=" mx-1"
-          onClick={() => console.log(deleteCategoryItem(category._id))} 
+          variant="outline-danger"
+          className="  mx-1"
+          onClick={() => console.log(deleteCategoryItem(category._id))}
         >
           <FontAwesomeIcon icon={faTrashCan} />
         </Button>
       </td>
+      <td>
+        {
+          surveys
+            .map((item, index) => {
+              if (item.category == category.categoryName) {
+                return true;
+              }
+            })
+            .filter((x) => x == true).length
+        }
+      </td>
     </tr>
-
-
   );
 };
 
