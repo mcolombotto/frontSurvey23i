@@ -44,6 +44,7 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
               <th>Categoria</th>
               <th>Estado</th>
               <th>Acciones</th>
+              <th>Respuestas</th>
             </tr>
           </thead>
           <tbody>

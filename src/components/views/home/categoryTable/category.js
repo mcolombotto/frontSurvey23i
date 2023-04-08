@@ -24,9 +24,24 @@ const Category = ({
 }) => {
   const navigate = useNavigate();
   const deleteCategoryItem = (id) => {
+    let categoryAssigned = false;
+    if (
+      surveys
+        .map((item) => {
+          if (item.category == category.categoryName) {
+            return true;
+          }
+        })
+        .filter((x) => x == true).length > 0
+    ) {
+      categoryAssigned = true;
+    }
+
     Swal.fire({
       title: "Estas seguro?",
-      text: "Esta acción no se puede revertir",
+      text: categoryAssigned
+        ? "Esta categoría tiene encuestas asignadas, borrarla categoría no afectará a las ya creadas."
+        : "Esta acción no se puede revertir",
       icon: "warning",
       showCancelButton: true,
       color: "#fff",
@@ -37,12 +52,6 @@ const Category = ({
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          //la petición delete con fetch
-          /*  const res = await fetch(`${URL}/${id}`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-          }); */
-
           const res = await axios.delete(`${URL}/${id}`, {
             //TOKEN PARA QUE SOLO EL ADMIN PUEDA BORRAR
             /*  headers: {
@@ -62,7 +71,7 @@ const Category = ({
               showConfirmButton: false,
               timer: 2000,
             });
-            //volver a recargar la tabla
+
             getApi();
           }
         } catch (error) {
@@ -124,7 +133,7 @@ const Category = ({
       <td>
         {
           surveys
-            .map((item, index) => {
+            .map((item) => {
               if (item.category == category.categoryName) {
                 return true;
               }

@@ -85,14 +85,17 @@ const Survey = ({ survey, URL, getApi }) => {
       {/* <td>{survey._id}</td> */}
       <td className="text-light">{survey.surveyName}</td>
       <td className="text-light">{survey.category}</td>
-      <td className="d-flex justify-content-center">
-        <ToggleButton className="my-1 text-light"
+      <td>
+      <div className="d-flex justify-content-center">
+        
+        <ToggleButton className=" text-light"
           type="checkbox"
           variant="outline"
           onClick={() => handleActivate(survey._id)}
         >
           {visible(survey.status)}{" "}
         </ToggleButton>
+        </div>
       </td>
       <td >
         <div className="d-flex justify-content-center">
@@ -131,6 +134,9 @@ const Survey = ({ survey, URL, getApi }) => {
           </Button>
         </div>
       </td>
+            <td>
+
+            </td>
     </tr>
   );
 };
