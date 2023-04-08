@@ -1,15 +1,15 @@
 import React from "react";
-import Slider from './slider';
+import Slider from './slider/slider';
 
 /// Use of the local .json located in the home folder - named: formsDB.json ONLY TEST PURPOSE
-import slides  from './formsDB.json'
-import CardList from './Cards.js';
-
+import cards  from './formsDB.json'
+import CardList from './cards/Cards.js';
+import './Home.css';
 const Home = () => {
     return (
     <>
-        <Slider slides={slides}/>
-        <CardList cards= {slides}/>
+        <Slider/>
+        <CardList cards= {cards}/>
     </>
     );
 };

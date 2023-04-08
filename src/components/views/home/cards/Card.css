@@ -22,15 +22,27 @@
 }
 
 .card-img-top:hover {
-  transform: scale(1.8);
+  transform: scale(1.3);
 }
 
-.container{
-  margin-bottom: 2vh;
-}
+.container .btn-warning{
+  margin-bottom: 1vh;
+  justify-content: center;
+  background-color: #dfdfdf;
+  color: rgb(65, 65, 65);
 
+  border-color: aliceblue;
+}
 .container .btn-warning:hover {
-  background-color: #ca9801;
-  color: whitesmoke;
-  outline: none;
+  background: rgba(var(--bs-dark-rgb));
+  border-color: aliceblue;
+  color: rgb(255, 255, 255);
+}
+
+.main-heading{
+  background-color: rgb(245, 245, 245);
+}
+
+.paginationDiv{
+  margin-top: 2vh;
 }

@@ -12,16 +12,16 @@
     font-weight: 600;
     font-size: 16px;
     margin: 0 6px;
-    border-radius: 10px;
+    border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
     background: transparent;
     color: #eee;
-    border-color: #eee;
+    border-color: rgb(233, 233, 233)
 }
 
 .pagination button.active {
     font-weight: 900;
-    background: #ffc107;
-    color: #101010;
+    background: rgba(var(--bs-dark-rgb));
+    color: #ffffff;
 }

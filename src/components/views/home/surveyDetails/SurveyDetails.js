@@ -63,9 +63,8 @@ const SurveyDetails = ({ URL }) => {
       })),
     });
   
-    const mailgunUrl =
-    "https://api.mailgun.net/v3/sandbox19ed54cb95c544c4832d80a838309fbe.mailgun.org/messages";
-  const mailgunApiKey = "204945b9025053ccc865c2593fe89515-81bd92f8-badfa5dd";
+    const mailgunUrl = "https://api.mailgun.net/v3/sandbox3bdc51ed5f66403d80153058350b705f.mailgun.org/messages";
+  const mailgunApiKey = "d8927e180f6770486e2078af58ea2dea-81bd92f8-631340b6";
   const mailgunFrom = "mailgunrollingcode@gmail.com";
   const mailgunTo = email;
   const mailgunSubject = "Survey Responses";
