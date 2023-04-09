@@ -21,7 +21,14 @@ function Navigation() {
                 <Navbar.Toggle aria-controls="navbar-nav" />
                 <Navbar.Collapse id="navbar-nav">
                     <Nav className='ms-auto'>
-                        <Link className="nav-link" to="/">Home</Link>
+                        <Link className="nav-link" to="/">Inicio</Link>
+                        <Link className="nav-link" to="/contacto">Contacto</Link>
+                        {loggedUser && (
+                            <>
+                                <Link className="nav-link" to="/surveyCreate">Crear encuestas</Link>
+                                <Link className="nav-link" to="/survey">Mis encuestas</Link>
+                            </>
+                        )}
                         <NavDropdown title="Encuestas" id="nav-dropdown">
                             <NavDropdown.Item to="*">Clima laboral</NavDropdown.Item>
                             <NavDropdown.Item to="*">
@@ -33,8 +40,8 @@ function Navigation() {
                         </NavDropdown>
                         {!loggedUser && (
                             <>
+                                <Link className="nav-link" to="/login">Ingresar</Link>
                                 <Link className="nav-link" to="/register">Registrate</Link>
-                                <Link className="nav-link" to="/login">Login</Link>
                             </>
                         )}
                         {loggedUser && (

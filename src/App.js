@@ -7,10 +7,10 @@ import Home from './components/views/home/Home.js'
 import Error404 from './components/views/error404/Error404'
 import Footer from './components/layout/footer/Footer';
 import Register from './components/views/register/Register'
-//TODO: FALTA LA CARPETA DE USERCONTEXT SIN ESO NO ANDA Y ESTA EN REGISTROS AHORA
 import UserContext from './components/layout/context/UserContext'
 import Login from './components/views/login/Login'
-
+import SurveyCreate from './components/views/surveyCreate/SurveyCreate'
+import Us from './components/views/us/Us'
 function App() {
     const [user, setUser] = React.useState({});
 
@@ -24,6 +24,8 @@ function App() {
                         <Route exact path='/register' element={<Register />} />
                         <Route exact path='*' element={<Error404 />} />
                         <Route exact path='/login' element={<Login />} />
+                        <Route exact path='/surveyCreate' element={<SurveyCreate />} />
+                        <Route exact path='/us' element={<Us />} />
                     </Routes>
                 </main>
                 <Footer />
