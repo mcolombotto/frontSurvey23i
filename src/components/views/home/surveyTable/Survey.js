@@ -33,17 +33,14 @@ const Survey = ({ survey, URL, getApi }) => {
       text: "Esta acción no se puede revertir",
       icon: "warning",
       showCancelButton: true,
+      color: "#fff",
+      background: "#000",
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Delete",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          //la petición delete con fetch
-          /*  const res = await fetch(`${URL}/${id}`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-          }); */
 
           const res = await axios.delete(`${URL}/${id}`, {
             //TOKEN PARA QUE SOLO EL ADMIN PUEDA BORRAR
@@ -55,13 +52,13 @@ const Survey = ({ survey, URL, getApi }) => {
           });
 
           if (res.status === 200) {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            //volver a recargar la tabla
+            Swal.fire("Borrada!", "La encuesta se borró correctamente", "success");
+
             getApi();
           }
         } catch (error) {
           console.log(error);
-          //agregar cartel al usuario que informe del error
+
         }
       }
     });
@@ -86,26 +83,29 @@ const Survey = ({ survey, URL, getApi }) => {
 
 
   return (
-    <tr>
+    <tr >
       {/* <td>{survey._id}</td> */}
-      <td>{survey.surveyName}</td>
-      <td>{survey.category}</td>
-      <td className="d-flex justify-content-center">
-        <ToggleButton
+      <td className="text-light">{survey.surveyName}</td>
+      <td className="text-light">{survey.category}</td>
+      <td>
+      <div className="d-flex justify-content-center">
+        
+        <ToggleButton className=" text-light"
           type="checkbox"
-          variant="secondary"
+          variant="outline"
           onClick={() => handleActivate(survey._id)}
         >
           {visible(survey.status)}{" "}
         </ToggleButton>
+        </div>
       </td>
-      <td className="w-25">
+      <td >
         <div className="d-flex justify-content-center">
           <Link
           to={`/survey/details/${survey._id}`}>
           
           <Button
-            variant="success"
+            variant="outline-success"
             className="mx-1"
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -115,20 +115,20 @@ const Survey = ({ survey, URL, getApi }) => {
             to={`/survey/edit/${survey._id}`}
             className="btn-orange mx-1 text-decoration-none text-center"
           >
-            <Button variant="warning">
+            <Button variant="outline-warning">
               <FontAwesomeIcon icon={faPencil} />
             </Button>
           </Link>
 
           <Button
-            variant="danger"
+            variant="outline-danger"
             className=" mx-1"
             onClick={() => handleDelete(survey._id)}
           >
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>
           <Button
-            variant="primary"
+            variant="outline-primary"
             className=" mx-1"
             
           >
@@ -136,6 +136,9 @@ const Survey = ({ survey, URL, getApi }) => {
           </Button>
         </div>
       </td>
+            <td>
+
+            </td>
     </tr>
   );
 };

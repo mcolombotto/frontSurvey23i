@@ -10,15 +10,16 @@ const SurveyModal = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  console.log(props.surveyItemList)
   return (
     <div>
       <>
-        <Button variant="primary" onClick={handleShow}>
+        <Button variant="outline-primary" onClick={handleShow}>
           Agregar nueva pregunta
         </Button>
         <Button
           className="ms-3"
-          variant="secondary"
+          variant="outline-success"
           onClick={props.handleSubmit}
         >
           Guardar
@@ -37,15 +38,12 @@ const SurveyModal = (props) => {
                 <Form.Control
                   type="text"
                   placeholder="Ingrese la pregunta aqui"
+                  maxLength="100"
                   name="question"
                   autoFocus
                   onChange={(e) => {
-                    /* console.log(e.target.name);
-                    console.log(e.target.value);
-                    console.log(props.surveyItem); */
                     props.surveyItem.question = e.target.value;
                     props.setSurveyItem(props.surveyItem);
-                    
                   }}
                 />
               </Form.Group>
@@ -53,16 +51,14 @@ const SurveyModal = (props) => {
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Select aria-label="Default select example"
-                onChange={(e) => {
-
+                <Form.Select
+                  aria-label="Default select example"
+                  onChange={(e) => {
                     props.surveyItem.responseType = e.target.value;
                     props.setSurveyItem(props.surveyItem);
-                    /* console.log(props.surveyItem)
-                    props.surveyItem.responseType = "";
-                    console.log(props.surveyItem) */
-                  }}>
-                  <option >Tipo de respuesta</option>
+                  }}
+                >
+                  <option>Tipo de respuesta</option>
                   <option value="Booleana">Si / No</option>
                   <option value="Texto Libre">Texto Libre</option>
                   <option value="Numerica">
@@ -81,19 +77,25 @@ const SurveyModal = (props) => {
             </Button>
             <Button
               variant="primary"
-              
               onClick={(e) => {
                 e.preventDefault();
-                
-                console.log("ARRAY" , props.surveyItemList);
-                console.log("ITEM" ,props.surveyItem);
-                localStorage.setItem("newSurveyItemList", JSON.stringify([...props.surveyItemList,props.surveyItem]))
-                props.setSurveyItemList([...props.surveyItemList,props.surveyItem]);
+                console.log("ARRAY", props.surveyItemList);
+                console.log("ITEM", props.surveyItem);
+                localStorage.setItem(
+                  "newSurveyItemList",
+                  JSON.stringify([...props.surveyItemList, props.surveyItem])
+                );
+                props.setSurveyItemList([
+                  ...props.surveyItemList,
+                  props.surveyItem,
+                ]);
                 console.log(props.surveyItemList);
+
                 props.setSurveyItem({
-                  question : "",
-                  responseType : "",
+                  question: "",
+                  responseType: "",
                 });
+
                 handleClose();
               }}
             >

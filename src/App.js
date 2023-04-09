@@ -83,6 +83,7 @@ function App() {
                     categoryItem = {categoryItem}
                     setCategoryItem = {setCategoryItem}
                     getApi={getApi}
+                    surveys={surveys}
                     URL = {URL2}
                     />
                   }

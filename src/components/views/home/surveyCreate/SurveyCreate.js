@@ -5,12 +5,13 @@ import Swal from "sweetalert2";
 import axios from "../../../config/axiosInit";
 import {
   validateSurveyName,
-  validateCategory,
+  validateImage,
 } from "../../../helpers/validateFields";
 import { Container, Form, Button, FormGroup } from "react-bootstrap";
 import SurveyList from "../SurveyList/surveyList";
 import SurveyModal from "../modal/surveyModal";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./surveyCreate.css";
 
 const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const [inputs, setInputs] = useState({});
@@ -25,10 +26,9 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const [surveyItemList, setSurveyItemList] = useState(
     JSON.parse(localStorage.getItem("newSurveyItemList")) || []
   );
-  //Respuestas
+
   const [answerList, setAnswerList] = useState([]);
 
-  // Borrar item de la lista de preguntas
   const deleteSurveyItem = (itemName) => {
     let filteredArray = surveyItemList.filter(
       (surveyItem) => surveyItem !== itemName
@@ -53,17 +53,21 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
     console.log("Submit");
     e.preventDefault();
 
-    //validar los campos
+
+      console.log("Validacion name",validateSurveyName(inputs.surveyName));
+      console.log("Validacion img",validateImage(inputs.surveyImage));
     if (
-      !validateSurveyName(inputs.surveyName)
+      !validateSurveyName(inputs.surveyName) &&
+      !validateImage(inputs.surveyImage)
     ) {
-      Swal.fire("Oop!!", "Some data is invalid", "Error");
+      Swal.fire("Oops!!", "Alguno de los datos es invalido", "Error");
       return;
     }
-    //enviar datos
+
     const newSurvey = {
       surveyName: inputs.surveyName,
       category: inputs.category,
+      image: inputs.surveyImage,
       status: false,
       surveyItemList: surveyItemList,
     };
@@ -75,32 +79,16 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
       text: "Esta acción guardará tu progreso",
       icon: "warning",
       showCancelButton: true,
+      color: "#fff",
+      background: "#000",
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Si",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          /*  const res = await fetch(URL, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "x-access-token": JSON.parse(localStorage.getItem("user-token")).token
-              },
-              body: JSON.stringify(newProduct),
-            }); */
-
           console.log(result.isConfirmed, "Enviando a BD", URL);
-          const res = await axios.post(
-            URL,
-            newSurvey /* , {
-              headers: {
-                "Content-Type": "application/json",
-                "x-access-token": JSON.parse(localStorage.getItem("user-token"))
-                  .token,
-              },
-            } */
-          );
+          const res = await axios.post(URL, newSurvey);
           console.log(res.status, res.status === 201);
 
           if (res.status === 201) {
@@ -109,11 +97,9 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
               "La encuesta se guardó de forma satisfactoria",
               "success"
             );
-            //resetear el form
-            /*  e.target.reset(); */
-            //recargar la tabla
+
             getApi();
-            //navegar hasta la tabla
+
             navigate("/survey/table");
           }
         } catch (error) {
@@ -131,28 +117,28 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   };
 
   return (
-    <div className>
-      <Container className="py-5">
+    <div>
+      <Container className="py-5 w-75">
         <div className="d-flex justify-content-between  ">
+          <h2 className=" text-center text-light">Crear una nueva encuesta</h2>
+          <Link
+            to="/survey/table"
+            className="m-2 btn-red text-decoration-none text-center"
+          >
+            <Button variant="outline-light">Volver </Button>
+          </Link>
 
-        <h1>Crear una nueva encuesta</h1>
-        <Link to="/survey/table"
-                  
-                  className="m-2 btn-red text-decoration-none text-center"
-                >
-                  
-                  <Button variant="secondary" >Volver </Button>
-                </Link>{/*  */}
+          {/*  */}
         </div>
         <hr />
-        <Form className="my-5" onSubmit={handleSubmit}>
+        <Form className="my-5 text-light" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="Text">
             {" "}
-            {/* Nombre */}
             <Form.Label>Nombre de la encuesta</Form.Label>
             <Form.Control
               type="text"
               name="surveyName"
+              maxLength="50"
               required
               value={JSON.parse(localStorage.getItem("surveyName"))}
               onChange={(e) => {
@@ -181,6 +167,19 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
               })}
             </Form.Select>
 
+            <Form.Group className="my-3" controlId="Text">
+              {" "}
+              <Form.Label>Imagen descriptiva de la encuesta </Form.Label>
+              <Form.Control
+                type="text"
+                name="surveyImage"
+                placeholder="http://www.google.com/img"
+                maxLength="200"
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </Form.Group>
             <FormGroup>
               <hr></hr>
               {
@@ -195,42 +194,15 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
             </FormGroup>
           </Form.Group>
           <div className="text-end">
-            {/* <Button
-              className="mx-1"
-              variant="primary"
-               onClick={(e) => {
-                e.preventDefault();
-
-                setSurveyItemList([...surveyItemList, surveyItem]);
-                setSurveyItem(""); 
-               
-            >
-              Agregar nueva pregunta
-            </Button> */}
             <SurveyModal
               surveyItemList={surveyItemList}
               setSurveyItem={setSurveyItem}
               surveyItem={surveyItem}
-              /* setCategoryItem={setCategoryItem}
-              categoryItem={categoryItem} */
               setSurveyItemList={setSurveyItemList}
               handleSubmit={handleSubmit}
             ></SurveyModal>
-            {/* <Button className="ms-3" variant="danger" type="submit">
-              Save
-            </Button> */}
           </div>
         </Form>
-        {/* {show && (
-          <Alert
-            key={errorMessage}
-            variant="danger"
-            onClose={() => setShow(false)}
-            dismissible
-          >
-            {errorMessage}
-          </Alert>
-        )} */}
       </Container>
     </div>
   );
