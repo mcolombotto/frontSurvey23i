@@ -1,10 +1,14 @@
-import React from 'react';
-import "./Home.css";
+import React from "react";
+import Slider from './slider';
+import slides  from './formsDB.json'
+import CardList from './Cards.js';
+
 const Home = () => {
     return (
-        <div className='Home'>
-            <h1 className='text-center'>Hola</h1>
-        </div>
+    <>
+        <Slider slides={slides}/>
+        <CardList cards= {slides}/>
+    </>
     );
 };
 
