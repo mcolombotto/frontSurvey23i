@@ -40,7 +40,7 @@ const Category = ({
     Swal.fire({
       title: "Estas seguro?",
       text: categoryAssigned
-        ? "Esta categoría tiene encuestas asignadas, borrarla categoría no afectará a las ya creadas."
+        ? "Esta categoría tiene encuestas asignadas, borrarla no afectará a las ya creadas."
         : "Esta acción no se puede revertir",
       icon: "warning",
       showCancelButton: true,

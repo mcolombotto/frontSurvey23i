@@ -45,6 +45,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
       const res = await axios.get(`${URL}/${id}`);
       const surveyApi = res.data;
       setSurvey(surveyApi);
+      setSurveyItemList(surveyApi.surveyItemList)
     } catch (error) {
       console.log(error);
     }
@@ -64,7 +65,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
       category: survey.category,
       image: survey.image,
       status: false,
-      surveyItemList: survey.surveyItemList,
+      surveyItemList: surveyItemList,
     };
     console.log("Edicion", surveyUpdated);
 
@@ -104,7 +105,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
             to="/survey/table"
             className="m-2 btn-red text-decoration-none text-center"
           >
-            <Button className="text-light" variant="outline-secondary">Volver </Button>
+            <Button className="text-light" variant="outline-light">Volver </Button>
           </Link>
           {/*  */}
         </div>
@@ -158,7 +159,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
 
           {survey.surveyItemList !== undefined ? (
             <SurveyList
-              surveyItemList={survey.surveyItemList}
+              surveyItemList={surveyItemList}
               setSurveyItem={setSurveyItem}
               deleteSurveyItem={deleteSurveyItem}
               surveyItem={surveyItem}
@@ -174,14 +175,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
               setSurveyItemList={setSurveyItemList}
               handleSubmit={handleSubmit}
             ></SurveyModal>
-            {/* <Link to={`/survey/table/`}>
-              <Button className="me-1" variant="secondary">
-                Volver
-              </Button>
-            </Link>
-            <Button className="ms-1" variant="warning" type="submit">
-              Guardar
-            </Button> */}
+          
           </div>
         </Form>
       </Container>
