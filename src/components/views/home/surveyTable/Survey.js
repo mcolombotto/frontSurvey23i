@@ -33,6 +33,8 @@ const Survey = ({ survey, URL, getApi }) => {
       text: "Esta acción no se puede revertir",
       icon: "warning",
       showCancelButton: true,
+      color: "#fff",
+      background: "#000",
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Delete",
@@ -50,7 +52,7 @@ const Survey = ({ survey, URL, getApi }) => {
           });
 
           if (res.status === 200) {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            Swal.fire("Borrada!", "La encuesta se borró correctamente", "success");
 
             getApi();
           }

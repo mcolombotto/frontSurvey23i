@@ -3,16 +3,16 @@ import Badge from "react-bootstrap/Badge";
 import { ListGroup, Button } from "react-bootstrap";
 import AnswerItem from "../../items/answerItem";
 import ModalEdit from "../modal/surveyModalEdit";
-import SurveyModal from "../modal/surveyModal";
+import "./surveyItem.css"
 
 const SurveyItem = (props) => {
  
 
   return (
     <>
-      <ListGroup.Item
+      <ListGroup.Item 
         as="li"
-        className="d-flex justify-content-between align-items-start"
+        className="text-light d-flex justify-content-between align-items-start"
       >
         <div className="ms-2 me-auto">
           <div className="fw-bold"> {props.data.question} </div>

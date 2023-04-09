@@ -4,7 +4,7 @@ import { Container, Form, Button } from "react-bootstrap";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import {
-  validateCategory,
+  validateImage,
   validateSurveyName,
 } from "../../../helpers/validateFields";
 import axios from "../../../config/axiosInit";
@@ -55,22 +55,26 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
     e.preventDefault();
 
     if (!validateSurveyName(surveyNameRef.current.value)) {
-      Swal.fire("Ops!", "Some data is invalid.", "error");
+      Swal.fire("Ops!", "Alguno de los datos es invalido", "error");
       return;
     }
 
     const surveyUpdated = {
       surveyName: surveyNameRef.current.value,
       category: survey.category,
+      image: survey.image,
       status: false,
       surveyItemList: survey.surveyItemList,
     };
     console.log("Edicion", surveyUpdated);
 
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "Estas seguro?",
+      text: "Esta accíon guardará los cambios en la encuesta",
       icon: "warning",
+      color: "#fff",
+      background: "#000",
+      confirmButtonColor: "#3085d6",
       showCancelButton: true,
       confirmButtonText: "Update",
     }).then(async (result) => {
@@ -80,7 +84,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
           console.log(res.data);
 
           if (res.status === 200) {
-            Swal.fire("Updated!", "Your file has been updated.", "success");
+            Swal.fire("Modificada!", "Se modificó la encuesta con éxito", "success");
             getApi();
             navigate("/survey/table");
           }
@@ -94,18 +98,18 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   return (
     <div>
       <Container className="py-5">
-      <div className="d-flex justify-content-between  ">
-          <h1>Editar una encuesta existente</h1>
+      <div className="d-flex justify-content-between text-light ">
+          <h2>Editar una encuesta existente</h2>
           <Link
             to="/survey/table"
             className="m-2 btn-red text-decoration-none text-center"
           >
-            <Button variant="secondary">Volver </Button>
+            <Button className="text-light" variant="outline-secondary">Volver </Button>
           </Link>
           {/*  */}
         </div>
 
-        <Form className="my-5" onSubmit={handleSubmit}>
+        <Form className="my-5 text-light" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formSurveyName">
             <Form.Label>Nombre de la Encuesta</Form.Label>
             <Form.Control
@@ -135,8 +139,21 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
                 );
               })}
             </Form.Select>
+          <Form.Group className="my-3" controlId="Text">
+              {" "}
+              <Form.Label>Imagen descriptiva de la encuesta </Form.Label>
+              <Form.Control
+                type="text"
+                name="surveyImage"
+                value = {survey.image}
+                placeholder="http://www.google.com/img"
+                maxLength="100"
+                /* onChange={(e) => {
+                  handleChange(e);
+                }} */
+              />
+            </Form.Group>
           </Form.Group>
-
           <Form.Label className="my-3">Cuerpo de la Encuesta</Form.Label>
 
           {survey.surveyItemList !== undefined ? (

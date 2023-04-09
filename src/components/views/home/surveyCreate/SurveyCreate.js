@@ -5,19 +5,18 @@ import Swal from "sweetalert2";
 import axios from "../../../config/axiosInit";
 import {
   validateSurveyName,
-  validateCategory,
+  validateImage,
 } from "../../../helpers/validateFields";
 import { Container, Form, Button, FormGroup } from "react-bootstrap";
 import SurveyList from "../SurveyList/surveyList";
 import SurveyModal from "../modal/surveyModal";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./surveyCreate.css"
+import "./surveyCreate.css";
 
 const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(true);
-
 
   //Preguntas
   const [surveyItem, setSurveyItem] = useState({
@@ -54,14 +53,21 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
     console.log("Submit");
     e.preventDefault();
 
-    if (!validateSurveyName(inputs.surveyName)) {
-      Swal.fire("Oop!!", "Some data is invalid", "Error");
+
+      console.log("Validacion name",validateSurveyName(inputs.surveyName));
+      console.log("Validacion img",validateImage(inputs.surveyImage));
+    if (
+      !validateSurveyName(inputs.surveyName) &&
+      !validateImage(inputs.surveyImage)
+    ) {
+      Swal.fire("Oops!!", "Alguno de los datos es invalido", "Error");
       return;
     }
 
     const newSurvey = {
       surveyName: inputs.surveyName,
       category: inputs.category,
+      image: inputs.surveyImage,
       status: false,
       surveyItemList: surveyItemList,
     };
@@ -73,6 +79,8 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
       text: "Esta acción guardará tu progreso",
       icon: "warning",
       showCancelButton: true,
+      color: "#fff",
+      background: "#000",
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Si",
@@ -109,7 +117,7 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
   };
 
   return (
-    <div >
+    <div>
       <Container className="py-5 w-75">
         <div className="d-flex justify-content-between  ">
           <h2 className=" text-center text-light">Crear una nueva encuesta</h2>
@@ -119,15 +127,15 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
           >
             <Button variant="outline-light">Volver </Button>
           </Link>
-          
+
           {/*  */}
         </div>
         <hr />
-        <Form  className="my-5 text-light" onSubmit={handleSubmit}>
+        <Form className="my-5 text-light" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="Text">
             {" "}
             <Form.Label>Nombre de la encuesta</Form.Label>
-            <Form.Control  
+            <Form.Control
               type="text"
               name="surveyName"
               maxLength="50"
@@ -137,7 +145,6 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
                 handleChange(e);
               }}
             />
-            
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -160,6 +167,19 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
               })}
             </Form.Select>
 
+            <Form.Group className="my-3" controlId="Text">
+              {" "}
+              <Form.Label>Imagen descriptiva de la encuesta </Form.Label>
+              <Form.Control
+                type="text"
+                name="surveyImage"
+                placeholder="http://www.google.com/img"
+                maxLength="100"
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </Form.Group>
             <FormGroup>
               <hr></hr>
               {

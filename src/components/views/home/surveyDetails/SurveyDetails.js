@@ -26,18 +26,18 @@ const SurveyDetails = ({ URL }) => {
 
   return (
     <Container>
-      <h1 className=" d-flex justify-content-center mt-4">
+      <h2 className=" text-light d-flex justify-content-center mt-4">
         {survey.surveyName}
-      </h1>
+      </h2>
 
       <Link to="/survey/table"
                   className="d-flex justify-content-end text-decoration-none text-center"
                  
                 >
                   
-                  <Button variant="secondary" >Volver </Button>
+                  <Button variant="outline-light" >Volver </Button>
                 </Link>
-      <div className="d-flex align-items-center justify-content-between">
+      <div className="text-light d-flex align-items-center justify-content-between">
         <p className="my-4 fs-4"> Categoria de encuesta : {survey.category}</p>
       </div>
 
@@ -45,7 +45,7 @@ const SurveyDetails = ({ URL }) => {
         survey.surveyItemList.map((question, index, responseType) => (
           <SurveyPreview
             data={question}
-            key={index}
+            index={index}
             surveyItemList={survey.surveyItemList}
             responseType={responseType} 
           ></SurveyPreview>
@@ -54,8 +54,8 @@ const SurveyDetails = ({ URL }) => {
         <></>
       )}
       <ListGroup>
-        <ListGroupItem className="fw-bold">
-          Por ultimo dejenos su correo para que las respuestas se evíen y pueda
+        <ListGroupItem className="text-light fw-bold">
+          Por ultimo dejenos su correo para que las respuestas se envíen y pueda
           guardar un registro de ellas. (Opcional)
         <div className="d-flex justify-content-between">
 

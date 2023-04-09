@@ -6,11 +6,11 @@ const AnswerItem = (props) => {
     case "Texto Libre":
       return (
         <Form className="my-2">
-          <FormControl as="textarea" rows={2} />
+          <FormControl as="textarea" required maxlength="500" rows={3} />
         </Form>)
     case "Numerica":
         return (
-            <Form className="my-2">
+            <Form required className="text-light my-2">
               <Form.Check inline label="0" name="group1" type="radio" />
               <Form.Check inline label="1" name="group1" type="radio" />
               <Form.Check inline label="2" name="group1" type="radio" />
@@ -26,7 +26,7 @@ const AnswerItem = (props) => {
           );
     case "Cualitativa":
       return (
-        <Form className="my-2">
+        <Form required className="my-2 text-light">
           <Form.Check inline label="Malo" name="group1" type="radio" />
           <Form.Check inline label="Regular" name="group1" type="radio" />
           <Form.Check inline label="Bueno" name="group1" type="radio" />
@@ -36,7 +36,7 @@ const AnswerItem = (props) => {
       );
     case "Booleana":
       return (
-        <Form className="my-2">
+        <Form required className="my-2 text-light">
           <Form.Check inline label="Si" name="group1" type="radio" />
           <Form.Check inline label="No" name="group1" type="radio" />
         </Form>

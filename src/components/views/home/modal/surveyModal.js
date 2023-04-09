@@ -13,12 +13,12 @@ const SurveyModal = (props) => {
   return (
     <div>
       <>
-        <Button variant="primary" onClick={handleShow}>
+        <Button variant="outline-primary" onClick={handleShow}>
           Agregar nueva pregunta
         </Button>
         <Button
           className="ms-3"
-          variant="secondary"
+          variant="outline-success"
           onClick={props.handleSubmit}
         >
           Guardar
