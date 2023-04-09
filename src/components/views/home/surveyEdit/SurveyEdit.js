@@ -23,6 +23,8 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const { id } = useParams();
 
   const surveyNameRef = useRef("");
+  const surveyImageRef = useRef("");
+
 
   const navigate = useNavigate();
 
@@ -63,7 +65,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
     const surveyUpdated = {
       surveyName: surveyNameRef.current.value,
       category: survey.category,
-      image: survey.image,
+      image: surveyImageRef.current.value,
       status: false,
       surveyItemList: surveyItemList,
     };
@@ -146,12 +148,10 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
               <Form.Control
                 type="text"
                 name="surveyImage"
-                value = {survey.image}
+                defaultValue = {survey.image}
                 placeholder="http://www.google.com/img"
-                maxLength="100"
-                /* onChange={(e) => {
-                  handleChange(e);
-                }} */
+                maxLength="200"
+                ref={surveyImageRef}
               />
             </Form.Group>
           </Form.Group>

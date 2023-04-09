@@ -174,7 +174,7 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
                 type="text"
                 name="surveyImage"
                 placeholder="http://www.google.com/img"
-                maxLength="100"
+                maxLength="200"
                 onChange={(e) => {
                   handleChange(e);
                 }}
