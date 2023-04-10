@@ -88,7 +88,14 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
       if (result.isConfirmed) {
         try {
           console.log(result.isConfirmed, "Enviando a BD", URL);
-          const res = await axios.post(URL, newSurvey);
+          const res = await axios.post(URL, newSurvey, {
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": JSON.parse(localStorage.getItem("token"))
+                .token,
+            },});
+
+
           console.log(res.status, res.status === 201);
 
           if (res.status === 201) {
