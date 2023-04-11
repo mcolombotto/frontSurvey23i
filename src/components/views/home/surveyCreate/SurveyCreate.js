@@ -73,8 +73,17 @@ const SurveyCreate = ({ URL, getApi, surveys, categoryItemList, categoryItem }) 
         text: "Por favor selecciona una categoría",
       });
     }
-
-
+    if (surveyItemList.length == 0) {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        color: "#fff",
+        confirmButtonColor: "#3085d6",
+        background: "#000",
+        text: "Por favor agrega al menos una pregunta a la encuesta",
+      });
+    }
+    
 
 
 
@@ -124,12 +133,12 @@ const SurveyCreate = ({ URL, getApi, surveys, categoryItemList, categoryItem }) 
       if (result.isConfirmed) {
         try {
           console.log(result.isConfirmed, "Enviando a BD", URL);
-          const res = await axios.post(URL, newSurvey, {
+          const res = await axios.post(URL, newSurvey/* , {
             headers: {
               "Content-Type": "application/json",
               "x-access-token": JSON.parse(localStorage.getItem("token"))
                 .token,
-            },});
+            },} */);
 
 
           console.log(res.status, res.status === 201);
