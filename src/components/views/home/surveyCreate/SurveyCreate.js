@@ -13,7 +13,7 @@ import SurveyModal from "../modal/surveyModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./surveyCreate.css";
 
-const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
+const SurveyCreate = ({ URL, getApi, surveys, categoryItemList, categoryItem }) => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(true);
@@ -53,16 +53,52 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
     console.log("Submit");
     e.preventDefault();
 
-
-      console.log("Validacion name",validateSurveyName(inputs.surveyName));
-      console.log("Validacion img",validateImage(inputs.surveyImage));
-    if (
-      !validateSurveyName(inputs.surveyName) &&
-      !validateImage(inputs.surveyImage)
-    ) {
-      Swal.fire("Oops!!", "Alguno de los datos es invalido", "Error");
-      return;
+    if (inputs.surveyName == "") {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        color: "#fff",
+        confirmButtonColor: "#3085d6",
+        background: "#000",
+        text: "El nombre de la encuesta no puede estar vacío",
+      });
     }
+    if (inputs.category == "") {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        color: "#fff",
+        confirmButtonColor: "#3085d6",
+        background: "#000",
+        text: "Por favor selecciona una categoría",
+      });
+    }
+
+
+
+
+
+    if (
+      surveys
+        .map((item) => {
+          if (item.surveyName == inputs.surveyName) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+        .find((x) => x == true) == true
+    ) {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        color: "#fff",
+        background: "#000",
+        confirmButtonColor: "#3085d6",
+        text: "Esa encuesta ya existe, por favor elige otro nombre",
+      });
+    }
+
 
     const newSurvey = {
       surveyName: inputs.surveyName,
@@ -162,7 +198,8 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
               onChange={(e) => {
                 handleChange(e);
               }}
-            >
+            ><option value=""> Seleccione la categoria
+          </option>
               {categoryItemList.map((categoryItem) => {
                 return categoryItem.categoryStatus ? (
                   <option value={categoryItem.categoryName}>
