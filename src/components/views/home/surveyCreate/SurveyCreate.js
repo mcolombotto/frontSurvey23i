@@ -83,8 +83,10 @@ const SurveyCreate = ({ URL, getApi, surveys, categoryItemList, categoryItem }) 
         text: "Por favor agrega al menos una pregunta a la encuesta",
       });
     }
+    if (inputs.surveyImage ==""){
+      inputs.surveyImage = "https://www.caf.com/media/3381584/encuesta.png";
+    }
     
-
 
 
     if (
