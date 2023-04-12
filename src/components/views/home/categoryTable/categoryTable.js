@@ -29,7 +29,7 @@ const CategoryTable = ({
           return false;
         } */
 
-    //Verifico que la categoria no exista ya
+
     if (categoryItem.categoryName == "") {
       return Swal.fire({
         icon: "error",

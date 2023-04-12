@@ -13,7 +13,13 @@ import SurveyModal from "../modal/surveyModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./surveyCreate.css";
 
-const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
+const SurveyCreate = ({
+  URL,
+  getApi,
+  surveys,
+  categoryItemList,
+  categoryItem,
+}) => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(true);
@@ -53,15 +59,59 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
     console.log("Submit");
     e.preventDefault();
 
+    if (inputs.surveyName == "") {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        color: "#fff",
+        confirmButtonColor: "#3085d6",
+        background: "#000",
+        text: "El nombre de la encuesta no puede estar vacío",
+      });
+    }
+    if (inputs.category == "") {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        color: "#fff",
+        confirmButtonColor: "#3085d6",
+        background: "#000",
+        text: "Por favor selecciona una categoría",
+      });
+    }
+    if (surveyItemList.length == 0) {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        color: "#fff",
+        confirmButtonColor: "#3085d6",
+        background: "#000",
+        text: "Por favor agrega al menos una pregunta a la encuesta",
+      });
+    }
+    if (inputs.surveyImage == "") {
+      inputs.surveyImage = "https://www.caf.com/media/3381584/encuesta.png";
+    }
 
-      console.log("Validacion name",validateSurveyName(inputs.surveyName));
-      console.log("Validacion img",validateImage(inputs.surveyImage));
     if (
-      !validateSurveyName(inputs.surveyName) &&
-      !validateImage(inputs.surveyImage)
+      surveys
+        .map((item) => {
+          if (item.surveyName == inputs.surveyName) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+        .find((x) => x == true) == true
     ) {
-      Swal.fire("Oops!!", "Alguno de los datos es invalido", "Error");
-      return;
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        color: "#fff",
+        background: "#000",
+        confirmButtonColor: "#3085d6",
+        text: "Esa encuesta ya existe, por favor elige otro nombre",
+      });
     }
 
     const newSurvey = {
@@ -88,15 +138,27 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
       if (result.isConfirmed) {
         try {
           console.log(result.isConfirmed, "Enviando a BD", URL);
-          const res = await axios.post(URL, newSurvey);
+          const res = await axios.post(
+            URL,
+            newSurvey /* , {
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": JSON.parse(localStorage.getItem("token"))
+                .token,
+            },} */
+          );
+
           console.log(res.status, res.status === 201);
 
           if (res.status === 201) {
-            Swal.fire(
-              "Creación Exitosa",
-              "La encuesta se guardó de forma satisfactoria",
-              "success"
-            );
+            Swal.fire({
+              title: "Creación Exitosa",
+              text: "La encuesta se guardó de forma satisfactoria",
+              icon: "success",
+              color: "#fff",
+              background: "#000",
+              confirmButtonColor: "#3085d6",
+            });
 
             getApi();
 
@@ -156,6 +218,7 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
                 handleChange(e);
               }}
             >
+              <option value=""> Seleccione la categoria</option>
               {categoryItemList.map((categoryItem) => {
                 return categoryItem.categoryStatus ? (
                   <option value={categoryItem.categoryName}>

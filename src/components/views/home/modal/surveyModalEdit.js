@@ -23,7 +23,7 @@ function ModalEdit(props) {
           Editar
         </Button>
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} className="text-light" onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Modificar pregunta existente</Modal.Title>
           </Modal.Header>
@@ -94,11 +94,11 @@ function ModalEdit(props) {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="outline-secondary" onClick={handleClose}>
               Cerrar
             </Button>
             <Button
-              variant="primary"
+              variant="outline-primary"
               onClick={(e) => {
                 e.preventDefault();
 
