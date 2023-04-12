@@ -25,7 +25,6 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   const surveyNameRef = useRef("");
   const surveyImageRef = useRef("");
 
-
   const navigate = useNavigate();
 
   const deleteSurveyItem = (itemName) => {
@@ -47,7 +46,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
       const res = await axios.get(`${URL}/${id}`);
       const surveyApi = res.data;
       setSurvey(surveyApi);
-      setSurveyItemList(surveyApi.surveyItemList)
+      setSurveyItemList(surveyApi.surveyItemList);
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +86,14 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
           console.log(res.data);
 
           if (res.status === 200) {
-            Swal.fire("Modificada!", "Se modificó la encuesta con éxito", "success");
+            Swal.fire({
+              title: "Modificada!",
+              text: "Se modificó la encuesta con éxito",
+              icon: "success",
+              color: "#fff",
+              background: "#000",
+              confirmButtonColor: "#3085d6",
+            });
             getApi();
             navigate("/survey/table");
           }
@@ -101,13 +107,15 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   return (
     <div>
       <Container className="py-5">
-      <div className="d-flex justify-content-between text-light ">
+        <div className="d-flex justify-content-between text-light ">
           <h2>Editar una encuesta existente</h2>
           <Link
             to="/survey/table"
             className="m-2 btn-red text-decoration-none text-center"
           >
-            <Button className="text-light" variant="outline-light">Volver </Button>
+            <Button className="text-light" variant="outline-light">
+              Volver{" "}
+            </Button>
           </Link>
           {/*  */}
         </div>
@@ -142,13 +150,13 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
                 );
               })}
             </Form.Select>
-          <Form.Group className="my-3" controlId="Text">
+            <Form.Group className="my-3" controlId="Text">
               {" "}
               <Form.Label>Imagen descriptiva de la encuesta </Form.Label>
               <Form.Control
                 type="text"
                 name="surveyImage"
-                defaultValue = {survey.image}
+                defaultValue={survey.image}
                 placeholder="http://www.google.com/img"
                 maxLength="200"
                 ref={surveyImageRef}
@@ -168,14 +176,13 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
             <></>
           )}
           <div className="text-end mt-2">
-          <SurveyModal
+            <SurveyModal
               surveyItemList={surveyItemList}
               setSurveyItem={setSurveyItem}
               surveyItem={surveyItem}
               setSurveyItemList={setSurveyItemList}
               handleSubmit={handleSubmit}
             ></SurveyModal>
-          
           </div>
         </Form>
       </Container>
