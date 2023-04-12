@@ -57,7 +57,14 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
     e.preventDefault();
 
     if (!validateSurveyName(surveyNameRef.current.value)) {
-      Swal.fire("Ops!", "Alguno de los datos es invalido", "error");
+      Swal.fire({
+        title:"Ops!",
+        text:"Alguno de los datos es invalido",
+        icon:"error",
+        color: "#fff",
+        background: "#000",
+        confirmButtonColor: "#3085d6",
+      });
       return;
     }
 
@@ -89,10 +96,13 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
           console.log(res.data);
 
           if (res.status === 200) {
-            Swal.fire(
-              "Modificada!",
-              "Se modificó la encuesta con éxito",
-              "success"
+            Swal.fire({
+              title:"Modificada!",
+              text:"Se modificó la encuesta con éxito",
+              icon:"success",
+              color: "#fff",
+              background: "#000",
+              confirmButtonColor: "#3085d6",}
             );
             getApi();
             navigate("/survey/table");

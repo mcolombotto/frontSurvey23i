@@ -15,9 +15,7 @@ import {
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
 const Survey = ({ survey, URL, getApi }) => {
-
-  
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   let visible = (data) => {
     if (data) {
@@ -41,7 +39,6 @@ const Survey = ({ survey, URL, getApi }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-
           const res = await axios.delete(`${URL}/${id}`, {
             //TOKEN PARA QUE SOLO EL ADMIN PUEDA BORRAR
             /*  headers: {
@@ -52,64 +49,59 @@ const Survey = ({ survey, URL, getApi }) => {
           });
 
           if (res.status === 200) {
-            Swal.fire("Borrada!", "La encuesta se borró correctamente", "success");
+            Swal.fire({
+              title: "Borrada!",
+              text: "La encuesta se borró correctamente",
+              icon: "success",
+            });
 
             getApi();
           }
         } catch (error) {
           console.log(error);
-
         }
       }
     });
   };
 
- 
   const handleActivate = async (id) => {
     try {
       const res = await axios.get(`${URL}/${id}`);
       let surveyLoaded = res.data;
-      console.log("ANTES",surveyLoaded); 
+      console.log("ANTES", surveyLoaded);
       surveyLoaded.status = !surveyLoaded.status;
-      console.log("DESPUES",surveyLoaded); 
-     
+      console.log("DESPUES", surveyLoaded);
+
       await axios.put(`${URL}/${id}`, surveyLoaded);
       navigate(0);
-  }catch (error) {
-    console.log(error);
-  }
-  }
-
-
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <tr >
+    <tr>
       {/* <td>{survey._id}</td> */}
       <td className="text-light">{survey.surveyName}</td>
       <td className="text-light">{survey.category}</td>
       <td>
-      <div className="d-flex justify-content-center">
-        
-        <ToggleButton className=" text-light"
-          type="checkbox"
-          variant="outline"
-          onClick={() => handleActivate(survey._id)}
-        >
-          {visible(survey.status)}{" "}
-        </ToggleButton>
+        <div className="d-flex justify-content-center">
+          <ToggleButton
+            className=" text-light"
+            type="checkbox"
+            variant="outline"
+            onClick={() => handleActivate(survey._id)}
+          >
+            {visible(survey.status)}{" "}
+          </ToggleButton>
         </div>
       </td>
-      <td >
+      <td>
         <div className="d-flex justify-content-center">
-          <Link
-          to={`/survey/details/${survey._id}`}>
-          
-          <Button
-            variant="outline-success"
-            className="mx-1"
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </Button>
+          <Link to={`/survey/details/${survey._id}`}>
+            <Button variant="outline-success" className="mx-1">
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </Button>
           </Link>
           <Link
             to={`/survey/edit/${survey._id}`}
@@ -127,18 +119,12 @@ const Survey = ({ survey, URL, getApi }) => {
           >
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>
-          <Button
-            variant="outline-primary"
-            className=" mx-1"
-            
-          >
+          <Button variant="outline-primary" className=" mx-1">
             <FontAwesomeIcon icon={faChartLine} />
           </Button>
         </div>
       </td>
-            <td>
-
-            </td>
+      <td></td>
     </tr>
   );
 };

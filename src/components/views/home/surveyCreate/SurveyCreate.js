@@ -13,7 +13,13 @@ import SurveyModal from "../modal/surveyModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./surveyCreate.css";
 
-const SurveyCreate = ({ URL, getApi, surveys, categoryItemList, categoryItem }) => {
+const SurveyCreate = ({
+  URL,
+  getApi,
+  surveys,
+  categoryItemList,
+  categoryItem,
+}) => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(true);
@@ -83,11 +89,9 @@ const SurveyCreate = ({ URL, getApi, surveys, categoryItemList, categoryItem }) 
         text: "Por favor agrega al menos una pregunta a la encuesta",
       });
     }
-    if (inputs.surveyImage ==""){
+    if (inputs.surveyImage == "") {
       inputs.surveyImage = "https://www.caf.com/media/3381584/encuesta.png";
     }
-    
-
 
     if (
       surveys
@@ -109,7 +113,6 @@ const SurveyCreate = ({ URL, getApi, surveys, categoryItemList, categoryItem }) 
         text: "Esa encuesta ya existe, por favor elige otro nombre",
       });
     }
-
 
     const newSurvey = {
       surveyName: inputs.surveyName,
@@ -135,22 +138,27 @@ const SurveyCreate = ({ URL, getApi, surveys, categoryItemList, categoryItem }) 
       if (result.isConfirmed) {
         try {
           console.log(result.isConfirmed, "Enviando a BD", URL);
-          const res = await axios.post(URL, newSurvey/* , {
+          const res = await axios.post(
+            URL,
+            newSurvey /* , {
             headers: {
               "Content-Type": "application/json",
               "x-access-token": JSON.parse(localStorage.getItem("token"))
                 .token,
-            },} */);
-
+            },} */
+          );
 
           console.log(res.status, res.status === 201);
 
           if (res.status === 201) {
-            Swal.fire(
-              "Creación Exitosa",
-              "La encuesta se guardó de forma satisfactoria",
-              "success"
-            );
+            Swal.fire({
+              title: "Creación Exitosa",
+              text: "La encuesta se guardó de forma satisfactoria",
+              icon: "success",
+              color: "#fff",
+              background: "#000",
+              confirmButtonColor: "#3085d6",
+            });
 
             getApi();
 
@@ -209,8 +217,8 @@ const SurveyCreate = ({ URL, getApi, surveys, categoryItemList, categoryItem }) 
               onChange={(e) => {
                 handleChange(e);
               }}
-            ><option value=""> Seleccione la categoria
-          </option>
+            >
+              <option value=""> Seleccione la categoria</option>
               {categoryItemList.map((categoryItem) => {
                 return categoryItem.categoryStatus ? (
                   <option value={categoryItem.categoryName}>
