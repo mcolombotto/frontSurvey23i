@@ -1,8 +1,8 @@
 import React from "react";
 import { FormControl, Form } from "react-bootstrap";
 
-const AnswerItem = (props) => {
-  switch (props.type) {
+const AnswerItem = ({ type, onChange }) => {
+  switch (type) {
     case "Texto Libre":
       return (
         <Form className="my-2">
