@@ -53,6 +53,9 @@ const Survey = ({ survey, URL, getApi }) => {
               title: "Borrada!",
               text: "La encuesta se borró correctamente",
               icon: "success",
+              color: "#fff",
+              background: "#000",
+              confirmButtonColor: "#3085d6",
             });
 
             getApi();
