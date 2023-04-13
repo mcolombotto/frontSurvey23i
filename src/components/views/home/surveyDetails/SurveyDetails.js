@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import SurveyPreview from "./SurveyPreview";
 import { ListGroupItem, ListGroup, Form, Button } from "react-bootstrap";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 /// Use of the local .json located in the surveyDetail folder - named: formsDb.json ONLY TEST PURPOSE
 const formsDb = require("./formsDb.json");
@@ -11,6 +12,7 @@ const formsDb = require("./formsDb.json");
 const SurveyDetails = ({ URL }) => {
   const [survey, setSurvey] = useState({});
   const [email, setEmail] = useState("");
+  const [sendEmail, setSendEmail] = useState(false);
 
   const { id } = useParams();
 
@@ -47,8 +49,13 @@ const SurveyDetails = ({ URL }) => {
     setEmail(event.target.value);
   };
 
+  const handleSendEmailChange = (event) => {
+    setSendEmail(event.target.checked);
+  };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    
   
     const url = "https://jsonplaceholder.typicode.com/posts";
     const response = await axios.post(url, {
@@ -57,62 +64,89 @@ const SurveyDetails = ({ URL }) => {
         question: item.question,
         response: item.responseType === "Booleana" || item.responseType === "Numerica" || item.responseType === "Cualitativa"
           ? item.response === "on"
-            ? item.responseType === "Booleana" ? "Si" : 5 // Replace with desired response text or number
-            : item.responseType === "Booleana" ? "No" : 0 // Replace with desired response text or number
-          : item.response, // For other response types, use the original response value
+            ? item.responseType === "Booleana" ? "Si" : 5 
+            : item.responseType === "Booleana" ? "No" : 0 
+          : item.response, 
       })),
     });
-  
-    const mailgunUrl = "https://api.mailgun.net/v3/sandbox3bdc51ed5f66403d80153058350b705f.mailgun.org/messages";
-  const mailgunApiKey = "d8927e180f6770486e2078af58ea2dea-81bd92f8-631340b6";
-  const mailgunFrom = "mailgunrollingcode@gmail.com";
-  const mailgunTo = email;
-  const mailgunSubject = "Survey Responses";
+    
+    if (sendEmail) {
+        const mailgunUrl = "https://api.mailgun.net/v3/sandbox3bdc51ed5f66403d80153058350b705f.mailgun.org/messages";
+        const mailgunApiKey = "d8927e180f6770486e2078af58ea2dea-81bd92f8-631340b6";
+        const mailgunFrom = "mailgunrollingcode@gmail.com";
+        const mailgunTo = email;
+        const mailgunSubject = "Tus respuestas de la Encuesta.";
 
-  const mailgunHtml = `
-    <html>
-      <body>
-        <h3>Survey Responses</h3>
-        <ul>
-          ${survey.surveyItemList
-            .map(
-              (item) => `
-            <li>
-              <strong>${item.question}</strong>: 
-              ${
-                item.responseType === "Booleana"
-                  ? item.response === "on"
-                    ? item.responseType === "Booleana" ? "Si" : 5 // Replace with desired response text or number
-                    : item.responseType === "Booleana" ? "No" : 0 // Replace with desired response text or number
-                  : item.response // For other response types, use the original response value
-              }
-            </li>
-          `
-            )
-            .join("")}
-        </ul>
-      </body>
-    </html>
-  `;
+        const mailgunHtml = `
+          <html>
+            <body>
+              <h3>Respuestas:</h3>
+              <ul>
+                ${survey.surveyItemList
+                  .map(
+                    (item) => `
+                  <li>
+                    <strong>${item.question}</strong>: 
+                    ${
+                      item.responseType === "Booleana"
+                        ? item.response === "on"
+                          ? item.responseType === "Booleana" ? "Si" : 5 
+                          : item.responseType === "Booleana" ? "No" : 0 
+                        : item.response 
+                    }
+                  </li>
+                `
+                  )
+                  .join("")}
+              </ul>
+            </body>
+          </html>
+        `;
 
-  const response2 = await axios.post(
-    mailgunUrl,
-    new URLSearchParams({
-      from: mailgunFrom,
-      to: mailgunTo,
-      subject: mailgunSubject,
-      html: mailgunHtml,
-    }),
-    {
-      headers: {
-        Authorization: `Basic ${btoa(`api:${mailgunApiKey}`)}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    }
-  );
+      /*
+        const response2 = await axios.post(
+          mailgunUrl,
+          new URLSearchParams({
+            from: mailgunFrom,
+            to: mailgunTo,
+            subject: mailgunSubject,
+            html: mailgunHtml,
+          }),
+          {
+            headers: {
+              Authorization: `Basic ${btoa(`api:${mailgunApiKey}`)}`,
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+ 
+        console.log(response2.data);
+     */
 
-  console.log(response.data);
-  setEmail("");
+        Swal.fire({
+          title: 'Perfecto!',
+          text: 'Tus respuestas se han recibido correctamente.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          footer: 'Sus respuestas seran enviadas automaticamente al correo provisto.'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setEmail('');
+            setSendEmail(false);
+          }
+        });
+      } else {
+        Swal.fire({
+          title: 'Perfecto!',
+          text: 'Tus respuestas se han recibido correctamente.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setEmail('');
+          }
+        });
+      }
 };
   
   return (
@@ -142,22 +176,32 @@ const SurveyDetails = ({ URL }) => {
             />
           ))}
           <ListGroup>
-            <ListGroupItem className="fw-bold">
-              Por ultimo dejenos su correo para que las respuestas se evíen y pueda guardar un registro de ellas. (Opcional)
-              <div className="d-flex justify-content-between">
-                <Form.Control
-                  className="me-2 my-2"
-                  type="email"
-                  placeholder="name@example.com"
-                  value={email}
-                  onChange={handleEmailChange}
-                  required
+          <ListGroupItem className="fw-bold">
+          <div className="form-check my-auto">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  checked={sendEmail}
+                  onChange={(event) => setSendEmail(event.target.checked)}
+                  id="sendEmailCheckbox"
                 />
-                <Button className="mx-2 my-auto" type="submit">
-                  Enviar
-                </Button>
+                <label className="form-check-label" htmlFor="sendEmailCheckbox">
+                Deja tu correo para que las respuestas se envíen y puedas guardar un registro de ellas.
+                </label>
               </div>
-            </ListGroupItem>
+            <div className="d-flex justify-content-between">
+              <Form.Control
+                className="me-2 my-2"
+                type="email"
+                placeholder="name@example.com"
+                value={email}
+                onChange={handleEmailChange}
+              />
+              <Button className="mx-2 my-auto" type="submit">
+                Enviar
+              </Button>
+            </div>
+          </ListGroupItem>
           </ListGroup>
         </Form>
       ) : (
@@ -167,4 +211,4 @@ const SurveyDetails = ({ URL }) => {
   );
 };
 
-export default SurveyDetails;
+export default SurveyDetails;  
