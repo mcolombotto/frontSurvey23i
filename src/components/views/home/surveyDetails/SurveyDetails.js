@@ -128,11 +128,17 @@ const SurveyDetails = ({ URL }) => {
           text: 'Tus respuestas se han recibido correctamente.',
           icon: 'success',
           confirmButtonText: 'OK',
+          showCancelButton: true,
+          cancelButtonText: 'Volver a inicio',
           footer: 'Sus respuestas seran enviadas automaticamente al correo provisto.'
         }).then((result) => {
           if (result.isConfirmed) {
             setEmail('');
             setSendEmail(false);
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            window.location.href = '/';
+          } else if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.esc) {
+            window.location.href = '/';
           }
         });
       } else {
@@ -140,10 +146,16 @@ const SurveyDetails = ({ URL }) => {
           title: 'Perfecto!',
           text: 'Tus respuestas se han recibido correctamente.',
           icon: 'success',
+          showCancelButton: true,
+          cancelButtonText: 'Volver a inicio',
           confirmButtonText: 'OK',
         }).then((result) => {
           if (result.isConfirmed) {
             setEmail('');
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            window.location.href = '/';
+          } else if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.esc) {
+            window.location.href = '/';
           }
         });
       }
