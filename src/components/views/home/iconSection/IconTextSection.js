@@ -13,7 +13,7 @@ const IconTextSection = () => {
         <FontAwesomeIcon icon={faUserSecret}  className='fa-icon icon' />
         </div>
         <div className="text-container">
-          <p>Responde a las encuestas de manera anonima o ingresa tu email.</p>
+          <p>El encuestado puede responder las encuestas de manera anonima o ingresando un email.</p>
         </div>
       </div>
 
