@@ -13,6 +13,8 @@ const SurveyDetails = ({ URL }) => {
   const [survey, setSurvey] = useState({});
   const [email, setEmail] = useState("");
   const [sendEmail, setSendEmail] = useState(false);
+  const [formChanged, setFormChanged] = useState(false); // add state for tracking form changes
+
 
   const { id } = useParams();
 
@@ -47,6 +49,7 @@ const SurveyDetails = ({ URL }) => {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    setFormChanged(true); // set formChanged to true when email changes
   };
 
   const handleSendEmailChange = (event) => {
@@ -55,6 +58,45 @@ const SurveyDetails = ({ URL }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    setFormChanged(false);
+  // Check if required fields are empty
+  const requiredFields = survey.surveyItemList.filter(
+    (item) =>
+      (item.responseType === "Texto Libre" || item.responseType === "Cualitativa") &&
+      !item.response
+  );
+
+  // Check if any items are unanswered
+  const unansweredItems = survey.surveyItemList.filter(
+    (item) =>
+      item.response === null ||
+      item.response === undefined
+  );
+
+  if (requiredFields.length > 0) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Por favor responde en el campo de texto.",
+    });
+    return;
+  } else if (unansweredItems.length > 0) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Por favor responde a todas las preguntas.",
+    });
+    return;
+  }
+  if (sendEmail && !email) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Por favor ingrese un correo electrónico.",
+    });
+    return;
+  }
     
   
     const url = "https://jsonplaceholder.typicode.com/posts";
@@ -207,6 +249,7 @@ const SurveyDetails = ({ URL }) => {
                 type="email"
                 placeholder="name@example.com"
                 value={email}
+                disabled={!sendEmail}
                 onChange={handleEmailChange}
               />
               <Button className="mx-2 my-auto" type="submit">
