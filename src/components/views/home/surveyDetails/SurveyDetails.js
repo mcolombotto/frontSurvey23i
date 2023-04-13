@@ -186,7 +186,7 @@ const SurveyDetails = ({ URL }) => {
                   id="sendEmailCheckbox"
                 />
                 <label className="form-check-label" htmlFor="sendEmailCheckbox">
-                Deja tu correo para que las respuestas se envíen y puedas guardar un registro de ellas.
+                  ¿Quieres enviar las respuestas a tu correo?
                 </label>
               </div>
             <div className="d-flex justify-content-between">
