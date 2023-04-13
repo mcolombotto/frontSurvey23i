@@ -20,13 +20,16 @@ import UserContext from './components/layout/context/UserContext'
 
 function App() {
   const [surveys, setSurveys] = useState([]);
-  const [loggedUser, setLoggedUser] = useState({});
+  const [loggedUser, setLoggedUser] = useState(( JSON.parse(localStorage.getItem("user-token"))==undefined? false : true));
   const [categoryItem, setCategoryItem] = useState({
     categoryName : "",
     categoryStatus : "",
   });
   const [user, setUser] = React.useState({});
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("user-token");
+/* 
+  token == ""? setLoggedUser(true) : setLoggedUser(false) ; */
+
   console.log('user', user);
   console.log('token',token);
 
@@ -85,6 +88,7 @@ function App() {
                     getApi={getApi}
                     surveys={surveys}
                     URL = {URL2}
+                    
                     />
                   }
                 />
@@ -124,7 +128,7 @@ function App() {
           <Route
             exact
             path="/login"
-            element={<Login setLoggedUser={setLoggedUser} />}
+            element={<Login loggedUser={loggedUser} setLoggedUser={setLoggedUser} />}
           />
           <Route
             exact

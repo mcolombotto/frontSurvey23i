@@ -53,9 +53,8 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
     console.log("Submit");
     e.preventDefault();
 
-
-      console.log("Validacion name",validateSurveyName(inputs.surveyName));
-      console.log("Validacion img",validateImage(inputs.surveyImage));
+    console.log("Validacion name", validateSurveyName(inputs.surveyName));
+    console.log("Validacion img", validateImage(inputs.surveyImage));
     if (
       !validateSurveyName(inputs.surveyName) &&
       !validateImage(inputs.surveyImage)
@@ -88,15 +87,25 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
       if (result.isConfirmed) {
         try {
           console.log(result.isConfirmed, "Enviando a BD", URL);
-          const res = await axios.post(URL, newSurvey);
+          console.log(JSON.parse(localStorage.getItem("user-token")).token);
+          const res = await axios.post(URL, newSurvey, {
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+                .token,
+            },
+          });
           console.log(res.status, res.status === 201);
 
           if (res.status === 201) {
-            Swal.fire(
-              "Creación Exitosa",
-              "La encuesta se guardó de forma satisfactoria",
-              "success"
-            );
+            Swal.fire({
+              title: "Creación Exitosa",
+              text: "La encuesta se guardó de forma satisfactoria",
+              icon: "success",
+              color: "#fff",
+              background: "#000",
+              confirmButtonColor: "#3085d6",
+            });
 
             getApi();
 
@@ -173,6 +182,7 @@ const SurveyCreate = ({ URL, getApi, categoryItemList, categoryItem }) => {
               <Form.Control
                 type="text"
                 name="surveyImage"
+                defaultValue=""
                 placeholder="http://www.google.com/img"
                 maxLength="200"
                 onChange={(e) => {

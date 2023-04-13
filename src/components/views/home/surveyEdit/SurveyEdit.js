@@ -82,7 +82,12 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await axios.put(`${URL}/${id}`, surveyUpdated);
+          const res = await axios.put(`${URL}/${id}`, surveyUpdated, {
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+                .token,
+            },});
           console.log(res.data);
 
           if (res.status === 200) {

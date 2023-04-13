@@ -43,12 +43,12 @@ const Survey = ({ survey, URL, getApi }) => {
         try {
 
           const res = await axios.delete(`${URL}/${id}`, {
-            //TOKEN PARA QUE SOLO EL ADMIN PUEDA BORRAR
-            /*  headers: {
+          
+              headers: {
               "Content-Type": "application/json",
               "x-access-token": JSON.parse(localStorage.getItem("user-token"))
                 .token,
-            }, */
+            }, 
           });
 
           if (res.status === 200) {
@@ -73,7 +73,14 @@ const Survey = ({ survey, URL, getApi }) => {
       surveyLoaded.status = !surveyLoaded.status;
       console.log("DESPUES",surveyLoaded); 
      
-      await axios.put(`${URL}/${id}`, surveyLoaded);
+      await axios.put(`${URL}/${id}`, surveyLoaded, {
+          
+        headers: {
+        "Content-Type": "application/json",
+        "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+          .token,
+      }, 
+    });
       navigate(0);
   }catch (error) {
     console.log(error);

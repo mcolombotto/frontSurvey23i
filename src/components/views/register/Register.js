@@ -50,7 +50,8 @@ const Register = () => {
                         password2: '',
                     }));
                     
-                    localStorage.setItem('token', token);
+               
+                    localStorage.setItem("user-token", JSON.stringify(response));
 
                     context.setUser({
                         uuid: uid,
