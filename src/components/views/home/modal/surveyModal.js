@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Survey from "../surveyTable/Survey";
-
+import "./modal.css"
 const SurveyModal = (props) => {
   const [show, setShow] = useState(false);
 
@@ -25,7 +25,7 @@ const SurveyModal = (props) => {
           Guardar
         </Button>
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal className="text-light"show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Agregar nueva pregunta</Modal.Title>
           </Modal.Header>
@@ -72,11 +72,11 @@ const SurveyModal = (props) => {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="outline-secondary" onClick={handleClose}>
               Cerrar
             </Button>
             <Button
-              variant="primary"
+              variant="outline-primary"
               onClick={(e) => {
                 e.preventDefault();
                 console.log("ARRAY", props.surveyItemList);

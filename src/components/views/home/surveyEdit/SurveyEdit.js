@@ -57,14 +57,24 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
     e.preventDefault();
 
     if (!validateSurveyName(surveyNameRef.current.value)) {
-      Swal.fire("Ops!", "Alguno de los datos es invalido", "error");
+      Swal.fire({
+        title:"Ops!",
+        text:"Alguno de los datos es invalido",
+        icon:"error",
+        color: "#fff",
+        background: "#000",
+        confirmButtonColor: "#3085d6",
+      });
       return;
     }
 
     const surveyUpdated = {
       surveyName: surveyNameRef.current.value,
       category: survey.category,
-      image: surveyImageRef.current.value,
+      image:
+        surveyImageRef.current.value == ""
+          ? "https://www.caf.com/media/3381584/encuesta.png"
+          : surveyImageRef.current.value,
       status: false,
       surveyItemList: surveyItemList,
     };
@@ -92,13 +102,13 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
 
           if (res.status === 200) {
             Swal.fire({
-              title: "Modificada!",
-              text: "Se modificó la encuesta con éxito",
-              icon: "success",
+              title:"Modificada!",
+              text:"Se modificó la encuesta con éxito",
+              icon:"success",
               color: "#fff",
               background: "#000",
-              confirmButtonColor: "#3085d6",
-            });
+              confirmButtonColor: "#3085d6",}
+            );
             getApi();
             navigate("/survey/table");
           }

@@ -97,6 +97,7 @@ function App() {
                   path="/survey/create"
                   element={
                     <SurveyCreate
+                    surveys={surveys}
                       URL={URL}
                       getApi={getApi}
                       categoryItemList={categoryItemList}
