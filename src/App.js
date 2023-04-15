@@ -1,37 +1,149 @@
-import React from 'react'
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navigation from "./components/layout/navigation/Navigation.js";
-import Home from './components/views/home/Home.js'
-import Error404 from './components/views/error404/Error404'
-import Footer from './components/layout/footer/Footer';
-import Register from './components/views/register/Register'
+import React from "react";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import axios from "./components/config/axiosInit";
+import Home from "./components/views/home/Home";
+import SurveysTable from "./components/views/home/surveyTable/surveyTable";
+import SurveyCreate from "./components/views/home/surveyCreate/SurveyCreate";
+import SurveyEdit from "./components/views/home/surveyEdit/SurveyEdit";
+import SurveyDetails from "./components/views/home/surveyDetails/SurveyDetails";
+import Navigation from "./components/layout/navigation/Navigation";
+import Footer from "./components/layout/footer/Footer";
+import Login from "./components/views/login/Login";
+import Register from "./components/views/register/Register";
+import Error404 from "./components/views/error404/Error404";
+import CategoryTable from "./components/views/home/categoryTable/categoryTable";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
 import UserContext from './components/layout/context/UserContext'
-import Login from './components/views/login/Login'
-import SurveyCreate from './components/views/surveyCreate/SurveyCreate'
-import Us from './components/views/us/Us'
-function App() {
-    const [user, setUser] = React.useState({});
 
-    return (
-        <UserContext.Provider value={{ user, setUser }}>
-            <Router>
-                <Navigation />
-                <main>
-                    <Routes>
-                        <Route exact path='/' element={<Home />} />
-                        <Route exact path='/register' element={<Register />} />
-                        <Route exact path='/error' element={<Error404 />} />
-                        <Route exact path='/login' element={<Login />} />
-                        <Route exact path='/surveyCreate' element={<SurveyCreate />} />
-                        <Route exact path='/us' element={<Us />} />
-                    </Routes>
-                </main>
-                <Footer />
-            </Router>
-        </UserContext.Provider>
-    );
+function App() {
+  const [surveys, setSurveys] = useState([]);
+  const [loggedUser, setLoggedUser] = useState(( JSON.parse(localStorage.getItem("user-token"))==undefined? false : true));
+  const [categoryItem, setCategoryItem] = useState({
+    categoryName : "",
+    categoryStatus : "",
+  });
+  const [user, setUser] = React.useState({});
+  const token = localStorage.getItem("user-token");
+/* 
+  token == ""? setLoggedUser(true) : setLoggedUser(false) ; */
+
+  console.log('user', user);
+  console.log('token',token);
+
+  const [categoryItemList, setCategoryItemList] = useState([]);
+
+  const URL = process.env.REACT_APP_API_SURVEYS;
+
+  const URL2 = process.env.REACT_APP_API_CATEGORY;
+
+  useEffect(() => {
+    getApi();
+  }, []);
+
+  const getApi = async () => {
+    try {
+      
+      const res = await axios.get(URL);
+      const cat = await axios.get(URL2);
+      //console.log(res.data);
+      const surveyApi = res.data;
+      const categoryApi = cat.data;
+      setSurveys(surveyApi);
+      setCategoryItemList(categoryApi);
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+
+  return (
+   <UserContext.Provider value={{ user, setUser }}>
+    <BrowserRouter>
+      <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
+      <main>
+        <Routes>
+          <Route exact path="/" element={<Home surveys={surveys} />} />
+          <Route
+            path="/*"
+            element={
+              //<ProtectedRoute>
+              <Routes>
+                <Route
+                  exact
+                  path="/survey/table"
+                  element={
+                    <SurveysTable surveys={surveys} URL={URL} getApi={getApi} />
+                  }
+                />
+                <Route
+                  exact
+                  path="/category/table"
+                  element={
+                    <CategoryTable categoryItemList={categoryItemList}
+                    setCategoryItemList={setCategoryItemList} 
+                    categoryItem = {categoryItem}
+                    setCategoryItem = {setCategoryItem}
+                    getApi={getApi}
+                    surveys={surveys}
+                    URL = {URL2}
+                    
+                    />
+                  }
+                />
+                <Route
+                  exact
+                  path="/survey/create"
+                  element={
+                    <SurveyCreate
+                    surveys={surveys}
+                      URL={URL}
+                      getApi={getApi}
+                      categoryItemList={categoryItemList}
+                      categoryItem={categoryItem}
+                    />
+                  }
+                />
+                <Route
+                  exact
+                  path="/survey/edit/:id"
+                  element={
+                    <SurveyEdit
+                      URL={URL}
+                      getApi={getApi}
+                      categoryItemList={categoryItemList}
+                      categoryItem={categoryItem}
+                    />
+                  }
+                />
+              </Routes>
+              //</ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/survey/details/:id"
+            element={<SurveyDetails URL={URL} surveys={surveys} />}
+          />
+          <Route
+            exact
+            path="/login"
+            element={<Login loggedUser={loggedUser} setLoggedUser={setLoggedUser} />}
+          />
+          <Route
+            exact
+            path="/register"
+            element={<Register setLoggedUser={setLoggedUser} />}
+          />
+          <Route exact path='/error' element={<Error404 />} />
+        </Routes>
+      </main>
+      <Footer />
+    </BrowserRouter>
+   </UserContext.Provider>
+  );
 }
 
 export default App;
+

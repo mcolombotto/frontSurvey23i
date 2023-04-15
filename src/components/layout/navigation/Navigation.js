@@ -1,17 +1,26 @@
-import React, { useContext } from 'react';
-import UserContext from '../context/UserContext'
-import './Navigation.css'
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { Link } from 'react-router-dom';
+import React, { useContext } from "react";
+import UserContext from "../context/UserContext";
+import "./Navigation.css";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Dropdown from "react-bootstrap/Dropdown";
+import { Link } from "react-router-dom";
 import Logo from "../logo/Logo";
 
 function Navigation() {
     const context = useContext(UserContext);
     const { img: urlImg, username, estate: loggedUser } = context.user;
+    const username = JSON.parse(localStorage.getItem("user-token"))?.username;
+
+
+    const handleLogout = () => {
+        /* context.setUser({}); */
+        localStorage.removeItem("user-token");
+        setLoggedUser(false);
+    };
+
     return (
         <Navbar className='menu' variant="dark" expand="lg">
             <Container>
@@ -73,5 +82,4 @@ function Navigation() {
     );
 }
 
-
-export default Navigation;
+    export default Navigation;
