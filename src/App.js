@@ -22,7 +22,7 @@ function App() {
                     <Routes>
                         <Route exact path='/' element={<Home />} />
                         <Route exact path='/register' element={<Register />} />
-                        <Route exact path='*' element={<Error404 />} />
+                        <Route exact path='/error' element={<Error404 />} />
                         <Route exact path='/login' element={<Login />} />
                         <Route exact path='/surveyCreate' element={<SurveyCreate />} />
                         <Route exact path='/us' element={<Us />} />

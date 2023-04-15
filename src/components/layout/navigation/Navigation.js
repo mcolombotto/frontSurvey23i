@@ -30,11 +30,11 @@ function Navigation() {
                             </>
                         )}
                         <NavDropdown title="Encuestas" id="nav-dropdown">
-                            <NavDropdown.Item to="*">Clima laboral</NavDropdown.Item>
-                            <NavDropdown.Item to="*">
+                            <NavDropdown.Item to="/apisurveys/id">Clima laboral</NavDropdown.Item>
+                            <NavDropdown.Item to="/apisurveys/id">
                                 Satisfacciòn de un servicio
                             </NavDropdown.Item>
-                            <NavDropdown.Item to="*">
+                            <NavDropdown.Item to="/apisurveys/id">
                                 Investigaciòn
                             </NavDropdown.Item>
                         </NavDropdown>
