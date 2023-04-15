@@ -87,7 +87,7 @@ const Login = () => {
                                 {...register("email", { required: true, maxLength: 100, pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/ })}
                             />
                             {errors.email && errors.email.type === 'required' && <span className='error'>Este campo es requerido. </span>}
-                            {errors.email && errors.email.type === 'maxLength' && <span className='error'>Este campo tiene un maximo de 60 caracteres</span>}
+                            {errors.email && errors.email.type === 'maxLength' && <span className='error'>Este campo tiene un máximo de 60 caracteres</span>}
                             {errors.email && errors.email.type === 'pattern' && <span className='error'>El correo tiene un formato incorrecto. Formato esperado: email@email.com </span>}
                                
                         </div>
@@ -106,7 +106,7 @@ const Login = () => {
                                 {typeInput === 'password' ? <FaEyeSlash /> : < FaEye />}
                             </button>
                             {errors.password && errors.password.type === 'required' && <span className='error'>Este campo es requerido. </span>}
-                            {errors.password && errors.password.type === 'maxLength' && <span className='error'> Este campo tiene un maximo de 90 caracteres</span>}
+                            {errors.password && errors.password.type === 'maxLength' && <span className='error'> Este campo tiene un máximo de 90 caracteres</span>}
                             {errors.password && errors.password.type === 'pattern' && (
                                 <span className='error'>
                                     La contraseña tiene un formato incorrecto.
