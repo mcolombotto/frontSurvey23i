@@ -12,14 +12,14 @@ import Logo from "../logo/Logo";
 function Navigation() {
     const context = useContext(UserContext);
     const { img: urlImg, username, estate: loggedUser } = context.user;
-    const username = JSON.parse(localStorage.getItem("user-token"))?.username;
+   // const userName = JSON.parse(localStorage.getItem("user-token"))?.username;
 
 
-    const handleLogout = () => {
-        /* context.setUser({}); */
-        localStorage.removeItem("user-token");
-        setLoggedUser(false);
-    };
+    // const handleLogout = () => {
+    //    context.setUser({}); 
+    //    localStorage.removeItem("user-token");
+    //    setLoggedUser(false);
+    // };
 
     return (
         <Navbar className='menu' variant="dark" expand="lg">
