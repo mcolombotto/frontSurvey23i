@@ -5,11 +5,11 @@ import Slider from './slider';
 import slides  from './formsDB.json'
 import CardList from './Cards.js';
 
-const Home = () => {
+const Home = ({surveys, categoryItemList}) => {
     return (
     <>
-        <Slider slides={slides}/>
-        <CardList cards= {slides}/>
+        <Slider surveys={surveys}/>
+        <CardList categoryItemList={categoryItemList}  cards= {surveys}/>
     </>
     );
 };

@@ -71,7 +71,7 @@ function App() {
       <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
       <main>
         <Routes>
-          <Route exact path="/" element={<Home surveys={surveys} />} />
+          <Route exact path="/" element={<Home surveys={surveys} categoryItemList={categoryItemList} />} />
           <Route
             path="/*"
             element={
