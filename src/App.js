@@ -27,11 +27,6 @@ function App() {
   });
   const [user, setUser] = React.useState({});
   const token = localStorage.getItem("user-token");
-/* 
-  token == ""? setLoggedUser(true) : setLoggedUser(false) ; */
-
-  console.log('user', user);
-  console.log('token',token);
 
   const [categoryItemList, setCategoryItemList] = useState([]);
 

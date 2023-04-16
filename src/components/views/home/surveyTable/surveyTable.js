@@ -70,7 +70,10 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
               </tr>
             </thead>
             <tbody>
-              {surveys?.map((survey) => (
+              {surveys?.filter((item)=>{ 
+        return JSON.parse(localStorage.getItem("user-token")).role == "admin" ? 
+         item :   item.author == JSON.parse(localStorage.getItem("user-token")).email
+      }).map((survey) => (
                 <Survey
                   key={survey._id}
                   survey={survey}
