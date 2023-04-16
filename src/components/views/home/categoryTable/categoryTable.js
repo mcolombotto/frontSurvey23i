@@ -85,7 +85,13 @@ const CategoryTable = ({
       if (result.isConfirmed) {
         try {
           console.log(URL);
-          const res = await axios.post(`${URL}`, newCategory);
+          const res = await axios.post(`${URL}`, newCategory,{
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+                .token,
+            },
+          });
           /* console.log(res.data); */
 
           if (res.status === 201) {

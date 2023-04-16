@@ -15,9 +15,7 @@ import {
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
 const Category = ({
-  categoryItemList,
   surveys,
-  setCategoryItemList,
   category,
   URL,
   getApi,
@@ -53,12 +51,11 @@ const Category = ({
       if (result.isConfirmed) {
         try {
           const res = await axios.delete(`${URL}/${id}`, {
-            //TOKEN PARA QUE SOLO EL ADMIN PUEDA BORRAR
-            /*  headers: {
+            headers: {
               "Content-Type": "application/json",
               "x-access-token": JSON.parse(localStorage.getItem("user-token"))
                 .token,
-            }, */
+            }, 
           });
 
           if (res.status === 200) {
@@ -90,7 +87,13 @@ const Category = ({
       categoryLoaded.categoryStatus = !categoryLoaded.categoryStatus;
       console.log("DESPUES", categoryLoaded);
 
-      await axios.put(`${URL}/${id}`, categoryLoaded);
+      await axios.put(`${URL}/${id}`, categoryLoaded,{
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+            .token,
+        },
+      })
       navigate(0);
     } catch (error) {
       console.log(error);
