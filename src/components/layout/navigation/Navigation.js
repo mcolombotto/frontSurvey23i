@@ -72,6 +72,14 @@ function Navigation({ loggedUser, setLoggedUser }) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
+                <Link  className="text-decoration-none text-dark" to="/survey/table">
+                <NavDropdown.Item as="button" >
+
+                    Panel
+                  </NavDropdown.Item>
+                </Link>
+
+                  <Dropdown.Divider />
                   <NavDropdown.Item as="button" onClick={handleLogout}>
                     Cerrar sesion
                   </NavDropdown.Item>
