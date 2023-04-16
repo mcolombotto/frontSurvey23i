@@ -92,6 +92,8 @@ const Survey = ({ survey, URL, getApi }) => {
   return (
     <tr>
       {/* <td>{survey._id}</td> */}
+      {JSON.parse(localStorage.getItem("user-token")).role ==
+  "admin" ? (<td className="text-light">{survey.author}</td>):(<></>)}
       <td className="text-light">{survey.surveyName}</td>
       <td className="text-light">{survey.category}</td>
       <td>

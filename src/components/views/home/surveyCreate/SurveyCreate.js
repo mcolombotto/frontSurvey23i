@@ -120,6 +120,7 @@ const SurveyCreate = ({
       image: inputs.surveyImage,
       status: false,
       surveyItemList: surveyItemList,
+      author : (JSON.parse(localStorage.getItem("user-token")).email)
     };
     console.log("surveyItemList", surveyItemList);
     console.log("newSurvey", newSurvey);
