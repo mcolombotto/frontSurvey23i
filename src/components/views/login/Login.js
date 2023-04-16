@@ -8,7 +8,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ loggedUser, setLoggedUser }) => {
+const Login = ({getApi, setLoggedUser }) => {
   const {
     register,
     handleSubmit,
@@ -62,8 +62,9 @@ const Login = ({ loggedUser, setLoggedUser }) => {
 
         Swal.fire(message);
         return setTimeout(() => {
-          navigate("/survey/table");
-        }, 2500);
+            getApi();
+            navigate("/");
+        }, 2000);
       } else {
         Swal.fire({
           icon: "error",
