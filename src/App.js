@@ -46,7 +46,14 @@ function App() {
   const getApi = async () => {
     try {
       
-      const res = await axios.get(URL);
+      const res = await axios.get(URL, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+            .token,
+        },
+      });
+      
       const cat = await axios.get(URL2);
       //console.log(res.data);
       const surveyApi = res.data;
@@ -68,7 +75,7 @@ function App() {
           <Route
             path="/*"
             element={
-              //<ProtectedRoute>
+              <ProtectedRoute>
               <Routes>
                 <Route
                   exact
@@ -105,6 +112,11 @@ function App() {
                     />
                   }
                 />
+                  <Route
+                    exact
+                    path="/survey/details/:id"
+                    element={<SurveyDetails URL={URL} surveys={surveys} />}
+                  />
                 <Route
                   exact
                   path="/survey/edit/:id"
@@ -114,22 +126,17 @@ function App() {
                       getApi={getApi}
                       categoryItemList={categoryItemList}
                       categoryItem={categoryItem}
-                    />
+                      />
                   }
                 />
               </Routes>
-              //</ProtectedRoute>
+              </ProtectedRoute>
             }
           />
           <Route
             exact
-            path="/survey/details/:id"
-            element={<SurveyDetails URL={URL} surveys={surveys} />}
-          />
-          <Route
-            exact
             path="/login"
-            element={<Login loggedUser={loggedUser} setLoggedUser={setLoggedUser} />}
+            element={<Login getApi={getApi} setLoggedUser={setLoggedUser} />}
           />
           <Route
             exact
