@@ -10,7 +10,7 @@ const SurveysTable = ({ surveys, URL, getApi,roleLogged }) => {
     getApi();
   }, []);
   return (
-    <div className="w-75 container">
+    <div className="w-75 container body-table">
       <Container className="text-light text-center">
         {roleLogged == "admin" ? (
           <h2 className="my-3 ">Tabla de Encuestas</h2>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card, Row, Col, Container, FormControl } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import SurveyPreview from "./SurveyPreview";
 import { ListGroupItem, ListGroup, Form, Button } from "react-bootstrap";
 import axios from "axios";
@@ -17,10 +17,23 @@ const SurveyDetails = ({ URL }) => {
 
 
   const { id } = useParams();
+
   useEffect(() => {
     getSurveyById();
   }, []);
 
+/// Use of the local .json located in the surveyDetail folder - named: formsDb.json ONLY TEST PURPOSE
+  const getSurveyById = async () => {
+    try {
+      const surveyData = formsDb.find((form) => form._id === id);
+      setSurvey(surveyData);
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  };
+
+
+/*
   const getSurveyById = async () => {
     try {
       const res = await fetch(`${URL}/${id}`);
@@ -190,21 +203,13 @@ const SurveyDetails = ({ URL }) => {
       }
 };
   
-  console.log(survey.image)
   return (
     <Container>
-      <h2 className=" text-light d-flex justify-content-center mt-4">
+      <h1 className="d-flex justify-content-center mt-4">
         {survey.surveyName}
-      </h2>
+      </h1>
 
-      <Link
-        to="/survey/table"
-        className="d-flex justify-content-end text-decoration-none text-center"
-      >
-        <Button variant="outline-light">Volver </Button>
-      </Link>
-      <div className="text-light d-flex align-items-center justify-content-between">
-        <SurveyImage source={survey.image}></SurveyImage>
+      <div className="d-flex align-items-center justify-content-between">
         <p className="my-4 fs-4"> Categoria de encuesta : {survey.category}</p>
       </div>
 
@@ -257,20 +262,6 @@ const SurveyDetails = ({ URL }) => {
       ) : (
         <></>
       )}
-      <ListGroup>
-        <ListGroupItem className="text-light fw-bold">
-          Por ultimo dejenos su correo para que las respuestas se envíen y pueda
-          guardar un registro de ellas. (Opcional)
-          <div className="d-flex justify-content-between">
-            <Form.Control
-              className="me-2 my-2"
-              type="email"
-              placeholder="name@example.com"
-            />
-            <Button className="mx-2 my-auto">Enviar</Button>
-          </div>
-        </ListGroupItem>
-      </ListGroup>
     </Container>
   );
 };
