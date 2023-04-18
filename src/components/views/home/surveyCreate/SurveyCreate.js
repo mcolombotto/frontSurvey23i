@@ -236,7 +236,7 @@ const SurveyCreate = ({
                 type="text"
                 name="surveyImage"
                 defaultValue=""
-                placeholder="http://www.google.com/img"
+                placeholder="http://www.google.com/image"
                 maxLength="200"
                 onChange={(e) => {
                   handleChange(e);

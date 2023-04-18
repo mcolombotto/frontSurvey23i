@@ -52,7 +52,7 @@ const SurveysTable = ({ surveys, URL, getApi,roleLogged }) => {
         <hr />
         {/* Table of surveys */}
         {surveys?.length !== 0 ? (
-          <Table hover responsive className=" text-light align-middle mt-3">
+          <Table  responsive className=" text-light align-middle mt-3">
             <thead>
               <tr>
                 {roleLogged ==
