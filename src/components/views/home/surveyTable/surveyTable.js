@@ -5,15 +5,14 @@ import { Link } from "react-router-dom";
 import Survey from "./Survey";
 import { Button } from "react-bootstrap";
 import "./surveyTable.css";
-const SurveysTable = ({ surveys, URL, getApi }) => {
+const SurveysTable = ({ surveys, URL, getApi,roleLogged }) => {
   useEffect(() => {
     getApi();
   }, []);
-
   return (
     <div className="w-75 container">
       <Container className="text-light text-center">
-        {JSON.parse(localStorage.getItem("user-token")).role == "admin" ? (
+        {roleLogged == "admin" ? (
           <h2 className="my-3 ">Tabla de Encuestas</h2>
         ) : (
           <h2 className="my-3 ">
@@ -22,7 +21,7 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
           </h2>
         )}
         <div className="d-flex align-items-center justify-content-between">
-          {JSON.parse(localStorage.getItem("user-token")).role == "admin" ? (
+          {roleLogged == "admin" ? (
             <Link
               to="/category/table"
               className="btn-red text-decoration-none text-center"
@@ -56,7 +55,7 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
           <Table hover responsive className=" text-light align-middle mt-3">
             <thead>
               <tr>
-                {JSON.parse(localStorage.getItem("user-token")).role ==
+                {roleLogged ==
                 "admin" ? (
                   <th>Autor</th>
                 ) : (
@@ -70,15 +69,13 @@ const SurveysTable = ({ surveys, URL, getApi }) => {
               </tr>
             </thead>
             <tbody>
-              {surveys?.filter((item)=>{ 
-        return JSON.parse(localStorage.getItem("user-token")).role == "admin" ? 
-         item :   item.author == JSON.parse(localStorage.getItem("user-token")).email
-      }).map((survey) => (
+              {surveys?.map((survey) => (
                 <Survey
                   key={survey._id}
                   survey={survey}
                   URL={URL}
                   getApi={getApi}
+                  roleLogged={roleLogged}
                 />
               ))}
             </tbody>

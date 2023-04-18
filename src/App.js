@@ -20,12 +20,14 @@ import UserContext from './components/layout/context/UserContext'
 
 function App() {
   const [surveys, setSurveys] = useState([]);
+  const [activeSurveys, setActiveSurveys] = useState([]);
   const [loggedUser, setLoggedUser] = useState(( JSON.parse(localStorage.getItem("user-token"))==undefined? false : true));
   const [categoryItem, setCategoryItem] = useState({
     categoryName : "",
     categoryStatus : "",
   });
   const [user, setUser] = React.useState({});
+  const [roleLogged, setRoleLogged] = useState();
   const token = localStorage.getItem("user-token");
 
   const [categoryItemList, setCategoryItemList] = useState([]);
@@ -40,20 +42,23 @@ function App() {
 
   const getApi = async () => {
     try {
-      
-      const res = await axios.get(URL, {
+        if((localStorage.getItem("user-token"))!==null){
+        const res = await axios.get(URL,{
         headers: {
           "Content-Type": "application/json",
-          "x-access-token": JSON.parse(localStorage.getItem("user-token"))
-            .token,
+          "x-access-token": JSON.parse(localStorage.getItem("user-token")).token  ,
         },
-      });
-      
+      }
+        ); 
+    
+        const surveyApi = res.data.surveyList;
+        console.log(res.data)
+        setRoleLogged(res.data.userLogged);
+        setSurveys(surveyApi);}
       const cat = await axios.get(URL2);
-      //console.log(res.data);
-      const surveyApi = res.data;
+      const active = await axios.get(`${URL}/showActive`);
+      setActiveSurveys(active.data)
       const categoryApi = cat.data;
-      setSurveys(surveyApi);
       setCategoryItemList(categoryApi);
     } catch (error) {
       // console.log(error);
@@ -66,7 +71,7 @@ function App() {
       <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
       <main>
         <Routes>
-          <Route exact path="/" element={<Home surveys={surveys} categoryItemList={categoryItemList} />} />
+          <Route exact path="/" element={<Home surveys={activeSurveys} categoryItemList={categoryItemList} />} />
           <Route
             path="/*"
             element={
@@ -76,7 +81,7 @@ function App() {
                   exact
                   path="/survey/table"
                   element={
-                    <SurveysTable surveys={surveys} URL={URL} getApi={getApi} />
+                    <SurveysTable surveys={surveys} URL={URL} roleLogged={roleLogged} getApi={getApi} />
                   }
                 />
                 <Route
