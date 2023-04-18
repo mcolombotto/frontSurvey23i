@@ -11,18 +11,31 @@ import Register from './components/views/register/Register'
 import SurveyDetails from "./components/views/home/surveyDetails/SurveyDetails";
 
 function App() {
+
+    const [categoryItemList, setCategoryItemList] = useState([]);
+
     const [surveys, setSurveys] = useState([]);
+
+    const URL = process.env.REACT_APP_API_SURVEYS;
+    const URL2 = process.env.REACT_APP_API_CATEGORY;
     
     const getApi = async () => {
         try {
-          /*  const res = await fetch(URL);
-          const productApi = await res.json();
-          setProducts(productApi);
-           */
-          const res = await axios.get(URL);
+          
+          const res = await axios.get(URL, {
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+                .token,
+            },
+          });
+          
+          const cat = await axios.get(URL2);
           //console.log(res.data);
           const surveyApi = res.data;
+          const categoryApi = cat.data;
           setSurveys(surveyApi);
+          setCategoryItemList(categoryApi);
         } catch (error) {
           // console.log(error);
         }
@@ -34,7 +47,7 @@ function App() {
             <Navigation />
             <main>
                 <Routes>
-                    <Route exact path='/' element={<Home />} />
+                <Route exact path="/" element={<Home surveys={surveys} categoryItemList={categoryItemList} />} />
                     <Route
                         exact
                         path="/survey/:id"
