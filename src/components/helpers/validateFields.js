@@ -12,8 +12,7 @@ export const validateSurveyName = (field) => {
 
   export const validateImage = (field) => {
     if (
-      regExpImage.test(field) && 
-      field.trim() !== "" 
+      regExpImage.test(field) 
 
     ) {
       return true;
