@@ -42,8 +42,9 @@ const Register = () => {
             password: data.password1,
           }),
         });
-
+        
         const response = await res.json();
+
         const { token, uid, userName, message } = response;
 
         if (res.status === 200) {
@@ -55,7 +56,7 @@ const Register = () => {
             password2: "",
           }));
 
-          localStorage.setItem("token", token);
+          localStorage.setItem("user-token", JSON.stringify(response));
 
           context.setUser({
             uuid: uid,

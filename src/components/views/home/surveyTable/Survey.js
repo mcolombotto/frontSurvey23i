@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
-const Survey = ({ survey, URL, getApi }) => {
+const Survey = ({ survey, URL, getApi,roleLogged }) => {
   const navigate = useNavigate();
 
   let visible = (data) => {
@@ -40,12 +40,11 @@ const Survey = ({ survey, URL, getApi }) => {
       if (result.isConfirmed) {
         try {
           const res = await axios.delete(`${URL}/${id}`, {
-            //TOKEN PARA QUE SOLO EL ADMIN PUEDA BORRAR
-            /*  headers: {
+            headers: {
               "Content-Type": "application/json",
               "x-access-token": JSON.parse(localStorage.getItem("user-token"))
                 .token,
-            }, */
+            },
           });
 
           if (res.status === 200) {
@@ -75,7 +74,13 @@ const Survey = ({ survey, URL, getApi }) => {
       surveyLoaded.status = !surveyLoaded.status;
       console.log("DESPUES", surveyLoaded);
 
-      await axios.put(`${URL}/${id}`, surveyLoaded);
+      await axios.put(`${URL}/${id}`, surveyLoaded, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+            .token,
+        },
+      });
       navigate(0);
     } catch (error) {
       console.log(error);
@@ -85,6 +90,11 @@ const Survey = ({ survey, URL, getApi }) => {
   return (
     <tr>
       {/* <td>{survey._id}</td> */}
+      {roleLogged == "admin" ? (
+        <td className="text-light">{survey.author}</td>
+      ) : (
+        <></>
+      )}
       <td className="text-light">{survey.surveyName}</td>
       <td className="text-light">{survey.category}</td>
       <td>

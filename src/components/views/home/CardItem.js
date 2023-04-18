@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import "./Card.css";
 
-function Card({ _id,imageSource, surveyName }) {
+function Card({ _id,image, surveyName }) {
   const navigate = useNavigate();
   return (
     <div className="card text-center bg-dark animate__animated animate__fadeInUp">
       <div className="overflow">
-        <img src={imageSource} alt="a wallpaper" className="card-img-top" />
+        <img src={image} alt="a wallpaper" className="card-img-top" />
       </div>
       <div className="card-body text-light">
         <h4 className="card-title">{surveyName}</h4>

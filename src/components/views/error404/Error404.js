@@ -1,7 +1,6 @@
 import React from 'react';
 import './Error404.css'
 import ErroImg from '../../../assets/img/gif-error-Sw.gif'
-import Icon from '../../../assets/img/form-color.png'
 import { Link } from 'react-router-dom';
 
 const Error404 = () => {

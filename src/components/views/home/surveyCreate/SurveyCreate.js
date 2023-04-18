@@ -120,6 +120,7 @@ const SurveyCreate = ({
       image: inputs.surveyImage,
       status: false,
       surveyItemList: surveyItemList,
+      author : (JSON.parse(localStorage.getItem("user-token")).email)
     };
     console.log("surveyItemList", surveyItemList);
     console.log("newSurvey", newSurvey);
@@ -138,16 +139,14 @@ const SurveyCreate = ({
       if (result.isConfirmed) {
         try {
           console.log(result.isConfirmed, "Enviando a BD", URL);
-          const res = await axios.post(
-            URL,
-            newSurvey /* , {
+          console.log(JSON.parse(localStorage.getItem("user-token")).token);
+          const res = await axios.post(URL, newSurvey, {
             headers: {
               "Content-Type": "application/json",
-              "x-access-token": JSON.parse(localStorage.getItem("token"))
+              "x-access-token": JSON.parse(localStorage.getItem("user-token"))
                 .token,
-            },} */
-          );
-
+            },
+          });
           console.log(res.status, res.status === 201);
 
           if (res.status === 201) {
@@ -236,6 +235,7 @@ const SurveyCreate = ({
               <Form.Control
                 type="text"
                 name="surveyImage"
+                defaultValue=""
                 placeholder="http://www.google.com/img"
                 maxLength="200"
                 onChange={(e) => {

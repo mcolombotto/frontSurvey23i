@@ -3,11 +3,11 @@ import Card from "./CardItem";
 import Pagination from "./Pagination";
 import "./Card.css";
 
-const Cards = ({cards}) => {
+const Cards = ({surveys,categoryItemList}) => {
 
-  const [card, setCard] = useState(cards);
+  const [card, setCard] = useState(surveys);
     const filterCard = (categCard) => {
-        const updatedCards = cards.filter((curElem) => {
+        const updatedCards = surveys.filter((curElem) => {
             return curElem.category === categCard;
           });
         setCard(updatedCards);
@@ -19,6 +19,8 @@ const Cards = ({cards}) => {
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = card.slice(firstPostIndex, lastPostIndex);
 
+  console.log(currentPosts.filter(i => i.status === true));
+
   return (
     <>
 
@@ -26,23 +28,23 @@ const Cards = ({cards}) => {
     <hr/>
     <div className="container">
         <div className="d-flex justify-content-around">
-            <button className="btn btn-warning" onClick={() => filterCard('Encuesta de clima laboral')}>Encuesta de clima laboral</button>
-            <button className="btn btn-warning" onClick={() => filterCard('Satisfacción de un servicio')}>Satisfacción de un servicio</button>
-            <button className="btn btn-warning" onClick={() => filterCard('Investigacion')}>Investigacion</button>
-            <button className="btn btn-warning" onClick={() => setCard(cards)}>Todos</button>
+            {categoryItemList.filter((item)=>{return item.categoryStatus==true}).map((item)=>(
+            <button className="btn btn-warning" onClick={() => filterCard(item.categoryName)}>{item.categoryName}</button>
+            ))}
+           
       </div>   
     </div>
 
-    <div className="container d-flex justify-content-center align-items-center h-100">
+   {/*  <div className="container d-flex justify-content-center align-items-center h-100">
       <div className="row">
-        {currentPosts.filter(i => i.status === true).map(({ _id,imageSource, surveyName, category}) => (
+        {currentPosts.filter(i => i.status === true).map(({ _id,image, surveyName, category}) => (
           <div className="col-md-4">
-            <Card _id={_id} imageSource={imageSource} surveyName={surveyName} category={category} />
+            <Card _id={surveys._id} image={surveys.image} surveyName={surveys.surveyName} category={surveys.category} />
           </div>
         ))}
       </div>
-    </div>
-    <Pagination totalPosts={card.length}postsPerPage={postsPerPage}setCurrentPage={setCurrentPage}currentPage={currentPage}/>
+    </div> */}
+    {/* <Pagination totalPosts={card.length}postsPerPage={postsPerPage}setCurrentPage={setCurrentPage}currentPage={currentPage}/> */}
     
     </>
   );
