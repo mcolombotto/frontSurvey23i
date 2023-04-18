@@ -137,7 +137,9 @@ const Survey = ({ survey, URL, getApi,roleLogged }) => {
           </Button>
         </div>
       </td>
-      <td></td>
+      <td>{
+           survey.surveyAnswerList.length 
+        }</td>
     </tr>
   );
 };
