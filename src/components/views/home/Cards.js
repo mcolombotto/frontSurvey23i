@@ -3,11 +3,11 @@ import Card from "./CardItem";
 import Pagination from "./Pagination";
 import "./Card.css";
 
-const Cards = ({cards,categoryItemList}) => {
+const Cards = ({surveys,categoryItemList}) => {
 
-  const [card, setCard] = useState(cards);
+  const [card, setCard] = useState(surveys);
     const filterCard = (categCard) => {
-        const updatedCards = cards.filter((curElem) => {
+        const updatedCards = surveys.filter((curElem) => {
             return curElem.category === categCard;
           });
         setCard(updatedCards);
@@ -19,7 +19,7 @@ const Cards = ({cards,categoryItemList}) => {
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = card.slice(firstPostIndex, lastPostIndex);
 
-  console.log(categoryItemList);
+  console.log(currentPosts.filter(i => i.status === true));
 
   return (
     <>
@@ -34,17 +34,17 @@ const Cards = ({cards,categoryItemList}) => {
            
       </div>   
     </div>
-{/* 
-    <div className="container d-flex justify-content-center align-items-center h-100">
+
+   {/*  <div className="container d-flex justify-content-center align-items-center h-100">
       <div className="row">
-        {currentPosts.filter(i => i.status === true).map(({ _id,imageSource, surveyName, category}) => (
+        {currentPosts.filter(i => i.status === true).map(({ _id,image, surveyName, category}) => (
           <div className="col-md-4">
-            <Card _id={cards._id} image={cards.image} surveyName={cards.surveyName} category={cards.category} />
+            <Card _id={surveys._id} image={surveys.image} surveyName={surveys.surveyName} category={surveys.category} />
           </div>
         ))}
       </div>
-    </div>
-    <Pagination totalPosts={card.length}postsPerPage={postsPerPage}setCurrentPage={setCurrentPage}currentPage={currentPage}/> */}
+    </div> */}
+    {/* <Pagination totalPosts={card.length}postsPerPage={postsPerPage}setCurrentPage={setCurrentPage}currentPage={currentPage}/> */}
     
     </>
   );

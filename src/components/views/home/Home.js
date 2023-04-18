@@ -6,10 +6,11 @@ import slides  from './formsDB.json'
 import CardList from './Cards.js';
 
 const Home = ({surveys, categoryItemList}) => {
+    console.log(surveys)
     return (
     <>
         <Slider surveys={surveys}/>
-        <CardList categoryItemList={categoryItemList}  cards= {surveys}/>
+        <CardList categoryItemList={categoryItemList}  surveys= {surveys}/>
     </>
     );
 };
