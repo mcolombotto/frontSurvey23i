@@ -3,8 +3,8 @@
     "_id": "6426e7e42af0c6fdaddb942c",
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
     "surveyName": "Empresa X",
-    "category": "Encuesta de clima laboral",
-    "status": true,
+    "category": "Encuesta de clima laboralAA",
+    "status": false,
     "surveyItemList": [
       {
         "question": "Recomendaría este lugar pára trabajar?",
@@ -77,7 +77,7 @@
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
     "surveyName": "Empresa Y",
     "category": "Encuesta de clima laboral",
-    "status": false,
+    "status": true,
     "surveyItemList": [
       {
         "question": "Considera nuestra compañia un buen lugar para trabajar?",
@@ -127,7 +127,7 @@
     "surveyName": "Peluquerias Caninas",
     "imageSource": "https://latam.collegeboard.org/wp-content/uploads/2020/10/Formulario_de_identificación_w_1400.png",
     "category": "Investigacion",
-    "status": false,
+    "status": true,
     "surveyItemList": [
       {
         "question": "Utiliza el servicio de peluquerías caninas?",
