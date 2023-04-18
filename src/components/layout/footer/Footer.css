@@ -1,8 +1,11 @@
 .footer-style{
-     background: rgb(10,10,10);
-     background: linear-gradient(90deg, rgba(10,10,10,1) 19%, rgba(5,5,54,1) 44%, rgba(3,3,40,1) 83%);
+    background: #343A40;
 };
 
 .font{
      font-family: 'Questrial', sans-serif;
+};
+
+.iconSize{
+     font-size: 40px;
 };
