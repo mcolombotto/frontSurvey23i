@@ -1,8 +1,12 @@
-# TRABAJO FINAL Comisión 23i: App de encuestas
+<h1 align="center">TRABAJO FINAL Comisión 23i: WorldSurveys - Frontend</h1>
 
-Es una app realizada con ReactJS de temática encuestas, en las cuales el admin podrá dar de alta encuestas, modificarlas y visualizarlas. En la misma se utilizan herramientas como React Router para manejar las rutas que nos permitan navegar entre las distintas páginas y JSON Server para simular una API externa.
+## Descripción
 
----
+> Este es el frontend del proyecto [WorldSurveys](https://):
+<br>
+<br>Es una app realizada con ReactJS de temática encuestas, en las cuales el admin podrá dar de alta encuestas, modificarlas, visualizarlas y borrarlas. En la misma se utilizan herramientas como React Router para manejar las rutas que nos permitan navegar entre las distintas páginas y JSON Server para simular una API externa.
+
+<hr>
 
 ## ✨ [Demo](https://.netlify.app/)
 
@@ -11,26 +15,45 @@ Es una app realizada con ReactJS de temática encuestas, en las cuales el admin 
 Cuando se clone este repositorio se deben ejecutar los siguientes comandos:
 
 ### Para instalar las dependencias
-npm i 
+```sh
+npm i
+```
 
 ### Para ejecutar nuestra app de react
+```sh
 npm start
+```
 
-### Para ejecutar nuestra base de datos (ejecutarlo en otra terminal/consola aparte a la de react)
+### Para ejecutar nuestra base de datos (ejecutarlo en otra terminal / consola aparte a la de react)
+```sh
 json-server --watch db.json --port 3000
+```
+<hr>
 
----
 ## Variables de entorno
 
 Esta app utiliza la siguiente variable de entorno:
 
-REACT_APP_API_WORLDSURVEYS
-## Librerias utiles
-    
-Formik  - Librería para Formularios en React
-Comando de instalaciòn: 
-npm install formik --save
+REACT_APP_API_SURVEYS
 
-hoke Form - Libreria de formularios
-comando para instalarlo:
-npm install react-hook-form
+## Librerias usadas
+- react
+- react bootstrap
+- react router dom
+- react hook form
+- axios
+- sweet alert
+- formik
+- framer motion
+- react testing library
+- fort awesome
+
+<hr>
+
+## Repo
+* GitHub: [frontSurvey23i](https://github.com/mcolombotto/frontSurvey23i)
+<hr>
+
+## Autores
+
+🧑‍🤝‍🧑💪 **Mallorga, Yuliana + Danert, Luciano + Colombotto, Mariano + Pipke, Erick**
