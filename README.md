@@ -46,7 +46,7 @@ REACT_APP_API_SURVEYS
 - formik
 - framer motion
 - react testing library
-- fort awesome
+- font awesome
 
 <hr>
 

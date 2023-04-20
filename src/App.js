@@ -9,6 +9,7 @@ import SurveysTable from "./components/views/home/surveyTable/surveyTable";
 import SurveyCreate from "./components/views/home/surveyCreate/SurveyCreate";
 import SurveyEdit from "./components/views/home/surveyEdit/SurveyEdit";
 import SurveyDetails from "./components/views/home/surveyDetails/SurveyDetails";
+import SurveyRender from "./components/views/home/surveyRender/SurveyRender";
 import Navigation from "./components/layout/navigation/Navigation";
 import Footer from "./components/layout/footer/Footer";
 import Login from "./components/views/login/Login";
@@ -129,6 +130,11 @@ function App() {
                       />
                   }
                 />
+                <Route
+                    exact
+                    path="/survey/:id"
+                    element={<SurveyRender URL={URL} surveys={surveys} />}
+                  />
               </Routes>
               </ProtectedRoute>
             }
