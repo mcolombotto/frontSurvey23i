@@ -56,7 +56,7 @@ const Footer = () => {
                     </div>
                     <div className="row text-secondary">
                         <div className="col-6 col-lg-3">
-                        <h5 className="p-1">Online Encuesta</h5>
+                        <h5 className="p-1">WorldSurveys</h5>
                         <Link className="nav-link" to="/error">
                             Términos
                         </Link>
@@ -88,7 +88,7 @@ const Footer = () => {
                         </div>
                         <div className="col-6 col-lg-3">
                             <h5 className="p-1">Más información</h5>
-                            <Link className="nav-link" to="/nosotros">
+                            <Link className="nav-link" to="/us">
                                 Nosotros
                             </Link>
                             <Link className="nav-link" to="/error">

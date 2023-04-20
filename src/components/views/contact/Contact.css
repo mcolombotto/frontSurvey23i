@@ -1,0 +1,9 @@
+.contact {
+    background-image: url(https://static.encuesta.com/production/img/fondo-footer.svg);
+    background-size: cover;
+    background-position: center top;
+}
+
+.main-title {
+    font-family: 'Black Han Sans', sans-serif;
+}

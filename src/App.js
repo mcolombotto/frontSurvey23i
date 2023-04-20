@@ -17,6 +17,7 @@ import Error404 from "./components/views/error404/Error404";
 import CategoryTable from "./components/views/home/categoryTable/categoryTable";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import UserContext from './components/layout/context/UserContext'
+import Contact from "./components/views/contact/Contact";
 
 function App() {
   const [surveys, setSurveys] = useState([]);
@@ -137,6 +138,11 @@ function App() {
             exact
             path="/login"
             element={<Login getApi={getApi} setLoggedUser={setLoggedUser} />}
+          />
+          <Route
+            exact
+            path="/contact"
+            element={<Contact getApi={getApi} setLoggedUser={setLoggedUser} />}
           />
           <Route
             exact
