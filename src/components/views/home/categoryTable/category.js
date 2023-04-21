@@ -14,12 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
-const Category = ({
-  surveys,
-  category,
-  URL,
-  getApi,
-}) => {
+const Category = ({ surveys, category, URL, getApi }) => {
   const navigate = useNavigate();
   const deleteCategoryItem = (id) => {
     let categoryAssigned = false;
@@ -55,7 +50,7 @@ const Category = ({
               "Content-Type": "application/json",
               "x-access-token": JSON.parse(localStorage.getItem("user-token"))
                 .token,
-            }, 
+            },
           });
 
           if (res.status === 200) {
@@ -71,10 +66,7 @@ const Category = ({
 
             getApi();
           }
-        } catch (error) {
-          console.log(error);
-          //agregar cartel al usuario que informe del error
-        }
+        } catch (error) {}
       }
     });
   };
@@ -83,21 +75,17 @@ const Category = ({
     try {
       const res = await axios.get(`${URL}/${id}`);
       let categoryLoaded = res.data;
-      console.log("ANTES", categoryLoaded);
       categoryLoaded.categoryStatus = !categoryLoaded.categoryStatus;
-      console.log("DESPUES", categoryLoaded);
 
-      await axios.put(`${URL}/${id}`, categoryLoaded,{
+      await axios.put(`${URL}/${id}`, categoryLoaded, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": JSON.parse(localStorage.getItem("user-token"))
             .token,
         },
-      })
+      });
       navigate(0);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   let visible = (data) => {
@@ -127,8 +115,8 @@ const Category = ({
       <td>
         <Button
           variant="outline-danger"
-          className="  mx-1"
-          onClick={() => console.log(deleteCategoryItem(category._id))}
+          className="mx-1"
+          onClick={() => deleteCategoryItem(category._id)}
         >
           <FontAwesomeIcon icon={faTrashCan} />
         </Button>

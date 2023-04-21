@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Survey from "./Survey";
 import { Button } from "react-bootstrap";
 import "./surveyTable.css";
-const SurveysTable = ({ surveys, URL, getApi,roleLogged,setStatSurvey }) => {
+const SurveysTable = ({ surveys, URL, getApi, roleLogged, setStatSurvey }) => {
   useEffect(() => {
     getApi();
   }, []);
@@ -50,19 +50,13 @@ const SurveysTable = ({ surveys, URL, getApi,roleLogged,setStatSurvey }) => {
           </Link>
         </div>
         <hr />
-        {/* Table of surveys */}
         {surveys?.length !== 0 ? (
-          <Table  responsive className=" text-light align-middle mt-3">
+          <Table responsive className=" text-light align-middle mt-3">
             <thead>
               <tr>
-                {roleLogged ==
-                "admin" ? (
-                  <th>Autor</th>
-                ) : (
-                  <></>
-                )}
+                {roleLogged == "admin" ? <th>Autor</th> : <></>}
                 <th>Nombre de Encuesta</th>
-                <th>Categoria</th>
+                <th>Categoría</th>
                 <th>Estado</th>
                 <th>Acciones</th>
                 <th>Respuestas</th>

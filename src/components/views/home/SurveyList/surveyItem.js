@@ -3,14 +3,12 @@ import Badge from "react-bootstrap/Badge";
 import { ListGroup, Button } from "react-bootstrap";
 import AnswerItem from "../../items/answerItem";
 import ModalEdit from "../modal/surveyModalEdit";
-import "./surveyItem.css"
+import "./surveyItem.css";
 
 const SurveyItem = (props) => {
- 
-
   return (
     <>
-      <ListGroup.Item 
+      <ListGroup.Item
         as="li"
         className="text-light d-flex justify-content-between align-items-start"
       >
@@ -24,10 +22,7 @@ const SurveyItem = (props) => {
           <ModalEdit
             surveyItemList={props}
             question={props.data.question}
-           
           ></ModalEdit>
-
-          
 
           <button
             className=" btn btn-outline-danger ms-2"
@@ -40,7 +35,6 @@ const SurveyItem = (props) => {
           </button>
         </div>
       </ListGroup.Item>
-
     </>
   );
 };
