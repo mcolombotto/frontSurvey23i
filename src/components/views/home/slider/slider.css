@@ -7,9 +7,6 @@
 
 .carousel img {
     max-width: 100%;
-/*    filter: blur(1px);
-    -webkit-filter: blur(8px);
-*/
 }
 
 .carousel .carousel-indicators button {
@@ -19,21 +16,3 @@
     margin-bottom: 6vh;
 }
 
-@media (max-width: 1000px) {
-    .carousel img {
-        max-height: 40vh;
-    }
-  }
-
-@media (max-width: 850px) {
-    .carousel img {
-        max-height: 30vh;
-    }
-  }
-
-
-@media (max-width: 600px) {
-    .carousel img {
-        max-height: 20vh;
-    }
-  }

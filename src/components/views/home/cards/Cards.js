@@ -21,11 +21,11 @@ const Cards = ({ cards }) => {
         (card) => card.category === category && card.status === true
       );
     });
-
+  
     const buttons = categories.map((category) => (
       <button
         key={category}
-        className="btn btn-warning"
+        className="btn btn-warning btn-custom"
         onClick={() => {
           filterCard(category);
           setCurrentPage(1);
@@ -35,13 +35,15 @@ const Cards = ({ cards }) => {
       </button>
     ));
     setCategoryButtons(buttons);
+    setAllCards(cards);
+    setVisibleCards(cards);
   }, [cards]);
 
   useEffect(() => {
     const filteredCards = allCards.filter((card) =>
       card.surveyName.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setVisibleCards(filteredCards);
+    setVisibleCards(filteredCards.length > 0 ? filteredCards : []);
   }, [allCards, searchTerm]);
 
   const filterCard = (categCard) => {
@@ -63,7 +65,7 @@ const Cards = ({ cards }) => {
           <div className="d-flex justify-content-around">
             {categoryButtons}
             <button
-              className="btn btn-warning"
+              className="btn btn-warning btn-custom"
               onClick={() => {
                 setAllCards(cards);
                 setVisibleCards(cards);
@@ -81,13 +83,13 @@ const Cards = ({ cards }) => {
               placeholder="Ingresa el nombre de la encuesta"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              disabled={visibleCards.length === 0}
+              disabled={visibleCards.length === 0 && allCards.length === 0}
             />
           </div>
         </div>
         {/* Card list */}
         <div>
-          {currentPosts.length > 0 ? (
+         {visibleCards.length > 0 ? (
             <div className="container d-flex justify-content-center align-items-center h-100">
               <div className="row">
                 {currentPosts.map(({ _id, image, surveyName, category }) => (
@@ -100,7 +102,11 @@ const Cards = ({ cards }) => {
           ) : (
             <div className="d-flex justify-content-center align-items-center">
               <FontAwesomeIcon icon={faExclamationCircle} className="mr-2 text-danger" size="2x" />
-              <h5 className="text-danger m-2">No hay encuestas disponibles</h5>
+              {searchTerm.length > 0 ? (
+                <h5 className="text-danger m-2">No se encontraron resultados</h5>
+              ) : (
+                <h5 className="text-danger m-2">No hay encuestas disponibles</h5>
+              )}
             </div>
           )}
         </div>

@@ -24,6 +24,7 @@ function Slider() {
       activeIndex={index}
       onSelect={handleSelect}
       nextIcon={<span aria-hidden="true" className="carousel-control-next-icon changed" />}
+      indicators={false}
     >
       {slides.filter(i => i.status === true).map((slide, idx) => (
         <Carousel.Item key={idx}>
