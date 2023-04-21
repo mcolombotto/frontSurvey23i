@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Survey from "./Survey";
 import { Button } from "react-bootstrap";
 import "./surveyTable.css";
-const SurveysTable = ({ surveys, URL, getApi,roleLogged }) => {
+const SurveysTable = ({ surveys, URL, getApi,roleLogged,setStatSurvey }) => {
   useEffect(() => {
     getApi();
   }, []);
@@ -76,6 +76,7 @@ const SurveysTable = ({ surveys, URL, getApi,roleLogged }) => {
                   URL={URL}
                   getApi={getApi}
                   roleLogged={roleLogged}
+                  setStatSurvey={setStatSurvey}
                 />
               ))}
             </tbody>
