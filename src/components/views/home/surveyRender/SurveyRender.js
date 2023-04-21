@@ -204,6 +204,7 @@ const SurveyRender = ({ URL }) => {
           {survey.surveyItemList.map((question, index) => (
             <SurveyPreview
               data={question}
+              index={index}
               key={`question_${index}`}
               onResponseChange={(answer) =>
                 setSurvey((prevSurvey) => ({
