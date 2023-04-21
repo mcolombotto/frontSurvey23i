@@ -3,14 +3,13 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Survey from "../surveyTable/Survey";
-import "./modal.css"
+import "./modal.css";
 const SurveyModal = (props) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  console.log(props.surveyItemList)
   return (
     <div>
       <>
@@ -25,7 +24,7 @@ const SurveyModal = (props) => {
           Guardar
         </Button>
 
-        <Modal className="text-light"show={show} onHide={handleClose}>
+        <Modal className="text-light" show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Agregar nueva pregunta</Modal.Title>
           </Modal.Header>
@@ -37,7 +36,7 @@ const SurveyModal = (props) => {
               >
                 <Form.Control
                   type="text"
-                  placeholder="Ingrese la pregunta aqui"
+                  placeholder="Ingrese la pregunta aquí"
                   maxLength="100"
                   name="question"
                   autoFocus
@@ -79,8 +78,6 @@ const SurveyModal = (props) => {
               variant="outline-primary"
               onClick={(e) => {
                 e.preventDefault();
-                console.log("ARRAY", props.surveyItemList);
-                console.log("ITEM", props.surveyItem);
                 localStorage.setItem(
                   "newSurveyItemList",
                   JSON.stringify([...props.surveyItemList, props.surveyItem])
@@ -89,7 +86,6 @@ const SurveyModal = (props) => {
                   ...props.surveyItemList,
                   props.surveyItem,
                 ]);
-                console.log(props.surveyItemList);
 
                 props.setSurveyItem({
                   question: "",

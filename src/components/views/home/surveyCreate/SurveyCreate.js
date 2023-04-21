@@ -24,7 +24,6 @@ const SurveyCreate = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(true);
 
-  //Preguntas
   const [surveyItem, setSurveyItem] = useState({
     question: "",
     responseType: "",
@@ -41,13 +40,11 @@ const SurveyCreate = ({
     );
     setSurveyItemList(filteredArray);
     localStorage.setItem("newSurveyItemList", JSON.stringify(filteredArray));
-    console.log("se borra en LS");
   };
 
   const navigate = useNavigate();
 
   const handleChange = (event) => {
-    console.log("Change", event.target.name, event.target.value);
     const name = event.target.name;
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
@@ -56,12 +53,11 @@ const SurveyCreate = ({
   };
 
   const handleSubmit = (e) => {
-    console.log("Submit");
     e.preventDefault();
 
     if (inputs.surveyName == "") {
       return Swal.fire({
-        icon: "error",
+        icon: "Error",
         title: "Oops...",
         color: "#fff",
         confirmButtonColor: "#3085d6",
@@ -81,7 +77,7 @@ const SurveyCreate = ({
     }
     if (surveyItemList.length == 0) {
       return Swal.fire({
-        icon: "error",
+        icon: "Error",
         title: "Oops...",
         color: "#fff",
         confirmButtonColor: "#3085d6",
@@ -105,7 +101,7 @@ const SurveyCreate = ({
         .find((x) => x == true) == true
     ) {
       return Swal.fire({
-        icon: "error",
+        icon: "Error",
         title: "Oops...",
         color: "#fff",
         background: "#000",
@@ -120,13 +116,11 @@ const SurveyCreate = ({
       image: inputs.surveyImage,
       status: false,
       surveyItemList: surveyItemList,
-      author : (JSON.parse(localStorage.getItem("user-token")).email)
+      author: JSON.parse(localStorage.getItem("user-token")).email,
     };
-    console.log("surveyItemList", surveyItemList);
-    console.log("newSurvey", newSurvey);
 
     Swal.fire({
-      title: "Estas Seguro?",
+      title: "Estás seguro?",
       text: "Esta acción guardará tu progreso",
       icon: "warning",
       showCancelButton: true,
@@ -138,8 +132,6 @@ const SurveyCreate = ({
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          console.log(result.isConfirmed, "Enviando a BD", URL);
-          console.log(JSON.parse(localStorage.getItem("user-token")).token);
           const res = await axios.post(URL, newSurvey, {
             headers: {
               "Content-Type": "application/json",
@@ -147,7 +139,6 @@ const SurveyCreate = ({
                 .token,
             },
           });
-          console.log(res.status, res.status === 201);
 
           if (res.status === 201) {
             Swal.fire({
@@ -164,7 +155,6 @@ const SurveyCreate = ({
             navigate("/survey/table");
           }
         } catch (error) {
-          console.log(error);
           error.response.data?.message &&
             setErrorMessage(error.response.data?.message);
           error.response.data.errors.length > 0 &&
@@ -180,7 +170,7 @@ const SurveyCreate = ({
   return (
     <div>
       <Container className="py-5 w-75">
-        <div className="d-flex justify-content-between  ">
+        <div className="d-flex justify-content-between">
           <h2 className=" text-center text-light">Crear una nueva encuesta</h2>
           <Link
             to="/survey/table"
@@ -209,7 +199,7 @@ const SurveyCreate = ({
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Categoria</Form.Label>
+            <Form.Label>Categoría</Form.Label>
             <Form.Select
               name="category"
               value={JSON.parse(localStorage.getItem("category"))}
@@ -217,7 +207,7 @@ const SurveyCreate = ({
                 handleChange(e);
               }}
             >
-              <option value=""> Seleccione la categoria</option>
+              <option value=""> Seleccione la categoría</option>
               {categoryItemList.map((categoryItem) => {
                 return categoryItem.categoryStatus ? (
                   <option value={categoryItem.categoryName}>
@@ -231,7 +221,7 @@ const SurveyCreate = ({
 
             <Form.Group className="my-3" controlId="Text">
               {" "}
-              <Form.Label>Imagen descriptiva de la encuesta </Form.Label>
+              <Form.Label>Imagen descriptiva de la encuesta</Form.Label>
               <Form.Control
                 type="text"
                 name="surveyImage"

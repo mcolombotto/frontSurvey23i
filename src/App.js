@@ -57,7 +57,6 @@ function App() {
         });
 
         const surveyApi = res.data.surveyList;
-        /* console.log(res.data); */
         setRoleLogged(res.data.userLogged);
         setSurveys(surveyApi);
       }
@@ -66,9 +65,7 @@ function App() {
       setActiveSurveys(active.data);
       const categoryApi = cat.data;
       setCategoryItemList(categoryApi);
-    } catch (error) {
-      // console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -156,10 +153,10 @@ function App() {
                       }
                     />
                     <Route
-                    exact
-                    path="/survey/:id"
-                    element={<SurveyRender URL={URL} surveys={surveys} />}
-                  />
+                      exact
+                      path="/survey/:id"
+                      element={<SurveyRender URL={URL} surveys={surveys} />}
+                    />
                   </Routes>
                 </ProtectedRoute>
               }
@@ -180,7 +177,6 @@ function App() {
         <Footer />
       </BrowserRouter>
     </UserContext.Provider>
-
   );
 }
 

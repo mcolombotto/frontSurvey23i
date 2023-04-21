@@ -2,7 +2,7 @@ import React from "react";
 import { Bar, Pie } from "react-chartjs-2";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import randomColor from "randomcolor";
 
 import {
@@ -32,8 +32,6 @@ const Charts = ({ statSurvey }) => {
   );
 
   const data = (responseType, index) => {
-    console.log("tipo de respuesta", responseType);
-    console.log("LISTA DE RESP", statSurvey.surveyAnswerList[index]);
     switch (responseType) {
       case "Booleana":
         var data = [
@@ -68,12 +66,10 @@ const Charts = ({ statSurvey }) => {
         ];
         break;
     }
-    console.log(data);
     return data;
   };
 
   const labels = (item) => {
-    console.log("item", item);
     switch (item) {
       case "Booleana":
         return ["Si", "No"];
@@ -97,17 +93,11 @@ const Charts = ({ statSurvey }) => {
       {statSurvey.surveyAnswerList.length !== 0 ? (
         <div className="text-center">
           <h2 className="mb-5">Nombre de encuesta : {statSurvey.surveyName}</h2>
-          <h3 className="my-5">Categoria : {statSurvey.category}</h3>
+          <h3 className="my-5">Categoría : {statSurvey.category}</h3>
           <hr></hr>
           <div className="row">
             {statSurvey.surveyItemList.map((item, index) => {
-              console.log("hola", item.responseType, index);
-              console.log(
-                "maximo",
-                Math.max(...data(item.responseType, index))
-              );
-
-              var misoptions = {
+              let misoptions = {
                 responsive: true,
                 animation: true,
                 borderWidth: 3,
@@ -132,7 +122,7 @@ const Charts = ({ statSurvey }) => {
                   },
                 },
               };
-              var mydata = {
+              let mydata = {
                 labels: labels(item.responseType),
                 datasets: [
                   {
@@ -170,7 +160,7 @@ const Charts = ({ statSurvey }) => {
           </div>
           <hr></hr>
           <p>
-            Graficos realizados sobre un total de{" "}
+            Gráficos realizados sobre un total de{" "}
             {statSurvey.surveyAnswerList[0].length} personas encuestadas
           </p>
         </div>

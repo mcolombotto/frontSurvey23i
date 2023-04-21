@@ -5,7 +5,6 @@ export const validateSurveyName = (field) => {
     if (regExpSurveyName.test(field) && field.trim() !== "") {
         return true;
     } else {
-        console.log("ValidateName");
       return false;
     }
   };
@@ -17,7 +16,6 @@ export const validateSurveyName = (field) => {
     ) {
       return true;
     } else {
-        console.log("ValidateImg");
       return false;
     }
   };

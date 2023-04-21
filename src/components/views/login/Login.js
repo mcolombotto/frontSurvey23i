@@ -8,7 +8,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({getApi, setLoggedUser }) => {
+const Login = ({ getApi, setLoggedUser }) => {
   const {
     register,
     handleSubmit,
@@ -20,7 +20,7 @@ const Login = ({getApi, setLoggedUser }) => {
 
   const context = useContext(UserContext);
   const navigate = useNavigate();
-  //variable de entorno
+
   const URL = process.env.REACT_APP_API_SURVEYS_LOGIN;
 
   const onSubmit = async (data) => {
@@ -36,7 +36,6 @@ const Login = ({getApi, setLoggedUser }) => {
         }),
       });
 
-      console.log(res);
       const response = await res.json();
       const { token, uid, username, message } = response;
 
@@ -47,7 +46,6 @@ const Login = ({getApi, setLoggedUser }) => {
           password: "",
         }));
 
-       
         localStorage.setItem("user-token", JSON.stringify(response));
 
         context.setUser({
@@ -62,11 +60,11 @@ const Login = ({getApi, setLoggedUser }) => {
 
         Swal.fire({
           text: message,
-          icon:"success",
+          icon: "success",
           color: "#fff",
           background: "#000",
           confirmButtonColor: "#3085d6",
-        });;
+        });
         return setTimeout(() => {
           getApi();
           navigate("/");
@@ -120,7 +118,7 @@ const Login = ({getApi, setLoggedUser }) => {
               )}
               {errors.email && errors.email.type === "maxLength" && (
                 <span className="error">
-                  Este campo tiene un maximo de 60 caracteres
+                  Este campo tiene un máximo de 60 caracteres
                 </span>
               )}
               {errors.email && errors.email.type === "pattern" && (
@@ -162,7 +160,7 @@ const Login = ({getApi, setLoggedUser }) => {
               {errors.password && errors.password.type === "maxLength" && (
                 <span className="error">
                   {" "}
-                  Este campo tiene un maximo de 90 caracteres
+                  Este campo tiene un máximo de 90 caracteres
                 </span>
               )}
               {errors.password && errors.password.type === "pattern" && (

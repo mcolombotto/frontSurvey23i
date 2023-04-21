@@ -47,6 +47,8 @@ REACT_APP_API_SURVEYS
 - framer motion
 - react testing library
 - font awesome
+- react chartjs
+- math js
 
 <hr>
 

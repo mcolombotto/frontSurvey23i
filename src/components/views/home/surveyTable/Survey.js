@@ -27,7 +27,7 @@ const Survey = ({ survey, URL, getApi, roleLogged, setStatSurvey }) => {
 
   const handleDelete = (id) => {
     Swal.fire({
-      title: "Estas seguro?",
+      title: "¿Estás seguro?",
       text: "Esta acción no se puede revertir",
       icon: "warning",
       showCancelButton: true,
@@ -59,9 +59,7 @@ const Survey = ({ survey, URL, getApi, roleLogged, setStatSurvey }) => {
 
             getApi();
           }
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       }
     });
   };
@@ -70,9 +68,7 @@ const Survey = ({ survey, URL, getApi, roleLogged, setStatSurvey }) => {
     try {
       const res = await axios.get(`${URL}/${id}`);
       let surveyLoaded = res.data;
-      console.log("ANTES", surveyLoaded);
       surveyLoaded.status = !surveyLoaded.status;
-      console.log("DESPUES", surveyLoaded);
 
       await axios.put(`${URL}/${id}`, surveyLoaded, {
         headers: {
@@ -82,14 +78,11 @@ const Survey = ({ survey, URL, getApi, roleLogged, setStatSurvey }) => {
         },
       });
       navigate(0);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (
     <tr>
-      {/* <td>{survey._id}</td> */}
       {roleLogged == "admin" ? (
         <td className="text-light">{survey.author}</td>
       ) : (
@@ -137,7 +130,6 @@ const Survey = ({ survey, URL, getApi, roleLogged, setStatSurvey }) => {
               variant="outline-primary"
               className=" mx-1"
               onClick={() => {
-                console.log(survey);
                 setStatSurvey(survey);
               }}
             >

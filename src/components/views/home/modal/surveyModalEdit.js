@@ -12,10 +12,6 @@ function ModalEdit(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  console.log(
-    props.surveyItemList.surveyItemList.indexOf(props.surveyItemList.data)
-  );
-
   return (
     <div>
       <>
@@ -45,16 +41,12 @@ function ModalEdit(props) {
                         props.surveyItemList.data
                       )
                     );
-                    console.log(e.target.name);
-                    console.log(e.target.value);
                     props.surveyItemList.surveyItem.responseType =
                       props.surveyItemList.data.responseType;
                     props.surveyItemList.surveyItem.question = e.target.value;
                     props.surveyItemList.setSurveyItem(
                       props.surveyItemList.surveyItem
                     );
-
-                    console.log(props.surveyItemList.surveyItem);
                   }}
                 />
               </Form.Group>
@@ -67,11 +59,11 @@ function ModalEdit(props) {
                   defaultValue={props.surveyItemList.data.responseType}
                   onChange={(e) => {
                     setIndex(
-                        props.surveyItemList.surveyItemList.indexOf(
-                          props.surveyItemList.data
-                        )
-                      );
-                      props.surveyItemList.surveyItem.question =
+                      props.surveyItemList.surveyItemList.indexOf(
+                        props.surveyItemList.data
+                      )
+                    );
+                    props.surveyItemList.surveyItem.question =
                       props.surveyItemList.data.question;
                     props.surveyItemList.surveyItem.responseType =
                       e.target.value;
@@ -84,7 +76,7 @@ function ModalEdit(props) {
                   <option value="Booleana">Si / No</option>
                   <option value="Texto Libre">Texto Libre</option>
                   <option value="Numerica">
-                    Numerica (1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10. )
+                    Numérica (1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10. )
                   </option>
                   <option value="Cualitativa">
                     Cualitativa (Malo, Regular, Bueno, Muy Bueno, Excelente)
@@ -107,7 +99,6 @@ function ModalEdit(props) {
                   1,
                   props.surveyItemList.surveyItem
                 );
-
 
                 props.surveyItemList.setSurveyItem({
                   question: "",

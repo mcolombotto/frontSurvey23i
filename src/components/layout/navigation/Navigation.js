@@ -11,15 +11,8 @@ import Logo from "../logo/Logo";
 
 function Navigation({ loggedUser, setLoggedUser }) {
   const context = useContext(UserContext);
-  /* const { img: urlImg, username, estate: loggedUser } = context.user; */
-
-  
-  
-    const username = JSON.parse(localStorage.getItem("user-token"))?.username ;
-  
-
+  const username = JSON.parse(localStorage.getItem("user-token"))?.username;
   const handleLogout = () => {
-    /* context.setUser({}); */
     localStorage.removeItem("user-token");
     setLoggedUser(false);
   };
@@ -46,7 +39,7 @@ function Navigation({ loggedUser, setLoggedUser }) {
             {!loggedUser && (
               <>
                 <Link className="nav-link" to="/register">
-                  Registrate
+                  Regístrate
                 </Link>
                 <Link className="nav-link" to="/login">
                   Login
@@ -72,16 +65,16 @@ function Navigation({ loggedUser, setLoggedUser }) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                <Link  className="text-decoration-none text-dark" to="/survey/table">
-                <NavDropdown.Item as="button" >
-
-                    Panel
-                  </NavDropdown.Item>
-                </Link>
+                  <Link
+                    className="text-decoration-none text-dark"
+                    to="/survey/table"
+                  >
+                    <NavDropdown.Item as="button">Panel</NavDropdown.Item>
+                  </Link>
 
                   <Dropdown.Divider />
                   <NavDropdown.Item as="button" onClick={handleLogout}>
-                    Cerrar sesion
+                    Cerrar sesión
                   </NavDropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

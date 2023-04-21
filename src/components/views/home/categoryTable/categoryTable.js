@@ -20,16 +20,7 @@ const CategoryTable = ({
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    console.log("INICIO DEL SUBMIT");
     e.preventDefault();
-
-    /*  if (categoryItemList.find(categoryItem.categoryName)){
-          return true;
-        }else{
-          return false;
-        } */
-
-
     if (categoryItem.categoryName == "") {
       return Swal.fire({
         icon: "error",
@@ -62,15 +53,10 @@ const CategoryTable = ({
       });
     }
 
-    //guardar el objeto
     const newCategory = {
       categoryName: categoryItem.categoryName,
       categoryStatus: false,
     };
-
-    /*  setCategoryItemList([...categoryItemList , newCategory ]); */
-
-    /*  console.log(categoryItemList, newCategory); */
 
     Swal.fire({
       title: "Estas Seguro?",
@@ -84,15 +70,13 @@ const CategoryTable = ({
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          console.log(URL);
-          const res = await axios.post(`${URL}`, newCategory,{
+          const res = await axios.post(`${URL}`, newCategory, {
             headers: {
               "Content-Type": "application/json",
               "x-access-token": JSON.parse(localStorage.getItem("user-token"))
                 .token,
             },
           });
-          /* console.log(res.data); */
 
           if (res.status === 201) {
             Swal.fire({
@@ -107,16 +91,14 @@ const CategoryTable = ({
             getApi();
             navigate(0);
           }
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       }
     });
   };
 
   return (
     <Container>
-      <h2 className="my-3 text-light text-center">Tabla de Categorias</h2>
+      <h2 className="my-3 text-light text-center">Tabla de Categorías</h2>
       <hr></hr>
       <Link
         to="/survey/table"
@@ -125,7 +107,7 @@ const CategoryTable = ({
         <Button variant="outline-light">Volver </Button>
       </Link>
       {categoryItemList?.length == 0 ? (
-        <h4 className="text-center"> 📝No hay categorias guardadas </h4>
+        <h4 className="text-center"> 📝No hay categorías guardadas </h4>
       ) : (
         <></>
       )}
@@ -133,7 +115,7 @@ const CategoryTable = ({
         <Table responsive className="text-light text-center align-middle mt-5">
           <thead>
             <tr>
-              <th>Nombre de la categoria</th>
+              <th>Nombre de la categoría</th>
               <th>Estado</th>
               <th>Acciones</th>
               <th>Encuestas Asignadas</th>
@@ -174,9 +156,7 @@ const CategoryTable = ({
                   </Button>
                 </Link>
               </td>
-              <td>
-
-              </td>
+              <td></td>
             </tr>
           </tbody>
         </Table>

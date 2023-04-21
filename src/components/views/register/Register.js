@@ -21,7 +21,7 @@ const Register = () => {
 
   const context = useContext(UserContext);
   const navigate = useNavigate();
-  //variable de entorno
+
   const URL = process.env.REACT_APP_API_SURVEYS_USER;
 
   const onSubmit = async (data) => {
@@ -42,7 +42,7 @@ const Register = () => {
             password: data.password1,
           }),
         });
-        
+
         const response = await res.json();
 
         const { token, uid, userName, message } = response;
@@ -85,7 +85,7 @@ const Register = () => {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Ocurrio un problema, vuelve a intentarlo!",
+            text: "Ocurrió un problema, vuelve a intentarlo!",
             color: "#fff",
             background: "#000",
             confirmButtonColor: "#3085d6",
@@ -161,7 +161,7 @@ const Register = () => {
               )}
               {errors.email && errors.email.type === "maxLength" && (
                 <span className="error">
-                  Este campo tiene un maximo de 60 caracteres
+                  Este campo tiene un máximo de 60 caracteres
                 </span>
               )}
               {errors.email && errors.email.type === "pattern" && (
@@ -204,14 +204,14 @@ const Register = () => {
               {errors.password1 && errors.password1.type === "maxLength" && (
                 <span className="error">
                   {" "}
-                  Este campo tiene un maximo de 90 caracteres
+                  Este campo tiene un máximo de 90 caracteres
                 </span>
               )}
               {errors.password1 && errors.password1.type === "pattern" && (
                 <span className="error">
-                  La contraseña no es valida. Esta debe tener mìnimo 8
+                  La contraseña no es valida. Esta debe tener mínimo 8
                   caracteres, al menos una letra mayúscula, al menos una letra
-                  minucula y al menos un caracter especial (@$!%*?&)
+                  minúscula y al menos un caracter especial (@$!%*?&)
                 </span>
               )}
             </div>
@@ -240,9 +240,9 @@ const Register = () => {
               )}
               {errors.password2 && errors.password2.type === "pattern" && (
                 <span className="error">
-                  La contraseña no es valida. Esta debe tener mìnimo 8
+                  La contraseña no es valida. Esta debe tener mínimo 8
                   caracteres, al menos una letra mayúscula, al menos una letra
-                  minucula y al menos un caracter especial (@$!%*?&)
+                  minúscula y al menos un caracter especial (@$!%*?&)
                 </span>
               )}
               {errorPassword && (

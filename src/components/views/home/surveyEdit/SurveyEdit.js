@@ -35,32 +35,26 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   };
 
   useEffect(() => {
-    console.log("Useefect");
     getOne();
   }, []);
 
   const getOne = async () => {
-    console.log("INICIO DE GETONE");
-
     try {
       const res = await axios.get(`${URL}/${id}`);
       const surveyApi = res.data;
       setSurvey(surveyApi);
       setSurveyItemList(surveyApi.surveyItemList);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handleSubmit = (e) => {
-    console.log("INICIO DEL SUBMIT");
     e.preventDefault();
 
     if (!validateSurveyName(surveyNameRef.current.value)) {
       Swal.fire({
-        title:"Ops!",
-        text:"Alguno de los datos es invalido",
-        icon:"error",
+        title: "Oops!",
+        text: "Alguno de los datos es inválido",
+        icon: "error",
         color: "#fff",
         background: "#000",
         confirmButtonColor: "#3085d6",
@@ -78,10 +72,9 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
       status: false,
       surveyItemList: surveyItemList,
     };
-    console.log("Edicion", surveyUpdated);
 
     Swal.fire({
-      title: "Estas seguro?",
+      title: "Estás seguro?",
       text: "Esta accíon guardará los cambios en la encuesta",
       icon: "warning",
       color: "#fff",
@@ -97,24 +90,22 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
               "Content-Type": "application/json",
               "x-access-token": JSON.parse(localStorage.getItem("user-token"))
                 .token,
-            },});
-          console.log(res.data);
+            },
+          });
 
           if (res.status === 200) {
             Swal.fire({
-              title:"Modificada!",
-              text:"Se modificó la encuesta con éxito",
-              icon:"success",
+              title: "Modificada!",
+              text: "Se modificó la encuesta con éxito",
+              icon: "success",
               color: "#fff",
               background: "#000",
-              confirmButtonColor: "#3085d6",}
-            );
+              confirmButtonColor: "#3085d6",
+            });
             getApi();
             navigate("/survey/table");
           }
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       }
     });
   };
@@ -122,7 +113,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
   return (
     <div>
       <Container className="py-5">
-        <div className="d-flex justify-content-between text-light ">
+        <div className="d-flex justify-content-between text-light">
           <h2>Editar una encuesta existente</h2>
           <Link
             to="/survey/table"
@@ -167,7 +158,7 @@ const SurveyEdit = ({ URL, getApi, categoryItemList, categoryItem }) => {
             </Form.Select>
             <Form.Group className="my-3" controlId="Text">
               {" "}
-              <Form.Label>Imagen descriptiva de la encuesta </Form.Label>
+              <Form.Label>Imagen descriptiva de la encuesta</Form.Label>
               <Form.Control
                 type="text"
                 name="surveyImage"
