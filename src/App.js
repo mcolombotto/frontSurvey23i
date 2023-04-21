@@ -17,16 +17,20 @@ import Register from "./components/views/register/Register";
 import Error404 from "./components/views/error404/Error404";
 import CategoryTable from "./components/views/home/categoryTable/categoryTable";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
-import UserContext from './components/layout/context/UserContext'
+import UserContext from "./components/layout/context/UserContext";
+import Charts from "./components/views/home/charts/charts";
 
 function App() {
   const [surveys, setSurveys] = useState([]);
   const [activeSurveys, setActiveSurveys] = useState([]);
-  const [loggedUser, setLoggedUser] = useState(( JSON.parse(localStorage.getItem("user-token"))==undefined? false : true));
+  const [loggedUser, setLoggedUser] = useState(
+    JSON.parse(localStorage.getItem("user-token")) == undefined ? false : true
+  );
   const [categoryItem, setCategoryItem] = useState({
-    categoryName : "",
-    categoryStatus : "",
+    categoryName: "",
+    categoryStatus: "",
   });
+  const [statSurvey, setStatSurvey] = useState({});
   const [user, setUser] = React.useState({});
   const [roleLogged, setRoleLogged] = useState();
   const token = localStorage.getItem("user-token");
@@ -43,22 +47,23 @@ function App() {
 
   const getApi = async () => {
     try {
-        if((localStorage.getItem("user-token"))!==null){
-        const res = await axios.get(URL,{
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": JSON.parse(localStorage.getItem("user-token")).token  ,
-        },
-      }
-        ); 
-    
+      if (localStorage.getItem("user-token") !== null) {
+        const res = await axios.get(URL, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+              .token,
+          },
+        });
+
         const surveyApi = res.data.surveyList;
-        console.log(res.data)
+        /* console.log(res.data); */
         setRoleLogged(res.data.userLogged);
-        setSurveys(surveyApi);}
+        setSurveys(surveyApi);
+      }
       const cat = await axios.get(URL2);
       const active = await axios.get(`${URL}/showActive`);
-      setActiveSurveys(active.data)
+      setActiveSurveys(active.data);
       const categoryApi = cat.data;
       setCategoryItemList(categoryApi);
     } catch (error) {
@@ -67,96 +72,116 @@ function App() {
   };
 
   return (
-   <UserContext.Provider value={{ user, setUser }}>
-    <BrowserRouter>
-      <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
-      <main>
-        <Routes>
-          <Route exact path="/" element={<Home surveys={activeSurveys} categoryItemList={categoryItemList} />} />
-          <Route
-            path="/*"
-            element={
-              <ProtectedRoute>
-              <Routes>
-                <Route
-                  exact
-                  path="/survey/table"
-                  element={
-                    <SurveysTable surveys={surveys} URL={URL} roleLogged={roleLogged} getApi={getApi} />
-                  }
+    <UserContext.Provider value={{ user, setUser }}>
+      <BrowserRouter>
+        <Navigation loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
+        <main>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Home
+                  surveys={activeSurveys}
+                  categoryItemList={categoryItemList}
                 />
-                <Route
-                  exact
-                  path="/category/table"
-                  element={
-                    <CategoryTable categoryItemList={categoryItemList}
-                    setCategoryItemList={setCategoryItemList} 
-                    categoryItem = {categoryItem}
-                    setCategoryItem = {setCategoryItem}
-                    getApi={getApi}
-                    surveys={surveys}
-                    URL = {URL2}
-                    
+              }
+            />
+            <Route
+              path="/*"
+              element={
+                <ProtectedRoute>
+                  <Routes>
+                    <Route
+                      exact
+                      path="/survey/table"
+                      element={
+                        <SurveysTable
+                          surveys={surveys}
+                          URL={URL}
+                          roleLogged={roleLogged}
+                          getApi={getApi}
+                          setStatSurvey={setStatSurvey}
+                        />
+                      }
                     />
-                  }
-                />
-                <Route
-                  exact
-                  path="/survey/create"
-                  element={
-                    <SurveyCreate
-                    surveys={surveys}
-                      URL={URL}
-                      getApi={getApi}
-                      categoryItemList={categoryItemList}
-                      categoryItem={categoryItem}
+                    <Route
+                      exact
+                      path="/category/table"
+                      element={
+                        <CategoryTable
+                          categoryItemList={categoryItemList}
+                          setCategoryItemList={setCategoryItemList}
+                          categoryItem={categoryItem}
+                          setCategoryItem={setCategoryItem}
+                          getApi={getApi}
+                          surveys={surveys}
+                          URL={URL2}
+                        />
+                      }
                     />
-                  }
-                />
-                  <Route
-                    exact
-                    path="/survey/details/:id"
-                    element={<SurveyDetails URL={URL} surveys={surveys} />}
-                  />
-                <Route
-                  exact
-                  path="/survey/edit/:id"
-                  element={
-                    <SurveyEdit
-                      URL={URL}
-                      getApi={getApi}
-                      categoryItemList={categoryItemList}
-                      categoryItem={categoryItem}
-                      />
-                  }
-                />
-                <Route
+                    <Route
+                      exact
+                      path="/survey/charts"
+                      element={<Charts statSurvey={statSurvey} />}
+                    />
+                    <Route
+                      exact
+                      path="/survey/create"
+                      element={
+                        <SurveyCreate
+                          surveys={surveys}
+                          URL={URL}
+                          getApi={getApi}
+                          categoryItemList={categoryItemList}
+                          categoryItem={categoryItem}
+                        />
+                      }
+                    />
+                    <Route
+                      exact
+                      path="/survey/details/:id"
+                      element={<SurveyDetails URL={URL} surveys={surveys} />}
+                    />
+                    <Route
+                      exact
+                      path="/survey/edit/:id"
+                      element={
+                        <SurveyEdit
+                          URL={URL}
+                          getApi={getApi}
+                          categoryItemList={categoryItemList}
+                          categoryItem={categoryItem}
+                        />
+                      }
+                    />
+                    <Route
                     exact
                     path="/survey/:id"
                     element={<SurveyRender URL={URL} surveys={surveys} />}
                   />
-              </Routes>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            exact
-            path="/login"
-            element={<Login getApi={getApi} setLoggedUser={setLoggedUser} />}
-          />
-          <Route
-            exact
-            path="/register"
-            element={<Register setLoggedUser={setLoggedUser} />}
-          />
-          <Route exact path='/error' element={<Error404 />} />
-        </Routes>
-      </main>
-      <Footer />
-    </BrowserRouter>
-   </UserContext.Provider>
+                  </Routes>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              exact
+              path="/login"
+              element={<Login getApi={getApi} setLoggedUser={setLoggedUser} />}
+            />
+            <Route
+              exact
+              path="/register"
+              element={<Register setLoggedUser={setLoggedUser} />}
+            />
+            <Route exact path="/error" element={<Error404 />} />
+          </Routes>
+        </main>
+        <Footer />
+      </BrowserRouter>
+    </UserContext.Provider>
+
   );
 }
 
 export default App;
-

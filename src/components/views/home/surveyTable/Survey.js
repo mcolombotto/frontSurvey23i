@@ -13,10 +13,10 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import Charts from "../charts/charts";
 
-const Survey = ({ survey, URL, getApi,roleLogged }) => {
+const Survey = ({ survey, URL, getApi, roleLogged, setStatSurvey }) => {
   const navigate = useNavigate();
-
   let visible = (data) => {
     if (data) {
       return <FontAwesomeIcon icon={faEye} />;
@@ -132,14 +132,25 @@ const Survey = ({ survey, URL, getApi,roleLogged }) => {
           >
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>
-          <Button variant="outline-primary" className=" mx-1">
-            <FontAwesomeIcon icon={faChartLine} />
-          </Button>
+          <Link to="/survey/charts">
+            <Button
+              variant="outline-primary"
+              className=" mx-1"
+              onClick={() => {
+                console.log(survey);
+                setStatSurvey(survey);
+              }}
+            >
+              <FontAwesomeIcon icon={faChartLine} />
+            </Button>
+          </Link>
         </div>
       </td>
-      <td>{
-           survey.surveyAnswerList.length 
-        }</td>
+      <td>
+        {survey.surveyAnswerList[0] !== undefined
+          ? survey.surveyAnswerList[0].length
+          : "0"}
+      </td>
     </tr>
   );
 };
