@@ -60,16 +60,25 @@ const Login = ({getApi, setLoggedUser }) => {
 
         setLoggedUser(true);
 
-        Swal.fire(message);
+        Swal.fire({
+          text: message,
+          icon:"success",
+          color: "#fff",
+          background: "#000",
+          confirmButtonColor: "#3085d6",
+        });;
         return setTimeout(() => {
-            getApi();
-            navigate("/");
+          getApi();
+          navigate("/");
         }, 2000);
       } else {
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: message,
+          color: "#fff",
+          background: "#000",
+          confirmButtonColor: "#3085d6",
         });
       }
     } catch (error) {
