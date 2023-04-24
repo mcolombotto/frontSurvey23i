@@ -27,22 +27,21 @@ function Navigation({ loggedUser, setLoggedUser }) {
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ms-auto">
             <Link className="nav-link" to="/">
-              Home
+              Inicio
             </Link>
-            <NavDropdown title="Plantillas" id="nav-dropdown">
-              <NavDropdown.Item to="*">Estudios de mercado</NavDropdown.Item>
-              <NavDropdown.Item to="*">Evaluación de eventos</NavDropdown.Item>
-              <NavDropdown.Item to="*">
-                Evaluación del profesor
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Link className="nav-link" to="/us">
+              Nosotros
+            </Link>
+            <Link className="nav-link" to="/contact">
+              Contacto
+            </Link>
             {!loggedUser && (
               <>
                 <Link className="nav-link" to="/register">
                   Regístrate
                 </Link>
                 <Link className="nav-link" to="/login">
-                  Login
+                  Ingresar
                 </Link>
               </>
             )}
