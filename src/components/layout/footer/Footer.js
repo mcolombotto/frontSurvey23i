@@ -14,7 +14,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-      <footer className="footer-style p-3 w-100 bg-gradient text-second">
+    <footer className="footer-style p-3 w-100 bg-gradient text-second">
       <Navbar variant="dark">
         <Container>
             <div className="row w-100 d-flex justify-content-center m-auto text-center">
