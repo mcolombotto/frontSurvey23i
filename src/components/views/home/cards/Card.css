@@ -50,6 +50,12 @@
   border-radius: 50px;
   font-size: 1.25rem;
   margin: 0 0.5rem 0.5rem 0;
+  background-color :dodgerblue;
+}
+.btn-custom:hover {
+
+  background-color: rgba(30, 143, 255, 0.397);
+  color:dodgerblue;
 }
 
 .main-heading{
@@ -72,12 +78,14 @@
     margin: 0 0.25rem 0.25rem 0;
   }
 }
-
-@media only screen and (max-width: 575.98px) {
+@media only screen and (max-width: 795px) {
   .card {
     flex: 1 1 100%;
-    max-height: none;
+    max-height: 100%;
   }
+}
+@media only screen and (max-width: 575.98px) {
+
 
   .card-img-top {
     height: 300px;

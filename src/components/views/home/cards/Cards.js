@@ -27,7 +27,8 @@ const Cards = ({ cards }) => {
     const buttons = categories.map((category) => (
       <button
         key={category}
-        className="btn btn-warning btn-custom"
+        variant="warning"
+        className="btn btn-custom"
         onClick={() => {
           filterCard(category);
           setCurrentPage(1);
@@ -67,7 +68,7 @@ const Cards = ({ cards }) => {
           <div className="d-flex justify-content-around">
             {categoryButtons}
             <button
-              className="btn btn-warning btn-custom"
+              className="btn  btn-custom"
               onClick={() => {
                 setAllCards(cards);
                 setVisibleCards(cards);
