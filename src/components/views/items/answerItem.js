@@ -5,13 +5,13 @@ const AnswerItem = ({ type, onChange }) => {
   switch (type) {
     case "Texto Libre":
       return (
-        <Form className="my-2">
+        <Form className="m-3">
           <FormControl as="textarea" required maxlength="500" rows={3} />
         </Form>
       );
     case "Numerica":
       return (
-        <Form required className="text-light my-2">
+        <Form required className="text-light m-3">
           <Form.Check inline label="0" name="group1" type="radio" />
           <Form.Check inline label="1" name="group1" type="radio" />
           <Form.Check inline label="2" name="group1" type="radio" />
@@ -27,7 +27,7 @@ const AnswerItem = ({ type, onChange }) => {
       );
     case "Cualitativa":
       return (
-        <Form required className="my-2 text-light">
+        <Form required className="m-3 text-light">
           <Form.Check inline label="Malo" name="group1" type="radio" />
           <Form.Check inline label="Regular" name="group1" type="radio" />
           <Form.Check inline label="Bueno" name="group1" type="radio" />
@@ -37,7 +37,7 @@ const AnswerItem = ({ type, onChange }) => {
       );
     case "Booleana":
       return (
-        <Form required className="my-2 text-light">
+        <Form required className="m-3 text-light">
           <Form.Check inline label="Si" name="group1" type="radio" />
           <Form.Check inline label="No" name="group1" type="radio" />
         </Form>

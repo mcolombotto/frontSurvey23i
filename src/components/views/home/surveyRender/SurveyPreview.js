@@ -9,13 +9,13 @@ const SurveyPreview = ({ data, index, onResponseChange }) => {
     onResponseChange(answer);
   };
   return (
-    <ListGroup>
+    <ListGroup className="">
       <ListGroupItem className="py-3">
-        <div className="text-light fw-bold">
+        <div className="m-3 text-light  text fw-bold">
           {index + 1}. {data.question}
         </div>
         <div>
-          <AnswerItem
+          <AnswerItem 
             type={data.responseType}
             onChange={handleResponseChange}
           />

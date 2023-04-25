@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, Link} from "react-router-dom";
 import SurveyPreview from "./SurveyPreview";
 import { ListGroupItem, ListGroup, Form, Button } from "react-bootstrap";
 import axios from "axios";
@@ -182,17 +182,25 @@ const SurveyRender = ({ URL }) => {
 
   return (
     <Container className="my-2">
-      <h1 className="d-flex justify-content-center mt-4">
+      <h1 className="d-flex text-light justify-content-center mt-4">
         {survey.surveyName}
       </h1>
-      <p className="my-2 fs-5 d-flex justify-content-center">
+
+      <p className="my-2 text-light fs-5 d-flex justify-content-center">
         {" "}
         Categoría de encuesta : {survey.category}
       </p>
+      <Link
+        to="/"
+        className="d-flex justify-content-end text-decoration-none text-center"
+      >
+        <Button variant="outline-light">Volver </Button>
+      </Link>
+      <hr></hr>
 
-      <div className="survey-image d-flex justify-content-center">
+      {/* <div className="survey-image d-flex justify-content-center">
         <SurveyImage source={survey.image}></SurveyImage>
-      </div>
+      </div> */}
 
       {survey.surveyItemList !== undefined ? (
         <Form onSubmit={handleFormSubmit}>
