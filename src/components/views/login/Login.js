@@ -93,7 +93,7 @@ const Login = ({ getApi, setLoggedUser }) => {
       <Container className="py-5 ">
         <div className="row justify-content-center">
           <div className="mb-3">
-            <h1 className="text-center">Login</h1>
+            <h1 className="text-center text-light">Ingresar</h1>
           </div>
           <form
             className="my-5 form col-sm-8 col-lg-6"
