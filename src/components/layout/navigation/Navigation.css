@@ -1,9 +1,8 @@
 .menu{
+  background-image: url(https://static.encuesta.com/production/img/fondo-soporte.svg);
+  
+  /* CSS ANTERIOR 
   background: rgb(10,10,10);
   background: linear-gradient(90deg, rgba(10,10,10,1) 19%, rgba(5,5,54,1) 44%, rgba(3,3,40,1) 83%);
-  font-size: large;
-}
-
-.cantainer-link-nav{
-  padding: 0px 90px 0px 0px;
+   */
 }
