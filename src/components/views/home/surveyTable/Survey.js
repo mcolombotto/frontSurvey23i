@@ -109,14 +109,25 @@ const Survey = ({ survey, URL, getApi, roleLogged, setStatSurvey }) => {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </Button>
           </Link>
-          <Link
-            to={`/survey/edit/${survey._id}`}
-            className="btn-orange mx-1 text-decoration-none text-center"
-          >
-            <Button variant="outline-warning">
+
+          {survey.surveyAnswerList[0] == "" ? (
+            <Link
+              to={`/survey/edit/${survey._id}`}
+              className="btn-orange mx-1 text-decoration-none text-center"
+            >
+              <Button variant="outline-warning">
+                <FontAwesomeIcon icon={faPencil} />
+              </Button>
+            </Link>
+          ) : (
+            <Button
+              className="btn- mx-1 text-decoration-none text-center"
+              disabled
+              variant="outline-secondary"
+            >
               <FontAwesomeIcon icon={faPencil} />
             </Button>
-          </Link>
+          )}
 
           <Button
             variant="outline-danger"
@@ -125,17 +136,24 @@ const Survey = ({ survey, URL, getApi, roleLogged, setStatSurvey }) => {
           >
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>
-          <Link to="/survey/charts">
-            <Button
-              variant="outline-primary"
-              className=" mx-1"
-              onClick={() => {
-                setStatSurvey(survey);
-              }}
-            >
+
+          {survey.surveyAnswerList[0] == "" ? (
+            <Button disabled variant="outline-secondary" className=" mx-1">
               <FontAwesomeIcon icon={faChartLine} />
             </Button>
-          </Link>
+          ) : (
+            <Link to="/survey/charts">
+              <Button
+                variant="outline-primary"
+                className=" mx-1"
+                onClick={() => {
+                  setStatSurvey(survey);
+                }}
+              >
+                <FontAwesomeIcon icon={faChartLine} />
+              </Button>
+            </Link>
+          )}
         </div>
       </td>
       <td>
