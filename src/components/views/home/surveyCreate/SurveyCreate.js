@@ -32,7 +32,8 @@ const SurveyCreate = ({
     JSON.parse(localStorage.getItem("newSurveyItemList")) || []
   );
 
-  const [answerList, setAnswerList] = useState([]);
+
+  const [surveyAnswerList, setSurveyAnswerList] = useState([]);
 
   const deleteSurveyItem = (itemName) => {
     let filteredArray = surveyItemList.filter(
@@ -116,6 +117,7 @@ const SurveyCreate = ({
       image: inputs.surveyImage,
       status: false,
       surveyItemList: surveyItemList,
+      surveyAnswerList: new Array(surveyItemList.length).fill([]),
       author: JSON.parse(localStorage.getItem("user-token")).email,
     };
 
