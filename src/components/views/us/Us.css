@@ -1,0 +1,38 @@
+
+.letter-first::first-letter {
+  font-size: 280%;
+  font-style: italic;
+  background-color: rgba(193, 202, 209, 0.882);
+  color: #3809f3;
+  letter-spacing: 3px;
+  margin-left: 20px;
+}
+
+.space-letter::first-letter{
+   font-size: 200%;
+  margin-left: 20px;
+}
+
+.space-letter::first-letter{
+   font-size: 200%;
+  margin-left: 20px;
+}
+
+
+.img-wrapper-equipo:hover .imagen-filter {
+  filter: contrast(100%);
+}
+.card-wrapper:hover .imagen-filter {
+  filter: contrast(100%);
+  scale: 1.1;
+}
+.contenedor-img {
+  overflow: hidden;
+}
+.imagen-filter {
+  transition: all 0.5s;
+  filter: brightness(38%);
+}
+.img-wrapper-equipo:hover .imagen-filter {
+  filter: contrast(100%);
+}
