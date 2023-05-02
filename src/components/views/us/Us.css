@@ -13,12 +13,12 @@
   margin-left: 20px;
 }
 
-.space-letter::first-letter{
-   font-size: 200%;
-  margin-left: 20px;
+.card-wrapper{
+  margin: 8px;
+  padding: 10px;
+  border-radius: 5px;
+  max-height: 100%
 }
-
-
 .img-wrapper-equipo:hover .imagen-filter {
   filter: contrast(100%);
 }
@@ -36,3 +36,7 @@
 .img-wrapper-equipo:hover .imagen-filter {
   filter: contrast(100%);
 }
+/* @media only screen and (max-width: 769px)
+.Ccard {
+    max-height: 100%;
+}; */
