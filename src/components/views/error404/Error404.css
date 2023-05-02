@@ -1,9 +1,8 @@
 .error-container{
     font-family: 'Monserrat', sans-serif;
-     background-color: #AFF0E4;
+     background-color: #FDFBFE;
      display: flex;
      flex: 1.1;
-     color: #27806C
 }
 .img-container{
   width: 100%;
@@ -12,6 +11,5 @@
 .picture-error{
   object-fit: scale-down;
 }
-
 
 
