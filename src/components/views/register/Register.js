@@ -105,171 +105,175 @@ const Register = () => {
   };
 
   return (
-    <div className="mainRegister">
-      <Container className="py-5 ">
-        <div className="form-container row justify-content-center">
-          <form
-            className="my-5 form col-sm-8 col-lg-6"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className="mb-3">
-              <h1 className="text-center">Registro</h1>
-            </div>
-            <div className="mb-3">
-              <Form.Label>
-                Nombre de usuario
-                <span className="text-danger font-weight-bold">*</span>{" "}
-              </Form.Label>
-              <input
-                className="form-control "
-                placeholder="Ej: John Perez"
-                {...register("name", {
-                  required: true,
-                  maxLength: 100,
-                  pattern: /^[A-Za-z\s?]+$/,
-                })}
-              />
-
-              {errors.name && errors.name.type === "required" && (
-                <span className="error">Este campo es requerido. </span>
-              )}
-              {errors.name && errors.name.type === "maxLength" && (
-                <span className="error">Este campo tiene un maximo de 60 </span>
-              )}
-              {errors.name && errors.name.type === "pattern" && (
-                <span className="error">
-                  En este campo solo puedes ingresar letras
-                </span>
-              )}
-            </div>
-            <div className="mb-3">
-              <Form.Label>
-                Email<span className="text-danger font-weight-bold">*</span>
-              </Form.Label>
-              <input
-                className="form-control "
-                type="email"
-                placeholder="Ej: John_Perez@email.com"
-                {...register("email", {
-                  required: true,
-                  maxLength: 100,
-                  pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                })}
-              />
-              {errors.email && errors.email.type === "required" && (
-                <span className="error">Este campo es requerido. </span>
-              )}
-              {errors.email && errors.email.type === "maxLength" && (
-                <span className="error">
-                  Este campo tiene un máximo de 60 caracteres
-                </span>
-              )}
-              {errors.email && errors.email.type === "pattern" && (
-                <span className="error">
-                  {" "}
-                  El correo tiene un formato incorrecto. Formato esperado:
-                  email@email.com{" "}
-                </span>
-              )}
-            </div>
-            <div className="mb-3 position-relative">
-              <Form.Label>
-                Contraseña
-                <span className="text-danger font-weight-bold">*</span>
-              </Form.Label>
-              <input
-                className="form-control "
-                type={typeInput}
-                {...register("password1", {
-                  required: true,
-                  maxLength: 100,
-                  pattern:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,90}/,
-                })}
-              />
-              <button
-                type="button"
-                className="position-absolute  buttonPosition btn"
-                onClick={() => {
-                  typeInput === "password"
-                    ? setTypeInput("text")
-                    : setTypeInput("password");
-                }}
-              >
-                {typeInput === "password" ? <FaEyeSlash /> : <FaEye />}
-              </button>
-              {errors.password1 && errors.password1.type === "required" && (
-                <span className="error">Este campo es requerido. </span>
-              )}
-              {errors.password1 && errors.password1.type === "maxLength" && (
-                <span className="error">
-                  {" "}
-                  Este campo tiene un máximo de 90 caracteres
-                </span>
-              )}
-              {errors.password1 && errors.password1.type === "pattern" && (
-                <span className="error">
-                  La contraseña no es valida. Esta debe tener mínimo 8
-                  caracteres, al menos una letra mayúscula, al menos una letra
-                  minúscula y al menos un caracter especial (@$!%*?&)
-                </span>
-              )}
-            </div>
-            <div className="mb-3 position-relative">
-              <Form.Label>
-                Repetir contraseña
-                <span className="text-danger font-weight-bold">*</span>
-              </Form.Label>
-              <input
-                className="form-control "
-                type={typeInput}
-                {...register("password2", {
-                  required: true,
-                  maxLength: 100,
-                  pattern:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,90}$/,
-                })}
-              />
-              {errors.password2 && errors.password2.type === "required" && (
-                <span className="error">Este campo es requerido. </span>
-              )}
-              {errors.password2 && errors.password2.type === "maxLength" && (
-                <span className="error">
-                  Este campo tiene un maximo de 90 caracteres
-                </span>
-              )}
-              {errors.password2 && errors.password2.type === "pattern" && (
-                <span className="error">
-                  La contraseña no es valida. Esta debe tener mínimo 8
-                  caracteres, al menos una letra mayúscula, al menos una letra
-                  minúscula y al menos un caracter especial (@$!%*?&)
-                </span>
-              )}
-              {errorPassword && (
-                <span className="error">Las contraseñas no coinciden</span>
-              )}
-              <button
-                type="button"
-                className="position-absolute buttonPosition btn"
-                onClick={() => {
-                  typeInput === "password"
-                    ? setTypeInput("text")
-                    : setTypeInput("password");
-                }}
-              >
-                {typeInput === "password" ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
-            <div>
-              <button className="btn btn-danger" type="submit">
-                {" "}
-                Enviar
-              </button>
-            </div>
-          </form>
+    <Container className="py-5">
+      <div className="form-container row justify-content-center">
+        <div className="mb-3">
+          <h1 className="text-center text-light">Registro</h1>
         </div>
-      </Container>
-    </div>
+        <form
+          className="my-5 form col-sm-12 col-md-8 col-lg-6"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="mb-3">
+            <Form.Label>
+              Nombre de usuario
+              <span className="text-danger font-weight-bold">*</span>{" "}
+            </Form.Label>
+            <input
+              className="form-control "
+              placeholder="Ej: John Perez"
+              maxLength={101}
+              {...register("name", {
+                required: true,
+                maxLength: 100,
+                pattern: /^[A-Za-z\s]+$/,
+              })}
+            />
+
+            {errors.name && errors.name.type === "required" && (
+              <span className="error">Este campo es requerido. </span>
+            )}
+            {errors.name && errors.name.type === "maxLength" && (
+              <span className="error">
+                Este campo tiene un máximo de 100 caracteres.
+              </span>
+            )}
+            {errors.name && errors.name.type === "pattern" && (
+              <span className="error">
+                En este campo solo puedes ingresar letras.
+              </span>
+            )}
+          </div>
+          <div className="mb-3">
+            <Form.Label>
+              Email<span className="text-danger font-weight-bold">*</span>
+            </Form.Label>
+            <input
+              className="form-control "
+              type="email"
+              placeholder="Ej: John_Perez@email.com"
+              maxLength={101}
+              {...register("email", {
+                required: true,
+                maxLength: 100,
+                pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+              })}
+            />
+            {errors.email && errors.email.type === "required" && (
+              <span className="error">Este campo es requerido. </span>
+            )}
+            {errors.email && errors.email.type === "maxLength" && (
+              <span className="error">
+                Este campo tiene un máximo de 100 caracteres.
+              </span>
+            )}
+            {errors.email && errors.email.type === "pattern" && (
+              <span className="error">
+                {" "}
+                El correo tiene un formato incorrecto. Formato esperado:
+                email@email.com{" "}
+              </span>
+            )}
+          </div>
+          <div className="mb-3 position-relative">
+            <Form.Label>
+              Contraseña
+              <span className="text-danger font-weight-bold">*</span>
+            </Form.Label>
+            <input
+              className="form-control "
+              type={typeInput}
+              maxLength={101}
+              {...register("password1", {
+                required: true,
+                maxLength: 100,
+                pattern:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,90}/,
+              })}
+            />
+            <button
+              type="button"
+              className="position-absolute  buttonPosition btn"
+              onClick={() => {
+                typeInput === "password"
+                  ? setTypeInput("text")
+                  : setTypeInput("password");
+              }}
+            >
+              {typeInput === "password" ? <FaEyeSlash /> : <FaEye />}
+            </button>
+            {errors.password1 && errors.password1.type === "required" && (
+              <span className="error">Este campo es requerido. </span>
+            )}
+            {errors.password1 && errors.password1.type === "maxLength" && (
+              <span className="error">
+                {" "}
+                Este campo tiene un máximo de 100 caracteres.
+              </span>
+            )}
+            {errors.password1 && errors.password1.type === "pattern" && (
+              <span className="error">
+                La contraseña no es valida. Esta debe tener mínimo 8 caracteres,
+                al menos una letra mayúscula, al menos una letra minúscula y al
+                menos un caracter especial (@$!%*?&).
+              </span>
+            )}
+          </div>
+          <div className="mb-3 position-relative">
+            <Form.Label>
+              Repetir contraseña
+              <span className="text-danger font-weight-bold">*</span>
+            </Form.Label>
+            <input
+              className="form-control "
+              type={typeInput}
+              maxLength={101}
+              {...register("password2", {
+                required: true,
+                maxLength: 100,
+                pattern:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,90}$/,
+              })}
+            />
+            {errors.password2 && errors.password2.type === "required" && (
+              <span className="error">Este campo es requerido. </span>
+            )}
+            {errors.password2 && errors.password2.type === "maxLength" && (
+              <span className="error">
+                Este campo tiene un máximo de 100 caracteres.
+              </span>
+            )}
+            {errors.password2 && errors.password2.type === "pattern" && (
+              <span className="error">
+                La contraseña no es valida. Esta debe tener mínimo 8 caracteres,
+                al menos una letra mayúscula, al menos una letra minúscula y al
+                menos un caracter especial (@$!%*?&).
+              </span>
+            )}
+            {errorPassword && (
+              <span className="error">Las contraseñas no coinciden</span>
+            )}
+            <button
+              type="button"
+              className="position-absolute buttonPosition btn"
+              onClick={() => {
+                typeInput === "password"
+                  ? setTypeInput("text")
+                  : setTypeInput("password");
+              }}
+            >
+              {typeInput === "password" ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+          <div>
+            <button className="btn btn-primary" type="submit">
+              {" "}
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
+    </Container>
   );
 };
 
