@@ -107,6 +107,7 @@ const Login = ({ getApi, setLoggedUser }) => {
                 className="form-control "
                 type="email"
                 placeholder="Ej: John_Perez@email.com"
+                maxLength={101}
                 {...register("email", {
                   required: true,
                   maxLength: 100,
@@ -118,7 +119,7 @@ const Login = ({ getApi, setLoggedUser }) => {
               )}
               {errors.email && errors.email.type === "maxLength" && (
                 <span className="error">
-                  Este campo tiene un máximo de 60 caracteres
+                  Este campo tiene un máximo de 100 caracteres.
                 </span>
               )}
               {errors.email && errors.email.type === "pattern" && (
@@ -136,6 +137,7 @@ const Login = ({ getApi, setLoggedUser }) => {
               <input
                 className="form-control "
                 type={typeInput}
+                maxLength={101}
                 {...register("password", {
                   required: true,
                   maxLength: 100,
@@ -160,7 +162,7 @@ const Login = ({ getApi, setLoggedUser }) => {
               {errors.password && errors.password.type === "maxLength" && (
                 <span className="error">
                   {" "}
-                  Este campo tiene un máximo de 90 caracteres
+                  Este campo tiene un máximo de 100 caracteres.
                 </span>
               )}
               {errors.password && errors.password.type === "pattern" && (

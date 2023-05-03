@@ -1,16 +1,9 @@
-.mainRegister{
-background: rgb(255,255,255);
-background: radial-gradient(circle, rgba(255,255,255,1) 41%, rgba(205,255,224,1) 100%);
-}
 .register{
     background-color: #EFFFF5;
 }
 .form-container {
 	min-height: 100vh;
 	display: flex;
-	align-items: flex-start;
-	justify-content: center;
-    
 }
 
 .form {

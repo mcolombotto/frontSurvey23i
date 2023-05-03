@@ -19,6 +19,7 @@ import CategoryTable from "./components/views/home/categoryTable/categoryTable";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import UserContext from "./components/layout/context/UserContext";
 import Charts from "./components/views/home/charts/charts";
+import Us from "./components/views/us/Us";
 
 function App() {
   const [surveys, setSurveys] = useState([]);
@@ -165,6 +166,11 @@ function App() {
               exact
               path="/login"
               element={<Login getApi={getApi} setLoggedUser={setLoggedUser} />}
+            />
+            <Route
+              exact
+              path="/us"
+              element={<Us getApi={getApi} setLoggedUser={setLoggedUser} />}
             />
             <Route
               exact
