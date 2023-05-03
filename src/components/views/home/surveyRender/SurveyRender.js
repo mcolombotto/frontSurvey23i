@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useParams, Link} from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import SurveyPreview from "./SurveyPreview";
 import { ListGroupItem, ListGroup, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useRef } from "react";
 import SurveyImage from "./image";
 
 const SurveyRender = ({ URL }) => {
@@ -13,6 +14,7 @@ const SurveyRender = ({ URL }) => {
   const [sendEmail, setSendEmail] = useState(false);
   const [formChanged, setFormChanged] = useState(false);
 
+  const [answerItem, setAnswerItem] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -41,42 +43,27 @@ const SurveyRender = ({ URL }) => {
 
     setFormChanged(false);
 
-    const requiredFields = survey.surveyItemList.filter(
-      (item) =>
-        (item.responseType === "Texto Libre" ||
-          item.responseType === "Cualitativa") &&
-        !item.response
-    );
+    const completeFields = () => {
+      return survey.surveyItemList.length == answerItem.length &&
+        !answerItem.includes(undefined)
+        ? true
+        : false;
+    };
 
-    const unansweredItems = survey.surveyItemList.filter(
-      (item) => item.response === null || item.response === undefined
-    );
-
-    if (requiredFields.length > 0) {
+    if (!completeFields()) {
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Por favor responde en el campo de texto.",
-      });
-      return;
-    } else if (unansweredItems.length > 0) {
-      Swal.fire({
-        icon: "error",
+        color: "#fff",
+        background: "#000",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
         title: "Error",
         text: "Por favor responde todas las preguntas.",
       });
       return;
     }
-    if (sendEmail && !email) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Por favor ingrese un correo electrónico.",
-      });
-      return;
-    }
 
-    const url = "https://jsonplaceholder.typicode.com/posts";
+    /*     const url = "https://jsonplaceholder.typicode.com/posts";
     const response = await axios.post(url, {
       email,
       surveyResponses: survey.surveyItemList.map((item) => ({
@@ -95,6 +82,27 @@ const SurveyRender = ({ URL }) => {
             : item.response,
       })),
     });
+ */ 
+
+      try {
+        const res = await axios.get(`${URL}/${id}`);
+        let surveyLoaded = res.data;
+        surveyLoaded.surveyAnswerList.forEach((answer,index)=>{
+          surveyLoaded.surveyAnswerList[index].push(answerItem[index])
+        })
+  
+        console.log(surveyLoaded)
+
+        await axios.put(`${URL}/${id}`, surveyLoaded, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+              .token,
+          },
+        });
+      } catch (error) {}
+
+
 
     if (sendEmail) {
       const mailgunUrl =
@@ -139,6 +147,10 @@ const SurveyRender = ({ URL }) => {
         title: "Perfecto!",
         text: "Tus respuestas se han recibido correctamente.",
         icon: "success",
+        color: "#fff",
+        background: "#000",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
         confirmButtonText: "OK",
         showCancelButton: true,
         cancelButtonText: "Volver a inicio",
@@ -198,25 +210,22 @@ const SurveyRender = ({ URL }) => {
       </Link>
       <hr></hr>
 
-      {/* <div className="survey-image d-flex justify-content-center">
-        <SurveyImage source={survey.image}></SurveyImage>
-      </div> */}
-
       {survey.surveyItemList !== undefined ? (
         <Form onSubmit={handleFormSubmit}>
           {survey.surveyItemList.map((question, index) => (
             <SurveyPreview
+              setAnswerItem={setAnswerItem}
               data={question}
               index={index}
               key={`question_${index}`}
-              onResponseChange={(answer) =>
+              /* onResponseChange={(answer) =>
                 setSurvey((prevSurvey) => ({
                   ...prevSurvey,
                   surveyItemList: prevSurvey.surveyItemList.map((item, i) =>
                     i === index ? { ...item, response: answer.response } : item
                   ),
                 }))
-              }
+              } */
             />
           ))}
           <ListGroup>
@@ -233,15 +242,16 @@ const SurveyRender = ({ URL }) => {
                   ¿Quieres enviar las respuestas a tu correo?
                 </label>
               </div>
-              <div className="d-flex justify-content-between">
-                <Form.Control
+              <div className="d-flex justify-content-end">
+                {/* <Form.Control
                   className="me-2 my-2"
                   type="email"
                   placeholder="name@example.com"
                   value={email}
                   disabled={!sendEmail}
                   onChange={handleEmailChange}
-                />
+                /> */}
+
                 <Button className="mx-2 my-auto" type="submit">
                   Enviar
                 </Button>

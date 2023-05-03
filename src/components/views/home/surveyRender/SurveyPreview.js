@@ -2,11 +2,27 @@ import React from "react";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import AnswerItem from "../../items/answerItem";
 import "./surveyPreview.css";
+import { useState } from "react";
 
-const SurveyPreview = ({ data, index, onResponseChange }) => {
+var arr=[];
+
+const SurveyPreview = ({ data, index, onResponseChange, setAnswerItem }) => {
   const handleResponseChange = (event) => {
     const answer = { question: data.question, response: event.target.value };
     onResponseChange(answer);
+  };
+
+
+  const handleChange = (e) => {
+
+
+    arr[index] = e.target.value;
+    console.log(arr)
+
+
+
+
+    setAnswerItem(arr)
   };
   return (
     <ListGroup className="">
@@ -15,9 +31,11 @@ const SurveyPreview = ({ data, index, onResponseChange }) => {
           {index + 1}. {data.question}
         </div>
         <div>
-          <AnswerItem 
+          <AnswerItem
             type={data.responseType}
-            onChange={handleResponseChange}
+            onChange={(e) => {
+              handleChange(e);
+            }}
           />
         </div>
       </ListGroupItem>
