@@ -92,3 +92,8 @@
     max-width: 100%;
   }
 }
+
+#category:hover{
+  background-color: rgba(11, 22, 32, 0.704);
+  transition: 300ms;
+}

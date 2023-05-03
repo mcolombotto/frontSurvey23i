@@ -4,6 +4,7 @@ import Pagination from "../pagination/Pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import "./Card.css";
+import { ListGroup, Badge } from "react-bootstrap";
 
 const Cards = ({ cards }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,17 +26,25 @@ const Cards = ({ cards }) => {
     );
 
     const buttons = categories.map((category) => (
-      <button
+      <ListGroup.Item
         key={category}
-        variant="warning"
-        className="btn btn-custom"
+        id="category"
         onClick={() => {
           filterCard(category);
           setCurrentPage(1);
         }}
+        as="li"
+        className="d-flex justify-content-between align-items-start"
       >
-        {category}
-      </button>
+        <div className="  fs-5 fw-bold ">{category}</div>
+        <Badge className="  fs-5" bg="primary" pill>
+          {
+            cards
+              .map((element) => element.category == category)
+              .filter((element) => element).length
+          }
+        </Badge>
+      </ListGroup.Item>
     ));
     setCategoryButtons(buttons);
     setAllCards(cards);
@@ -65,32 +74,49 @@ const Cards = ({ cards }) => {
         <h1 className="main-heading"></h1>
         <div className="container">
           {}
-          <div className="d-flex justify-content-around">
-            {categoryButtons}
-            <button
-              className="btn  btn-custom"
-              onClick={() => {
-                setAllCards(cards);
-                setVisibleCards(cards);
-                setCurrentPage(1);
-              }}
-            >
-              Todos
-            </button>
-          </div>
-          {}
-          <div className="input-group mt-3 mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Ingresa el nombre de la encuesta"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              disabled={visibleCards.length === 0 && allCards.length === 0}
-            />
+          <div className="row">
+            <div className="my-3 col-12  col-md-6">
+              <h4 className="text-light">Filtrar por nombre </h4>
+              <hr></hr>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Ingresa el nombre de la encuesta"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                disabled={visibleCards.length === 0 && allCards.length === 0}
+              />
+            </div>
+            <div className=" my-3 col-12  col-md-6">
+              <h4 className="text-light">Filtrar por categoria </h4>
+              <hr></hr>
+              <ListGroup>{categoryButtons}
+              <ListGroup.Item
+        id="category" 
+        onClick={() => {
+          setAllCards(cards);
+          setVisibleCards(cards);
+          setCurrentPage(1);}
+        }
+
+        as="li"
+        className="d-flex justify-content-between align-items-start"
+      >
+        <div className="  fs-5 fw-bold ">Todas</div>
+        <Badge className="  fs-5" bg="primary" pill>
+          
+          {
+            cards
+              .map((element) => element.status ).length
+          } 
+        </Badge>
+      </ListGroup.Item>
+      </ListGroup>
+            </div>
+
           </div>
         </div>
-        {}
+
         <div>
           {visibleCards.length > 0 ? (
             <div className="container d-flex justify-content-center align-items-center h-100">

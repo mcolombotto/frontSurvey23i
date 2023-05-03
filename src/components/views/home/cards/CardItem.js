@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Card.css";
 
@@ -15,22 +15,24 @@ function Card({ _id, image, surveyName }) {
       exit={{ opacity: 0.5 }}
     >
       <AnimatePresence>
-        <div className="card text-center bg-dark animate__animated animate__fadeInUp">
+        <Link className="text-decoration-none" to={`/survey/${_id}`}>
+        <div className="card text-center  bg-dark animate__animated animate__fadeInUp">
           <div className="overflow">
             <img src={image} alt="a wallpaper" className="card-img-top" />
           </div>
           <div className="card-body text-light">
             <h4 className="card-title">{surveyName}</h4>
-            <button
+            {/* <button
               target="_blank"
               className="btn btn-outline-secondary border-0"
               rel="noreferrer"
               onClick={() => navigate(`/survey/${_id}`)}
             >
               Ir a {surveyName}
-            </button>
+            </button> */}
           </div>
         </div>
+        </Link>
       </AnimatePresence>
     </motion.div>
   );

@@ -6,6 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Dropdown from "react-bootstrap/Dropdown";
+import { DropdownButton } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Logo from "../logo/Logo";
 
@@ -26,21 +27,21 @@ function Navigation({ loggedUser, setLoggedUser }) {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ms-auto">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link fs-5" to="/">
               Inicio
             </Link>
-            <Link className="nav-link" to="/us">
+            <Link className="nav-link fs-5" to="/us">
               Nosotros
             </Link>
-            <Link className="nav-link" to="/contact">
+            <Link className="nav-link fs-5" to="/contact">
               Contacto
             </Link>
             {!loggedUser && (
               <>
-                <Link className="nav-link" to="/register">
+                <Link className="nav-link fs-5" to="/register">
                   Regístrate
                 </Link>
-                <Link className="nav-link" to="/login">
+                <Link className="nav-link fs-5" to="/login">
                   Ingresar
                 </Link>
               </>
@@ -49,9 +50,9 @@ function Navigation({ loggedUser, setLoggedUser }) {
               <Dropdown className="d-inline">
                 <Dropdown.Toggle
                   id="dropdown-autoclose-true"
-                  className="btn btn-dark p-1"
+                  className="btn btn-primary"
                 >
-                  <span>{username}</span>
+                  <span className="fs-5">{username}</span>
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUJt3kjJp8q750SzS-kr7cMITugGpEh-Vdq0NeWS4&s"
                     alt={`usuario registrado ${username}`}
@@ -63,7 +64,7 @@ function Navigation({ loggedUser, setLoggedUser }) {
                   />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu variant="dark">
                   <Link
                     className="text-decoration-none text-dark"
                     to="/survey/table"
