@@ -148,6 +148,7 @@ const Survey = ({ survey, URL, getApi, roleLogged, setStatSurvey }) => {
                 className=" mx-1"
                 onClick={() => {
                   setStatSurvey(survey);
+                  localStorage.setItem("statSurvey", JSON.stringify(survey));
                 }}
               >
                 <FontAwesomeIcon icon={faChartLine} />

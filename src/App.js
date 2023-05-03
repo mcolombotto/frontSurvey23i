@@ -30,7 +30,7 @@ function App() {
     categoryName: "",
     categoryStatus: "",
   });
-  const [statSurvey, setStatSurvey] = useState({});
+  const [statSurvey, setStatSurvey] = useState(JSON.parse(localStorage.getItem("statSurvey")));
   const [user, setUser] = React.useState({});
   const [roleLogged, setRoleLogged] = useState();
   const token = localStorage.getItem("user-token");
