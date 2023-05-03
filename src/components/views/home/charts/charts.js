@@ -1,9 +1,10 @@
 import React from "react";
 import { Bar, Pie } from "react-chartjs-2";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Accordion } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import randomColor from "randomcolor";
+import { ListGroup } from "react-bootstrap";
+import "./charts.css"
 
 import {
   Chart as ChartJS,
@@ -65,6 +66,8 @@ const Charts = ({ statSurvey }) => {
           statSurvey.surveyAnswerList[index].filter((x) => x == "10").length,
         ];
         break;
+      default:
+        return "";
     }
     return data;
   };
@@ -84,11 +87,10 @@ const Charts = ({ statSurvey }) => {
 
   return (
     <Container className="text-light ">
-      <Link
-        to="/survey/table"
-        className="mt-5 text-decoration-none "
-      >
-        <Button className="mt-sm-4 my-2 "variant="outline-light">Volver </Button>
+      <Link to="/survey/table" className="mt-5 text-decoration-none ">
+        <Button className="mt-sm-4 my-2 " variant="outline-light">
+          Volver{" "}
+        </Button>
       </Link>
       {statSurvey.surveyAnswerList.length !== 0 ? (
         <div className="text-center">
@@ -147,13 +149,25 @@ const Charts = ({ statSurvey }) => {
                 ],
               };
 
-              return (
-                <div className=" my-4 col-lg-4 col-sm-12 col-md-6">
+              return item.responseType !== "Texto Libre" ? (
+                <div className="  my-4 col-lg-4 col-sm-12 col-md-6">
                   <p>
                     {index + 1} . {item.question}
                   </p>
 
                   <Bar data={mydata} options={misoptions} />
+                </div>
+              ) : (
+                <div className=" my-4 col-lg-4 col-sm-12 col-md-6">
+                  <p>
+                    {index + 1} . {item.question}
+                  </p>
+                  <ListGroup  className="chartCard text-start" >
+                    {statSurvey.surveyAnswerList[index].map((answer, i) => (
+                      <ListGroup.Item >{i+1} - {answer}
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
                 </div>
               );
             })}
