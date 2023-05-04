@@ -31,14 +31,14 @@ function Us() {
               </p>
             </div>
           </div>
-          <div className="col-md-12 col-lg-6 p-2">
+          <div className="col-md-12 col-lg-6">
             <img
               src={imgOffice}
               className="w-75"
               alt="Trabajando en la oficina"
             />
           </div>
-          <div className="d-flex flex-lg-row-reverse flex-md-column">
+          <div className="d-flex flex-lg-row-reverse flex-column">
             <div className="col-md-12 col-lg-6">
               <div className="mt-4">
                 <h1 className="p-1 diplay-1">
@@ -55,11 +55,11 @@ function Us() {
                 </p>
               </div>
             </div>
-            <div className="col-md-12 col-lg-6 p-2 ">
+            <div className="col-md-12 col-lg-6">
               <img
                 src={imgWomen}
                 className="w-75 rounded"
-                alt="Trabajando en la oficina"
+                alt="Trabajando en la oficina2"
               />
             </div>
           </div>
