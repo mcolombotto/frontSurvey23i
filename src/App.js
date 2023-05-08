@@ -20,6 +20,7 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import UserContext from "./components/layout/context/UserContext";
 import Charts from "./components/views/home/charts/charts";
 import Us from "./components/views/us/Us";
+import Contact from "./components/views/contact/Contact";
 
 function App() {
   const [surveys, setSurveys] = useState([]);
@@ -171,6 +172,11 @@ function App() {
               exact
               path="/us"
               element={<Us getApi={getApi} setLoggedUser={setLoggedUser} />}
+            />
+            <Route
+              exact
+              path="/contact"
+              element={<Contact getApi={getApi} setLoggedUser={setLoggedUser} />}
             />
             <Route
               exact
