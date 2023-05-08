@@ -3,8 +3,6 @@ import { useForm } from "react-hook-form";
 import { Container, Form } from "react-bootstrap";
 import "./Contact.css";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import { react } from "@babel/types";
 
 const Contact = () => {
     const {
@@ -13,11 +11,10 @@ const Contact = () => {
         reset,
         formState: { errors },
     } = useForm();
+
     const [message, setMessage] = useState("");
-    
-    const navigate = useNavigate();
-    //TODO variable de entorno?
-    //const URL = process.env.REACT_APP_API_SURVEYS_CONTACT;
+
+    const URL = process.env.REACT_APP_API_SURVEYS_CONTACT || '';
 
     const onSubmit = async (data) => {
         try {
@@ -30,14 +27,8 @@ const Contact = () => {
                     name: data.name,
                     email: data.email,
                     message: data.message
-
                 }),
             });
-
-            console.log(res);
-            // TODO VA? 
-            //const response = await res.json();
-            //const { token, uid, username, message } = response;
 
             if (res.status === 200) {
                 reset((formValues) => ({
@@ -45,29 +36,27 @@ const Contact = () => {
                     name: "",
                     email: "",
                     message: "",
-                    //TODO TEXTAREA
                 }));
 
-                //TODO VA LOCASTORAGE?
-                // localStorage.setItem("message_contact", JSON.stringify(response));
-
-                Swal.fire(); //MENSAJE ESTABA COMO PROP
-                return setTimeout(() => {
-                    //FUNCION QUE MANDA EL CORREO? ENVIO DE FORMULARIO
-                    navigate("/");
-                }, 2000);
+                Swal.fire({
+                    text: message,
+                    icon: "success",
+                    color: "#fff",
+                    background: "#000",
+                    confirmButtonColor: "#3085d6",
+                });
             } else {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "Ha ocurrido un error!", //message  del backend,
+                    text: "Ha ocurrido un error al enviar el formulario. Intenta nuevamente.",
                 });
             }
         } catch (error) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Ha ocurrido un error!",
+                text: "Ha ocurrido un error al enviar el formulario. Intenta nuevamente.",
             });
         }
     };
@@ -78,7 +67,7 @@ const Contact = () => {
                 <div className="row justify-content-center">
                     <div className="mb-3 text-light text-center">
                         <h1>Contacto</h1>
-                        <h2 className="mt-3">
+                        <h2 className="mt-4 fst-italic">
                             Si deseas contactarte con "WorldSurvey" rellena este formulario.
                         </h2>
                     </div>
@@ -86,9 +75,6 @@ const Contact = () => {
                         className="my-5 form col-sm-8 col-lg-6"
                         onSubmit={handleSubmit(onSubmit)}
                     >
-                        <div className="mb-3">
-                            <h3 className="main-title">Contactanos</h3>
-                        </div>
                         <div className="mb-3">
                             <Form.Label>
                                 Ingresa tu nombre
@@ -155,12 +141,11 @@ const Contact = () => {
                             </Form.Label>
                             <textarea
                                 className="form-control flex-column form-control-lg"
-                                maxLength={551}
+                                maxLength={550}
                                 rows={7}
                                 onChangeCapture ={(e) => setMessage(e.target.value)}
                                 {...register("message", {
                                     required: true,
-                                    maxLength: 550,
                                 })}
                             >
                             </textarea>
@@ -168,12 +153,7 @@ const Contact = () => {
                             {errors.message && errors.message.type === "required" && (
                                 <span className="error">Este campo es requerido. </span>
                             )}
-                            {errors.message && errors.message.type === "maxLength" && (
-                                <span className="error">
-                                    Este campo tiene un máximo de 550 caracteres.
-                                </span>
-                            )}
-                            <div class="alert alert-warning">
+                            <div class="alert alert-warning mt-1">
                                 <p>
                                     Te quedan {550 - message?.length} caracteres para utilizar en tu mensaje.
                                 </p>
