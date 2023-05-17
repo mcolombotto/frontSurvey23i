@@ -126,7 +126,7 @@ const Cards = ({ cards }) => {
                     <Card
                       _id={_id}
                       image={image}
-                      surveyName={surveyName}
+                      surveyName={surveyName.charAt(0).toUpperCase() + surveyName.slice(1)}
                       category={category}
                     />
                   </div>
