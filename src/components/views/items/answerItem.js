@@ -1,45 +1,45 @@
 import React from "react";
 import { FormControl, Form } from "react-bootstrap";
 
-const AnswerItem = ({ type, onChange }) => {
+const AnswerItem = ({ type, onChange,name }) => {
   switch (type) {
     case "Texto Libre":
       return (
-        <Form className="m-3">
-          <FormControl onChange={onChange} as="textarea" required maxlength="500" rows={3} />
-        </Form>
+        <div className="m-3">
+          <FormControl name={name} onChange={onChange} as="textarea" required maxlength="500" rows={3} />
+        </div>
       );
     case "Numerica":
       return (
-        <Form onChange={onChange} required className="text-light m-3">
-          <Form.Check inline value="0" label="0" name="group1" type="radio" />
-          <Form.Check inline value="1" label="1" name="group1" type="radio" />
-          <Form.Check inline value="2" label="2" name="group1" type="radio" />
-          <Form.Check inline value="3" label="3" name="group1" type="radio" />
-          <Form.Check inline value="4" label="4" name="group1" type="radio" />
-          <Form.Check inline value="5" label="5" name="group1" type="radio" />
-          <Form.Check inline value="6" label="6" name="group1" type="radio" />
-          <Form.Check inline value="7" label="7" name="group1" type="radio" />
-          <Form.Check inline value="8" label="8" name="group1" type="radio" />
-          <Form.Check inline value="9" label="9" name="group1" type="radio" />
-        </Form>
+        <div onChange={onChange} required className="text-light m-3">
+          <Form.Check name={name} inline value="0" label="0"  type="radio" />
+          <Form.Check name={name} inline value="1" label="1"  type="radio" />
+          <Form.Check name={name} inline value="2" label="2"  type="radio" />
+          <Form.Check name={name} inline value="3" label="3"  type="radio" />
+          <Form.Check name={name} inline value="4" label="4"  type="radio" />
+          <Form.Check name={name} inline value="5" label="5"  type="radio" />
+          <Form.Check name={name} inline value="6" label="6"  type="radio" />
+          <Form.Check name={name} inline value="7" label="7"  type="radio" />
+          <Form.Check name={name} inline value="8" label="8"  type="radio" />
+          <Form.Check name={name} inline value="9" label="9"  type="radio" />
+        </div>
       );
     case "Cualitativa":
       return (
-        <Form onChange={onChange} required className="m-3 text-light">
-          <Form.Check inline value="Malo" label="Malo" name="group1" type="radio" />
-          <Form.Check inline value="Regular" label="Regular" name="group1" type="radio" />
-          <Form.Check inline value="Bueno" label="Bueno" name="group1" type="radio" />
-          <Form.Check inline value="Muy Bueno" label="Muy Bueno" name="group1" type="radio" />
-          <Form.Check inline value="Excelente" label="Excelente" name="group1" type="radio" />
-        </Form>
+        <div onChange={onChange} required className="m-3 text-light">
+          <Form.Check name={name} inline value="Malo" label="Malo"  type="radio" />
+          <Form.Check name={name} inline value="Regular" label="Regular"  type="radio" />
+          <Form.Check name={name} inline value="Bueno" label="Bueno"  type="radio" />
+          <Form.Check name={name} inline value="Muy Bueno" label="Muy Bueno"  type="radio" />
+          <Form.Check name={name} inline value="Excelente" label="Excelente"  type="radio" />
+        </div>
       );
     case "Booleana":
       return (
-        <Form required onChange={onChange} className="m-3 text-light">
-          <Form.Check inline value="Si" label="Si" name="group1" type="radio" />
-          <Form.Check inline value="No" label="No" name="group1" type="radio" />
-        </Form>
+        <div required onChange={onChange} className="m-3 text-light">
+          <Form.Check name={name} inline value="Si" label="Si"  type="radio" />
+          <Form.Check name={name} inline value="No" label="No"  type="radio" />
+        </div>
       );
   }
 };

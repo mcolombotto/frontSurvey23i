@@ -5,14 +5,16 @@ import SurveyPreview from "./SurveyPreview";
 import { ListGroupItem, ListGroup, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
-
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SurveyRender = ({ URL }) => {
   const [survey, setSurvey] = useState({});
   const [email, setEmail] = useState("");
   const [sendEmail, setSendEmail] = useState(false);
-  const [formChanged, setFormChanged] = useState(false);
-
+  const form = useRef();
+  const navigate = useNavigate();
   const [answerItem, setAnswerItem] = useState([]);
   const { id } = useParams();
 
@@ -28,19 +30,12 @@ const SurveyRender = ({ URL }) => {
     } catch (error) {}
   };
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    setFormChanged(true);
-  };
-
   const handleSendEmailChange = (event) => {
     setSendEmail(event.target.checked);
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    setFormChanged(false);
 
     const completeFields = () => {
       return survey.surveyItemList.length == answerItem.length &&
@@ -60,154 +55,79 @@ const SurveyRender = ({ URL }) => {
         text: "Por favor responde todas las preguntas.",
       });
       return;
-    } 
-      try {
-        const res = await axios.get(`${URL}/${id}`);
-        let surveyLoaded = res.data;
-        surveyLoaded.surveyAnswerList.forEach((answer,index)=>{
-          surveyLoaded.surveyAnswerList[index].push(answerItem[index])
-        })
-  
-        console.log(surveyLoaded)
+    }
+    try {
+      const res = await axios.get(`${URL}/${id}`);
+      let surveyLoaded = res.data;
+      surveyLoaded.surveyAnswerList.forEach((answer, index) => {
+        surveyLoaded.surveyAnswerList[index].push(answerItem[index]);
+      });
 
-        const updatedAnswerItem = survey.surveyItemList.map((item, index) => {
-          return {
-            question: item.question,
-            response: answerItem[index],
-          };
-        });
-        setAnswerItem(updatedAnswerItem);
+      const updatedAnswerItem = survey.surveyItemList.map((item, index) => {
+        return {
+          question: item.question,
+          response: answerItem[index],
+        };
+      });
+      setAnswerItem(updatedAnswerItem);
 
-        await axios.put(`${URL}/${id}`, surveyLoaded, {
-          headers: {
-            "Content-Type": "application/json",
-            "x-access-token": JSON.parse(localStorage.getItem("user-token"))
-              .token,
-          },
-        });
-      } catch (error) {}
+      await axios.put(`${URL}/${id}`, surveyLoaded, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": JSON.parse(localStorage.getItem("user-token"))
+            .token,
+        },
+      });
 
-
+      var answerContent = {
+        author: JSON.parse(localStorage.getItem("user-token")).username,
+        surveyName: surveyLoaded.surveyName,
+        email: JSON.parse(localStorage.getItem("user-token")).email,
+        content: `<body style="line-height:50%">
+        <hr>
+        <h2>Nombre de encuesta : ${surveyLoaded.surveyName}</h2>
+        <h3>Categoria : ${surveyLoaded.category}</h3>
+        ${surveyLoaded.surveyItemList
+          .map((item, index) => {
+            return `<h4>${index + 1} . ${item.question}</h4> 
+            <p>${answerItem[index]}</p>
+            `;
+          })
+          .join("")}
+        `,
+      };
+    } catch (error) {}
 
     if (sendEmail) {
-      const url = "https://jsonplaceholder.typicode.com/posts";
-      const response = await axios.post(url, {
-        email,
-        surveyResponses: survey.surveyItemList.map((item) => ({
-          question: item.question,
-          response: item.responseType === "Booleana" || item.responseType === "Numerica" || item.responseType === "Cualitativa"
-            ? item.response === "on"
-              ? item.responseType === "Booleana" ? "Si" : 5 // Replace with desired response text or number
-              : item.responseType === "Booleana" ? "No" : 0 // Replace with desired response text or number
-            : item.response, // For other response types, use the original response value
-        })),
-      });
-      const mailgunUrl = process.env.REACT_APP_MAILGUN_URL;
-      const mailgunApiKey = process.env.REACT_APP_MAILGUN_API_KEY;
-      const mailgunFrom = process.env.REACT_APP_MAILGUN_FROM;       
-      const mailgunTo = email;
-      const mailgunSubject = "Tus respuestas de la Encuesta.";
-
-      const mailgunHtml = `
-      <html>
-        <head>
-          <style>
-            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
-          </style>
-        </head>
-        <body style="font-family: 'Roboto', Arial, sans-serif; background-color: #f5f5f5; margin: 0;">
-          <div style="background-color: #f5f5f5; padding: 20px 0;">
-            <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 6px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-              <div style="background-color: #f0f0f0; padding: 20px;">
-                <h1 style="color: #333333; margin: 0; text-align: center;">WorldSurveys</h1>
-              </div>
-              <div style="padding: 20px;">
-                <h3 style="color: #333333; margin-top: 0;">Respuestas:</h3>
-                <ul style="list-style-type: none; padding: 0;">
-                  ${survey.surveyItemList
-                    .map(
-                      (item, index) => `
-                    <li style="margin-bottom: 10px;">
-                      <strong style="font-weight: bold;">${item.question}</strong>: ${answerItem[index]}
-                    </li>
-                  `
-                    )
-                    .join("")}
-                </ul>
-              </div>
-              <div style="background-color: #f0f0f0; padding: 20px;"></div>
-            </div>
-          </div>
-        </body>
-      </html>
-      `;
-      
-
-
-        const response2 = await axios.post(
-          mailgunUrl,
-          new URLSearchParams({
-            from: mailgunFrom,
-            to: mailgunTo,
-            subject: mailgunSubject,
-            html: mailgunHtml,
-          }),
-          {
-            headers: {
-              Authorization: `Basic ${btoa(`api:${mailgunApiKey}`)}`,
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
+      emailjs
+        .send(
+          process.env.REACT_APP_EMAILJS_SERVICE_ID_CONTACT,
+          process.env.REACT_APP_EMAILJS_TEMPLATE_ID_RESPONSE,
+          answerContent,
+          process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+        )
+        .then(
+          (result) => {
+            Swal.fire({
+              text: sendEmail
+                ? "Tus respuestas se almacenaron con éxito y se enviaron a " +
+                  JSON.parse(localStorage.getItem("user-token")).email
+                : "Tus respuestas se almacenaron con éxito",
+              icon: "success",
+              color: "#fff",
+              background: "#000",
+              confirmButtonColor: "#3085d6",
+            });
+            navigate("/");
+          },
+          (error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Ha ocurrido un error al enviar el formulario. Intenta nuevamente.",
+            });
           }
         );
-
-      Swal.fire({
-        title: "Perfecto!",
-        text: "Tus respuestas se han recibido correctamente.",
-        icon: "success",
-        color: "#fff",
-        background: "#000",
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Volver a inicio",
-        showCancelButton: false,
-        footer:
-          "Sus respuestas serán enviadas automáticamente al correo provisto.",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "/";
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          window.location.href = "/";
-        } else if (
-          result.dismiss === Swal.DismissReason.backdrop ||
-          result.dismiss === Swal.DismissReason.esc
-        ) {
-          window.location.href = "/";
-        }
-      });
-    } else {
-      Swal.fire({
-        title: "Perfecto!",
-        text: "Tus respuestas se han recibido correctamente.",
-        icon: "success",
-        color: "#fff",
-        background: "#000",
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        showCancelButton: true,
-        cancelButtonText: "Volver a inicio",
-        confirmButtonText: "OK",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          setEmail("");
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          window.location.href = "/";
-        } else if (
-          result.dismiss === Swal.DismissReason.backdrop ||
-          result.dismiss === Swal.DismissReason.esc
-        ) {
-          window.location.href = "/";
-        }
-      });
     }
   };
 
@@ -230,7 +150,7 @@ const SurveyRender = ({ URL }) => {
       <hr></hr>
 
       {survey.surveyItemList !== undefined ? (
-        <Form onSubmit={handleFormSubmit}>
+        <Form ref={form} onSubmit={handleFormSubmit}>
           {survey.surveyItemList.map((question, index) => (
             <SurveyPreview
               setAnswerItem={setAnswerItem}
@@ -262,15 +182,6 @@ const SurveyRender = ({ URL }) => {
                 </label>
               </div>
               <div className="d-flex justify-content-end">
-                <Form.Control
-                  className="me-2 my-2"
-                  type="email"
-                  placeholder="name@example.com"
-                  value={email}
-                  disabled={!sendEmail}
-                  onChange={handleEmailChange}
-                />
-
                 <Button className="mx-2 my-auto" type="submit">
                   Enviar
                 </Button>
