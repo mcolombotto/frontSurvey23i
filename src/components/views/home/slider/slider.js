@@ -56,7 +56,7 @@ function Slider() {
               <img className="d-block w-100" src={slide.image} alt="Slide" />
               <Carousel.Caption>
                 <p className="sliderTitle">{slide.title}</p>
-                <p>
+                <p id="atrib">
                   <a href={slide.url}> {slide.text}</a> en Freepik{" "}
                 </p>
               </Carousel.Caption>
