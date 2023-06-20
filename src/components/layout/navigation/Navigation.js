@@ -6,7 +6,6 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Dropdown from "react-bootstrap/Dropdown";
-import { DropdownButton } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Logo from "../logo/Logo";
 
@@ -47,12 +46,12 @@ function Navigation({ loggedUser, setLoggedUser }) {
               </>
             )}
             {loggedUser && (
-              <Dropdown className="d-inline">
+              <Dropdown >
                 <Dropdown.Toggle
-                  id="dropdown-autoclose-true"
-                  className="btn btn-primary"
+                  id="dropdown-autoclose-true" 
+                  variant="outline-secondary"
                 >
-                  <span className="fs-5">{username}</span>
+                  <span className="fs-5 ">{username}</span>
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUJt3kjJp8q750SzS-kr7cMITugGpEh-Vdq0NeWS4&s"
                     alt={`usuario registrado ${username}`}
