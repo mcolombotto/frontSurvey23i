@@ -1,0 +1,66 @@
+.carousel{
+    max-width: 100%;
+    max-height: 80%;
+    justify-content: center;
+    flex: auto;
+}
+
+.carousel img {
+    max-width: 100%;
+    max-height: 700px;
+    object-fit: cover;
+}
+
+.carousel .carousel-indicators button {
+    width: 1vh;
+    height: 1vh;
+    border-radius: 60%;
+    margin-bottom: 6vh;
+}
+
+.sliderTitle{
+    color:black;
+    font-weight: bold;
+    font-size:3rem;
+
+}
+
+#atrib ,a{
+    color:black;
+    font-size:1rem;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .sliderTitle{
+        color:black;
+        font-weight: bold;
+        font-size:2rem;
+        }
+        .carousel img {
+            max-width: 100%;
+            max-height: 430px;
+            object-fit: cover;
+        }
+        #atrib,a{
+            color:black;
+            font-size:1rem;
+        }
+  }
+
+  @media screen and (max-width: 700px) {
+    .sliderTitle{
+        color:black;
+        font-weight: bold;
+        font-size:1rem;
+        }
+        .carousel img {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+        }
+        #atrib,a{
+            color:black;
+            font-size:0.75rem;
+        }
+  }

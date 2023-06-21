@@ -1,0 +1,15 @@
+.list-group-item{
+    /* background : rgba(3, 3, 40, 0); */
+    color: #ffffff; 
+    border : white;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(27, 32, 41) 0%, rgba(4, 4, 72, 0.308) 58%, rgba(13,23,147,0) 100%);
+}
+
+.survey-image{
+    justify-content: center;
+}
+
+.text{
+    font-size: larger;
+}

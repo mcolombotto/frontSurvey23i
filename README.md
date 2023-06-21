@@ -2,7 +2,8 @@
 
 ## Descripción
 
-> Este es el backend del proyecto [WorldSurveys](https://):
+> Este es el frontend del proyecto [WorldSurveys](https://):
+
 <br>
 <br>Es una app realizada con ReactJS de temática encuestas, en las cuales el admin podrá dar de alta encuestas, modificarlas, visualizarlas y borrarlas. En la misma se utilizan herramientas como React Router para manejar las rutas que nos permitan navegar entre las distintas páginas y JSON Server para simular una API externa.
 
@@ -41,13 +42,14 @@ REACT_APP_API_SURVEYS
 - react bootstrap
 - react router dom
 - react hook form
-- prop types
 - axios
 - sweet alert
-- jsonwebtoken
-- mongoose
-- morgan
-- nodemon
+- formik
+- framer motion
+- react testing library
+- font awesome
+- react chartjs
+- math js
 
 <hr>
 
@@ -57,4 +59,5 @@ REACT_APP_API_SURVEYS
 
 ## Autores
 
-🧑‍🤝‍🧑💪 **Mallorga, Yuliana + Danert, Luciano + Colombotto, Mariano + Pipke, Erick + Cruz, Juan**
+🧑‍🤝‍🧑💪 **Mallorga, Yuliana + Danert, Luciano + Colombotto, Mariano + Pipke, Erick**
+

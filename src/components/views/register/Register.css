@@ -1,0 +1,28 @@
+.register{
+    background-color: #EFFFF5;
+}
+.form-container {
+	min-height: 100vh;
+	display: flex;
+}
+
+.form {
+	margin-top: 50px;
+	background: #fff;
+	border-radius: 5px;
+	padding: 20px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 21px;
+    font-family: 'Questrial', sans-serif;
+}
+
+.error {
+	color: #e92b2d;
+	font-weight: 600;
+	font-size: 14px;
+    font-family: 'Questrial', sans-serif;
+}
+
+.buttonPosition{
+ top: 32px;
+ right: 3px;
+}
