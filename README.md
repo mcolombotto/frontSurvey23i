@@ -9,7 +9,7 @@
 
 <hr>
 
-## ✨ [Demo](https://.netlify.app/)
+## ✨ [Demo]([https://.netlify.app/](https://world-surveys.netlify.app/))
 
 ## Comandos
 
