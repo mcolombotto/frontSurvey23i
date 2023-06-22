@@ -2,7 +2,7 @@
 
 ## Descripción
 
-> Este es el frontend del proyecto [WorldSurveys]:
+> Este es el frontend del proyecto WorldSurveys:
 
 <br>
 <br>Es una app realizada con ReactJS de temática encuestas, en las cuales el admin podrá dar de alta encuestas, modificarlas, visualizarlas y borrarlas. En la misma se utilizan herramientas como React Router para manejar las rutas que nos permitan navegar entre las distintas páginas y JSON Server para simular una API externa.
