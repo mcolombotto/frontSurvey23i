@@ -23,6 +23,8 @@ const Login = ({ getApi, setLoggedUser }) => {
 
   const URL = process.env.REACT_APP_API_SURVEYS_LOGIN;
 
+
+  console.log(URL)
   const onSubmit = async (data) => {
     try {
       const res = await fetch(URL, {
@@ -80,6 +82,7 @@ const Login = ({ getApi, setLoggedUser }) => {
         });
       }
     } catch (error) {
+      console.log(error)
       Swal.fire({
         icon: "error",
         title: "Oops...",
